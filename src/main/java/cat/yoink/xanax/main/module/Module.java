@@ -1,7 +1,11 @@
 package cat.yoink.xanax.main.module;
 
 import cat.yoink.xanax.main.MinecraftInstance;
+import cat.yoink.xanax.main.setting.Setting;
 import net.minecraftforge.common.MinecraftForge;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Module implements MinecraftInstance
 {
@@ -9,6 +13,7 @@ public abstract class Module implements MinecraftInstance
     protected final Category category;
     protected int bind;
     protected boolean enabled;
+    protected final List<Setting> settings = new ArrayList<>();
 
     protected Module(String name, Category category)
     {
@@ -37,6 +42,12 @@ public abstract class Module implements MinecraftInstance
     {
         if (enabled) disable();
         else enable();
+    }
+
+    protected <E extends Setting> E addSetting(E setting)
+    {
+        settings.add(setting);
+        return setting;
     }
 
     protected final boolean nullCheck()
@@ -72,5 +83,10 @@ public abstract class Module implements MinecraftInstance
     public final void setEnabled(boolean enabled)
     {
         this.enabled = enabled;
+    }
+
+    public List<Setting> getSettings()
+    {
+        return settings;
     }
 }

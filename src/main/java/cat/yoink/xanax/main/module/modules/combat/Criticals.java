@@ -12,7 +12,7 @@ public class Criticals extends Module
 {
     public Criticals()
     {
-        super("Test", Category.COMBAT);
+        super("Criticals", Category.COMBAT);
         setBind(Keyboard.KEY_G);
     }
 
