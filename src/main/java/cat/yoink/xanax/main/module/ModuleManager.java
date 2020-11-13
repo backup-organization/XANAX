@@ -1,6 +1,6 @@
 package cat.yoink.xanax.main.module;
 
-import cat.yoink.xanax.main.module.modules.misc.TestModule;
+import cat.yoink.xanax.main.module.modules.combat.Criticals;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,7 +13,7 @@ public enum ModuleManager
 
     ModuleManager()
     {
-        addModules(new TestModule());
+        addModules(new Criticals());
     }
 
     private void addModules(Module... modules)
