@@ -3,14 +3,14 @@ package cat.yoink.xanax.main.setting;
 import java.util.Arrays;
 import java.util.List;
 
-public class EnumSetting extends Setting
+public final class EnumSetting extends Setting
 {
     private int index;
     private final List<String> values;
 
     public EnumSetting(String name, String defaultValue, String... values)
     {
-        super(name, Type.ENUM);
+        super(name);
         this.values = Arrays.asList(values);
         this.index = this.values.indexOf(defaultValue);
     }

@@ -1,14 +1,12 @@
 package cat.yoink.xanax.main.setting;
 
-public class Setting
+public abstract class Setting
 {
     private final String name;
-    private final Type type;
 
-    public Setting(String name, Type type)
+    public Setting(String name)
     {
         this.name = name;
-        this.type = type;
     }
 
     public String getName()
@@ -29,12 +27,5 @@ public class Setting
     public EnumSetting toEnum()
     {
         return (EnumSetting) this;
-    }
-
-    public enum Type
-    {
-        BOOLEAN,
-        NUMBER,
-        ENUM
     }
 }

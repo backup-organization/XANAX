@@ -8,7 +8,7 @@ import net.minecraft.network.play.client.CPacketUseEntity;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.lwjgl.input.Keyboard;
 
-public class Criticals extends Module
+public final class Criticals extends Module
 {
     public Criticals()
     {

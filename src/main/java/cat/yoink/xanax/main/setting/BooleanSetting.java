@@ -1,12 +1,12 @@
 package cat.yoink.xanax.main.setting;
 
-public class BooleanSetting extends Setting
+public final class BooleanSetting extends Setting
 {
     private boolean value;
 
     public BooleanSetting(String name, boolean value)
     {
-        super(name, Type.BOOLEAN);
+        super(name);
         this.value = value;
     }
 

@@ -1,6 +1,6 @@
 package cat.yoink.xanax.main.setting;
 
-public class NumberSetting extends Setting
+public final class NumberSetting extends Setting
 {
     private double value;
     private final double minimum;
@@ -9,7 +9,7 @@ public class NumberSetting extends Setting
 
     public NumberSetting(String name, double value, double minimum, double maximum, double increment)
     {
-        super(name, Type.NUMBER);
+        super(name);
         this.value = value;
         this.minimum = minimum;
         this.maximum = maximum;

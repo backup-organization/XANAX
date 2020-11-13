@@ -5,7 +5,7 @@ import net.minecraftforge.fml.common.eventhandler.Cancelable;
 import net.minecraftforge.fml.common.eventhandler.Event;
 
 @Cancelable
-public class PacketEvent extends Event
+public final class PacketEvent extends Event
 {
     private final Packet<?> packet;
     private final Type type;
