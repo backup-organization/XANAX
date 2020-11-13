@@ -17,7 +17,7 @@ public enum ModuleManager
 
     ModuleManager()
     {
-        addModules(new Criticals(), new ClickGUI());
+        addModules(new Criticals(), new ClickGUI(), new Criticals(), new Criticals(), new Criticals(), new Criticals(), new Criticals(), new Criticals());
     }
 
     private void addModules(Module... modules)

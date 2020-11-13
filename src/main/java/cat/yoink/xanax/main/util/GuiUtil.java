@@ -6,6 +6,8 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import org.lwjgl.opengl.GL11;
 
+import java.awt.*;
+
 public final class GuiUtil
 {
     public static void drawRect(int x, int y, int w, int h, int c)
@@ -33,6 +35,18 @@ public final class GuiUtil
         GlStateManager.color(1, 1, 1);
         GL11.glEnable(GL11.GL_TEXTURE_2D);
         GL11.glDisable(GL11.GL_BLEND);
+    }
+
+    public static void drawSmoothRect(int x, int y, int w, int h, int smoothness, int c)
+    {
+        Color color = new Color(c);
+        GuiUtil.drawRegularPolygon(x + smoothness, y + smoothness, smoothness, smoothness * 5, color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
+        GuiUtil.drawRegularPolygon(x + w - smoothness, y + smoothness, smoothness, smoothness * 5, color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
+        GuiUtil.drawRegularPolygon(x + smoothness, y + h - smoothness, smoothness, smoothness * 5, color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
+        GuiUtil.drawRegularPolygon(x + w - smoothness, y + h - smoothness, smoothness, smoothness * 5, color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
+
+        GuiUtil.drawRect(x + smoothness, y, w - (smoothness * 2), h, c);
+        GuiUtil.drawRect(x, y + smoothness, w, h - (smoothness * 2), c);
     }
 
     public static boolean isHover(int X, int Y, int W, int H, int mX, int mY)
