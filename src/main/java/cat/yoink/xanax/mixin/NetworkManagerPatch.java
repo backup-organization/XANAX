@@ -1,4 +1,4 @@
-package cat.yoink.xanax.mixin.mixins;
+package cat.yoink.xanax.mixin;
 
 import cat.yoink.xanax.main.event.PacketEvent;
 import io.netty.channel.ChannelHandlerContext;

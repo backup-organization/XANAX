@@ -1,9 +1,11 @@
 package cat.yoink.xanax;
 
-import cat.yoink.xanax.mixin.MixinLoader;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraft.launchwrapper.LaunchClassLoader;
 import net.minecraftforge.fml.common.FMLCommonHandler;
+import org.spongepowered.asm.launch.MixinBootstrap;
+import org.spongepowered.asm.mixin.MixinEnvironment;
+import org.spongepowered.asm.mixin.Mixins;
 
 import javax.swing.*;
 import java.awt.*;
@@ -74,7 +76,9 @@ public enum Loader
 
     public void loadMixin()
     {
-        new MixinLoader();
+        MixinBootstrap.init();
+        Mixins.addConfiguration("mixins.xanax.json");
+        MixinEnvironment.getDefaultEnvironment().setSide(MixinEnvironment.Side.CLIENT);
     }
 
     private int getVersion()
