@@ -1,5 +1,6 @@
 package cat.yoink.xanax.main.module;
 
+import cat.yoink.xanax.main.module.modules.client.ClickGUI;
 import cat.yoink.xanax.main.module.modules.combat.Criticals;
 import cat.yoink.xanax.main.setting.BooleanSetting;
 import cat.yoink.xanax.main.setting.Setting;
@@ -16,7 +17,7 @@ public enum ModuleManager
 
     ModuleManager()
     {
-        addModules(new Criticals());
+        addModules(new Criticals(), new ClickGUI());
     }
 
     private void addModules(Module... modules)
@@ -40,5 +41,10 @@ public enum ModuleManager
     public ArrayList<Module> getModules()
     {
         return modules;
+    }
+
+    public Module getModule(String name)
+    {
+        return modules.stream().filter(module -> module.getName().equalsIgnoreCase(name)).findAny().orElse(null);
     }
 }
