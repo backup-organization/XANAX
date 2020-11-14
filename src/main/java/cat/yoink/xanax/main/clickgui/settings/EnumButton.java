@@ -17,7 +17,7 @@ public final class EnumButton extends SettingButton
     }
 
     @Override
-    public void drawScreen(int mouseX, int mouseY, int windowX, int windowY)
+    public void drawScreen(int mouseX, int mouseY, int windowX, int windowY, boolean self)
     {
         CFontRenderer.TEXT.drawString(setting.getName() + " -> " + setting.getValue(), x + 5, y + 5.5f, -1);
     }

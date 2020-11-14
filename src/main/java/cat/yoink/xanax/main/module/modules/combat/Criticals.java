@@ -21,6 +21,7 @@ public final class Criticals extends Module
     private final BooleanSetting setting6 = addSetting(new BooleanSetting("Test6", true));
     private final NumberSetting setting62 = addSetting(new NumberSetting("Test!", 5, 2, 8, 0.5));
     private final EnumSetting setting43 = addSetting(new EnumSetting("Test!", "Two", "One", "Two", "Three"));
+    private final NumberSetting newds = addSetting(new NumberSetting("number", 3.4, 1.1, 9.4, 0.1));
 
     public Criticals()
     {

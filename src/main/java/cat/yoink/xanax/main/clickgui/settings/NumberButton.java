@@ -21,7 +21,7 @@ public final class NumberButton extends SettingButton
     }
 
     @Override
-    public void drawScreen(int mouseX, int mouseY, int windowX, int windowY)
+    public void drawScreen(int mouseX, int mouseY, int windowX, int windowY, boolean self)
     {
         updateSlider(mouseX);
 
@@ -66,13 +66,13 @@ public final class NumberButton extends SettingButton
         double minimum = setting.getMinimum();
         double maximum = setting.getMaximum();
 
-        sliderWidth = (int) (94 * (setting.getValue() - minimum) / (maximum - minimum));
+        sliderWidth = (int) (94f * (setting.getValue() - minimum) / (maximum - minimum));
 
         if (dragging)
         {
-//            if (diff == 0) setting.setValue(minimum);
-//            else if (diff == 94) setting.setValue(maximum);
-            /*else */setting.setValue(diff / 96  * (maximum - minimum) + minimum);
+            if (diff == 0) setting.setValue(minimum);
+            else if (diff == 94) setting.setValue(maximum);
+            else setting.setValue(diff / 96f  * (maximum - minimum) + minimum);
         }
     }
 }

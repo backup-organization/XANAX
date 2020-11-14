@@ -51,16 +51,31 @@ public final class ModuleButton implements GuiBase
     }
 
     @Override
-    public void drawScreen(int mouseX, int mouseY, int windowX, int windowY)
+    public void drawScreen(int mouseX, int mouseY, int windowX, int windowY, boolean self)
     {
-        if (selected)
+        if (self)
         {
-            GuiUtil.drawSmoothRect(x, y, w, h + 3, 2, new Color(34, 34, 34).getRGB());
+            if (selected) GuiUtil.drawSmoothRect(x, y, w, h + 3, 2, new Color(34, 34, 34).getRGB());
+
+            CFontRenderer.TEXT.drawCenteredString(module.getName(), x + w / 2f, y + 3, -1);
         }
 
-        CFontRenderer.TEXT.drawCenteredString(module.getName(), x + w / 2f, y + 3, -1);
+        if (selected)
+        {
+            int setI = 0;
+            for (int i = 0; i < buttons.size(); i++)
+            {
+                boolean left = i % 2 == 1;
 
-        if (selected) buttons.forEach(button -> button.drawScreen(mouseX, mouseY, windowX, windowY));
+                SettingButton button = buttons.get(i);
+
+                button.x = windowX + 15 + (left ? 175 : 0);
+                button.y = windowY + 70 + setI * 20;
+                button.drawScreen(mouseX, mouseY, windowX, windowY, true);
+
+                if (left) setI++;
+            }
+        }
     }
 
     @Override

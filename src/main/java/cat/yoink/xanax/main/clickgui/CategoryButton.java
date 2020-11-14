@@ -37,7 +37,7 @@ public final class CategoryButton implements GuiBase, MinecraftInstance
     }
 
     @Override
-    public void drawScreen(int mouseX, int mouseY, int windowX, int windowY)
+    public void drawScreen(int mouseX, int mouseY, int windowX, int windowY, boolean self)
     {
         this.windowX = windowX;
         this.windowY = windowY;
@@ -54,13 +54,17 @@ public final class CategoryButton implements GuiBase, MinecraftInstance
             int modX = 0;
             for (int i = 0; i < buttons.size(); i++)
             {
-                if (i < tab || i > tab + 4) continue;
+                if (i < tab || i > tab + 4)
+                {
+                    buttons.get(i).drawScreen(mouseX, mouseY, windowX, windowY, false);
+                    continue;
+                }
 
                 ModuleButton button = buttons.get(i);
 
                 button.setX(windowX + 30 + modX * 65);
                 button.setY(y + 20);
-                buttons.get(i).drawScreen(mouseX, mouseY, windowX, windowY);
+                buttons.get(i).drawScreen(mouseX, mouseY, windowX, windowY, true);
 
                 modX++;
             }
@@ -82,7 +86,15 @@ public final class CategoryButton implements GuiBase, MinecraftInstance
             if (GuiUtil.isHover(windowX + 355, windowY + 57, 10, 10, mouseX, mouseY) && tab < buttons.size() - 5) tab++;
         }
 
-        if (selected) buttons.forEach(button -> button.mouseClicked(mouseX, mouseY, mouseButton));
+        if (selected)
+        {
+            for (int i = 0; i < buttons.size(); i++)
+            {
+                if (i < tab || i > tab + 4) continue;
+
+                buttons.get(i).mouseClicked(mouseX, mouseY, mouseButton);
+            }
+        }
     }
 
     @Override

@@ -19,7 +19,7 @@ public final class BooleanButton extends SettingButton
     }
 
     @Override
-    public void drawScreen(int mouseX, int mouseY, int windowX, int windowY)
+    public void drawScreen(int mouseX, int mouseY, int windowX, int windowY, boolean self)
     {
         GuiUtil.drawSmoothRect(x + 5, y + 5, 10, 10, 1, new Color(20, 20, 20).getRGB());
 

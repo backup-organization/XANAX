@@ -64,7 +64,7 @@ public final class ClickGUI extends GuiScreen
             }
         }
 
-        buttons.forEach(button -> button.drawScreen(mouseX, mouseY, x, y));
+        buttons.forEach(button -> button.drawScreen(mouseX, mouseY, x, y, true));
     }
 
     @Override
