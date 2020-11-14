@@ -36,7 +36,7 @@ public final class NumberButton extends SettingButton
     }
 
     @Override
-    public void mouseClicked(int mouseX, int mouseY, int mouseButton)
+    public void mouseClicked(int mouseX, int mouseY, int mouseButton, boolean self)
     {
         if (GuiUtil.isHover(x, y, w, h - 1, mouseX, mouseY)) dragging = true;
     }

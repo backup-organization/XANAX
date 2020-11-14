@@ -72,7 +72,7 @@ public final class CategoryButton implements GuiBase, MinecraftInstance
     }
 
     @Override
-    public void mouseClicked(int mouseX, int mouseY, int mouseButton)
+    public void mouseClicked(int mouseX, int mouseY, int mouseButton, boolean self)
     {
         if (GuiUtil.isHover(x, y, w, h, mouseX, mouseY) && mouseButton == 0)
         {
@@ -90,9 +90,13 @@ public final class CategoryButton implements GuiBase, MinecraftInstance
         {
             for (int i = 0; i < buttons.size(); i++)
             {
-                if (i < tab || i > tab + 4) continue;
+                if (i < tab || i > tab + 4)
+                {
+                    buttons.get(i).mouseClicked(mouseX, mouseY, mouseButton, false);
+                    continue;
+                }
 
-                buttons.get(i).mouseClicked(mouseX, mouseY, mouseButton);
+                buttons.get(i).mouseClicked(mouseX, mouseY, mouseButton, true);
             }
         }
     }

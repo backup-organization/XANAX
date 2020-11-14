@@ -57,7 +57,7 @@ public final class ModuleButton implements GuiBase
         {
             if (selected) GuiUtil.drawSmoothRect(x, y, w, h + 3, 2, new Color(34, 34, 34).getRGB());
 
-            CFontRenderer.TEXT.drawCenteredString(module.getName(), x + w / 2f, y + 3, -1);
+            CFontRenderer.TEXT.drawCenteredString(module.getName(), x + w / 2f, y + 3, module.isEnabled() ? -1 : new Color(150, 150, 150).getRGB());
         }
 
         if (selected)
@@ -79,15 +79,19 @@ public final class ModuleButton implements GuiBase
     }
 
     @Override
-    public void mouseClicked(int mouseX, int mouseY, int mouseButton)
+    public void mouseClicked(int mouseX, int mouseY, int mouseButton, boolean self)
     {
-        if (GuiUtil.isHover(x, y, w, h, mouseX, mouseY))
+        if (GuiUtil.isHover(x, y, w, h, mouseX, mouseY) && self)
         {
-            parent.getButtons().forEach(button -> button.selected = false);
-            selected = true;
+            if (mouseButton == 0) module.toggle();
+            else if (mouseButton == 1)
+            {
+                parent.getButtons().forEach(button -> button.selected = false);
+                selected = true;
+            }
         }
 
-        if (selected) buttons.forEach(button -> button.mouseClicked(mouseX, mouseY, mouseButton));
+        if (selected) buttons.forEach(button -> button.mouseClicked(mouseX, mouseY, mouseButton, true));
     }
 
     @Override

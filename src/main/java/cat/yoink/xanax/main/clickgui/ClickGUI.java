@@ -77,7 +77,7 @@ public final class ClickGUI extends GuiScreen
             dragY = y - mouseY;
         }
 
-        buttons.forEach(button -> button.mouseClicked(mouseX, mouseY, mouseButton));
+        buttons.forEach(button -> button.mouseClicked(mouseX, mouseY, mouseButton, true));
     }
 
     @Override
