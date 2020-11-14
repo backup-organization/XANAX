@@ -10,7 +10,9 @@ import java.util.List;
 
 public final class CFontRenderer extends CFont
 {
-    public static final CFontRenderer INSTANCE = new CFontRenderer(new Font("Verdana", Font.PLAIN, 19), true, true);
+    public static final CFontRenderer TEXT = new CFontRenderer(new Font("Verdana", Font.PLAIN, 17), true, true);
+    public static final CFontRenderer TITLE = new CFontRenderer(new Font("Verdana", Font.PLAIN, 38), true, true);
+    public static final CFontRenderer SMALLTEXT = new CFontRenderer(new Font("Verdana", Font.PLAIN, 14), true, true);
 
     protected CharData[] boldChars = new CharData[256];
     protected CharData[] italicChars = new CharData[256];

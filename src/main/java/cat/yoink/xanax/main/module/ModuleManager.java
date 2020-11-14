@@ -1,12 +1,13 @@
 package cat.yoink.xanax.main.module;
 
 import cat.yoink.xanax.main.module.modules.client.ClickGUI;
-import cat.yoink.xanax.main.module.modules.combat.Criticals;
+import cat.yoink.xanax.main.module.modules.combat.*;
 import cat.yoink.xanax.main.setting.BooleanSetting;
 import cat.yoink.xanax.main.setting.Setting;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Objects;
 
 public enum ModuleManager
@@ -17,12 +18,31 @@ public enum ModuleManager
 
     ModuleManager()
     {
-        addModules(new Criticals(), new ClickGUI(), new Criticals(), new Criticals(), new Criticals(), new Criticals(), new Criticals(), new Criticals());
+        addModules(new Criticals(),
+                new oink(),
+                new toink(),
+                new boink(),
+                new voink(),
+                new yoink(),
+                new Criticals(),
+                new oink(),
+                new toink(),
+                new boink(),
+                new voink(),
+                new yoink(),
+                new Criticals(),
+                new oink(),
+                new toink(),
+                new boink(),
+                new voink(),
+                new yoink(),
+                new ClickGUI());
     }
 
     private void addModules(Module... modules)
     {
         this.modules.addAll(Arrays.asList(modules));
+        this.modules.sort(Comparator.comparing(Module::getName));
     }
 
     public Setting getSetting(String moduleName, String settingName)

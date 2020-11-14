@@ -2,7 +2,7 @@ package cat.yoink.xanax.main.clickgui;
 
 public interface GuiBase
 {
-    void drawScreen(int mouseX, int mouseY, float partialTicks);
+    void drawScreen(int mouseX, int mouseY, int windowX, int windowY);
 
     void mouseClicked(int mouseX, int mouseY, int mouseButton);
 
