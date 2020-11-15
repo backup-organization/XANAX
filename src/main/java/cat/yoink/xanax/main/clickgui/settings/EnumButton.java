@@ -27,8 +27,8 @@ public final class EnumButton extends SettingButton
         float[] hue = new float[]{(float) (System.currentTimeMillis() % 11520L) / 11520.0f};
         Color c = new Color(Color.HSBtoRGB(hue[0], 1.0f, 1.0f));
 
-        GuiUtil.drawSmoothRect(x + 3, y + 4, 50, 12, 1, new Color(20, 20, 20).getRGB(), outline, c.getRGB());
-        CFontRenderer.SMALLTEXT.drawString(setting.getValue(), x + 8, y + 6.5f, -1);
+        GuiUtil.drawRect(x + 5, y + 5, 50, 10, new Color(20, 20, 20).getRGB(), outline, c.getRGB());
+        CFontRenderer.SMALLTEXT.drawString(setting.getValue(), x + 9, y + 6.5f, -1);
 
         CFontRenderer.TEXT.drawString(setting.getName(), x + 57, y + 5.5f, -1);
     }
