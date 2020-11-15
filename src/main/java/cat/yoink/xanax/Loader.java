@@ -4,7 +4,6 @@ import net.minecraft.launchwrapper.Launch;
 import net.minecraft.launchwrapper.LaunchClassLoader;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import org.spongepowered.asm.launch.MixinBootstrap;
-import org.spongepowered.asm.mixin.MixinEnvironment;
 import org.spongepowered.asm.mixin.Mixins;
 
 import javax.swing.*;
@@ -76,9 +75,10 @@ public enum Loader
 
     public void loadMixin()
     {
+        System.setProperty("mixin.hotSwap", "true");
+
         MixinBootstrap.init();
         Mixins.addConfiguration("mixins.xanax.json");
-        MixinEnvironment.getDefaultEnvironment().setSide(MixinEnvironment.Side.CLIENT);
     }
 
     private int getVersion()
