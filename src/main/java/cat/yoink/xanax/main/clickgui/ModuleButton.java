@@ -11,6 +11,7 @@ import cat.yoink.xanax.main.setting.EnumSetting;
 import cat.yoink.xanax.main.setting.NumberSetting;
 import cat.yoink.xanax.main.setting.Setting;
 import cat.yoink.xanax.main.util.GuiUtil;
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
 import java.awt.*;
@@ -28,6 +29,7 @@ public final class ModuleButton implements GuiBase
     private final int h;
     private boolean selected;
     private int scroll;
+    private boolean binding;
 
     public ModuleButton(Module module, int x, int y, int w, int h, CategoryButton parent, int windowX, int windowY)
     {
@@ -69,7 +71,7 @@ public final class ModuleButton implements GuiBase
                 GuiUtil.drawSmoothRect(x, y, w, h + 3, 2, new Color(34, 34, 34).getRGB());
             }
 
-            CFontRenderer.TEXT.drawCenteredString(module.getName(), x + w / 2f, y + 3, module.isEnabled() ? -1 : new Color(150, 150, 150).getRGB());
+            CFontRenderer.TEXT.drawCenteredString(binding ? "Bind..." : module.getName(), x + w / 2f, y + 3, module.isEnabled() ? -1 : new Color(150, 150, 150).getRGB());
         }
 
         if (selected)
@@ -114,13 +116,23 @@ public final class ModuleButton implements GuiBase
     @Override
     public void mouseClicked(int mouseX, int mouseY, int mouseButton, boolean self)
     {
+
         if (GuiUtil.isHover(x, y, w, h, mouseX, mouseY) && self)
         {
-            if (mouseButton == 0) module.toggle();
-            else if (mouseButton == 1)
+            switch (mouseButton)
             {
-                parent.getButtons().forEach(button -> button.selected = false);
-                selected = true;
+                case 0:
+                    module.toggle();
+                    break;
+                case 1:
+                    parent.getButtons().forEach(button -> button.selected = false);
+                    selected = true;
+                    break;
+                case 2:
+                    binding = !binding;
+                    break;
+                default:
+                    break;
             }
         }
 
@@ -136,6 +148,14 @@ public final class ModuleButton implements GuiBase
     @Override
     public void keyTyped(char typedChar, int keyCode)
     {
+        if (binding)
+        {
+            if (keyCode == Keyboard.KEY_BACK || keyCode == Keyboard.KEY_DELETE) module.setBind(Keyboard.KEY_NONE);
+            else module.setBind(keyCode);
+
+            binding = false;
+        }
+
         if (selected) buttons.forEach(button -> button.keyTyped(typedChar, keyCode));
     }
 
