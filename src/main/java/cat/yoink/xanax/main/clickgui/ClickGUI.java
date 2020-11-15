@@ -18,7 +18,7 @@ public final class ClickGUI extends GuiScreen
     private int x = 150;
     private int y = 40;
     private final int w = 380;
-    private final int h = 250;
+    private final int h = 245;
     private int dragX, dragY;
     private boolean dragging;
 
@@ -44,7 +44,6 @@ public final class ClickGUI extends GuiScreen
 
         float[] hue = new float[]{(float) (System.currentTimeMillis() % 11520L) / 11520.0f};
         Color c = new Color(Color.HSBtoRGB(hue[0], 1.0f, 1.0f));
-
 
         GuiUtil.drawSmoothRect(x, y, w, h, 3, new Color(52, 52, 52).getRGB(), outline, c.getRGB());
         GuiUtil.drawRect(x + 10, y + 50, w - 20, h - 60, new Color(43, 43, 43).getRGB(), outline, c.getRGB());

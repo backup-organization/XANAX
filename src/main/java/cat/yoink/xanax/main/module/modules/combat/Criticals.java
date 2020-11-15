@@ -27,6 +27,25 @@ public final class Criticals extends Module
     {
         super("Criticals", Category.COMBAT);
         setBind(Keyboard.KEY_G);
+
+        addSetting(new NumberSetting("yes", 3, 0, 10, 1));
+        addSetting(new NumberSetting("yes", 5, 0, 10, 1));
+        addSetting(new NumberSetting("yes", 1, 0, 10, 1));
+        addSetting(new NumberSetting("yes", 8, 0, 10, 1));
+        addSetting(new NumberSetting("yes", 7, 0, 10, 1));
+        addSetting(new NumberSetting("yes", 5, 0, 10, 1));
+        addSetting(new NumberSetting("yes", 9, 0, 10, 1));
+        addSetting(new NumberSetting("yes", 10, 0, 10, 1));
+        addSetting(new NumberSetting("yes", 5, 0, 10, 1));
+        addSetting(new NumberSetting("yes", 2, 0, 10, 1));
+        addSetting(new NumberSetting("yes", 6, 0, 10, 1));
+//        addSetting(new NumberSetting("yes", 8, 0, 10, 1));
+    }
+
+    @Override
+    protected void onEnable()
+    {
+//        addSetting(new BooleanSetting("lmfao", false));
     }
 
     @SubscribeEvent

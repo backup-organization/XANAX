@@ -11,6 +11,7 @@ import cat.yoink.xanax.main.setting.EnumSetting;
 import cat.yoink.xanax.main.setting.NumberSetting;
 import cat.yoink.xanax.main.setting.Setting;
 import cat.yoink.xanax.main.util.GuiUtil;
+import org.lwjgl.input.Mouse;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public final class ModuleButton implements GuiBase
     private final int w;
     private final int h;
     private boolean selected;
+    private int scroll;
 
     public ModuleButton(Module module, int x, int y, int w, int h, CategoryButton parent, int windowX, int windowY)
     {
@@ -72,9 +74,20 @@ public final class ModuleButton implements GuiBase
 
         if (selected)
         {
+            doScroll(windowX, windowY, mouseX, mouseY);
+
             int setI = 0;
+            int setI2 = 0;
             for (int i = 0; i < buttons.size(); i++)
             {
+                if (setI2 < scroll)
+                {
+                    setI2++;
+                    continue;
+                }
+
+                if (setI >= 8) continue;
+
                 boolean left = i % 2 == 1;
 
                 SettingButton button = buttons.get(i);
@@ -85,6 +98,16 @@ public final class ModuleButton implements GuiBase
 
                 if (left) setI++;
             }
+        }
+    }
+
+    private void doScroll(int windowX, int windowY, int mouseX, int mouseY)
+    {
+        if (GuiUtil.isHover(windowX + 15, windowY + 70, 340, 160, mouseX, mouseY))
+        {
+            int wheel = Mouse.getDWheel();
+            if (wheel < 0 && scroll <= buttons.size() - 17) scroll += 2;
+            else if (wheel > 0 && scroll > 0) scroll -= 2;
         }
     }
 
