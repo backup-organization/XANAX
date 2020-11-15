@@ -1,8 +1,7 @@
 package cat.yoink.xanax.main.module;
 
 import cat.yoink.xanax.main.module.modules.client.ClickGUI;
-import cat.yoink.xanax.main.module.modules.combat.*;
-import cat.yoink.xanax.main.setting.BooleanSetting;
+import cat.yoink.xanax.main.module.modules.combat.Criticals;
 import cat.yoink.xanax.main.setting.Setting;
 
 import java.util.ArrayList;
@@ -29,15 +28,7 @@ public enum ModuleManager
 
     public Setting getSetting(String moduleName, String settingName)
     {
-        Setting setting =  Objects.requireNonNull(getModules().stream().filter(m -> m.getName().equalsIgnoreCase(moduleName)).findAny().orElse(null)).getSettings().stream().filter(s -> s.getName().equalsIgnoreCase(settingName)).findAny().orElse(null);
-
-        if (setting == null) return null;
-
-        if (setting instanceof BooleanSetting)
-        {
-            return (BooleanSetting) setting;
-        }
-        return setting;
+        return Objects.requireNonNull(getModules().stream().filter(m -> m.getName().equalsIgnoreCase(moduleName)).findAny().orElse(null)).getSettings().stream().filter(s -> s.getName().equalsIgnoreCase(settingName)).findAny().orElse(null);
     }
 
     public ArrayList<Module> getModules()
