@@ -5,7 +5,7 @@ import cat.yoink.xanax.main.module.Module;
 import cat.yoink.xanax.main.setting.BooleanSetting;
 import org.lwjgl.input.Keyboard;
 
-public class ClickGUI extends Module
+public final class ClickGUI extends Module
 {
     private final BooleanSetting outline = addSetting(new BooleanSetting("Outline", true));
 
