@@ -3,6 +3,7 @@ package cat.yoink.xanax.main.clickgui.settings;
 import cat.yoink.xanax.main.clickgui.SettingButton;
 import cat.yoink.xanax.main.font.CFontRenderer;
 import cat.yoink.xanax.main.module.Module;
+import cat.yoink.xanax.main.module.ModuleManager;
 import cat.yoink.xanax.main.setting.NumberSetting;
 import cat.yoink.xanax.main.util.GuiUtil;
 
@@ -25,10 +26,12 @@ public final class NumberButton extends SettingButton
     {
         updateSlider(mouseX);
 
+        boolean outline = ModuleManager.INSTANCE.getSetting("ClickGUI", "Outline").toBoolean().getValue();
+
         float[] hue = new float[]{(float) (System.currentTimeMillis() % 11520L) / 11520.0f};
         Color c = new Color(Color.HSBtoRGB(hue[0], 1.0f, 1.0f));
 
-        GuiUtil.drawRect(x + 5, y + 5, 100, 10, new Color(20, 20, 20).getRGB());
+        GuiUtil.drawRect(x + 5, y + 5, 100, 10, new Color(20, 20, 20).getRGB(), outline, c.getRGB());
         GuiUtil.drawRect(x + sliderWidth - 2 + 8, y + 6, 4, 8, c.getRGB());
 
         CFontRenderer.SMALLTEXT.drawCenteredString(String.valueOf(setting.getValue()), x + 55, y + 6.5f, -1);

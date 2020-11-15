@@ -5,6 +5,7 @@ import cat.yoink.xanax.main.clickgui.settings.EnumButton;
 import cat.yoink.xanax.main.clickgui.settings.NumberButton;
 import cat.yoink.xanax.main.font.CFontRenderer;
 import cat.yoink.xanax.main.module.Module;
+import cat.yoink.xanax.main.module.ModuleManager;
 import cat.yoink.xanax.main.setting.BooleanSetting;
 import cat.yoink.xanax.main.setting.EnumSetting;
 import cat.yoink.xanax.main.setting.NumberSetting;
@@ -55,7 +56,16 @@ public final class ModuleButton implements GuiBase
     {
         if (self)
         {
-            if (selected) GuiUtil.drawSmoothRect(x, y, w, h + 3, 2, new Color(34, 34, 34).getRGB());
+            if (selected)
+            {
+                boolean outline = ModuleManager.INSTANCE.getSetting("ClickGUI", "Outline").toBoolean().getValue();
+
+                float[] hue = new float[]{(float) (System.currentTimeMillis() % 11520L) / 11520.0f};
+                Color c = new Color(Color.HSBtoRGB(hue[0], 1.0f, 1.0f));
+
+                if (outline) GuiUtil.drawSmoothRect(x - 1, y - 1, w + 2, h + 2, 2, c.getRGB());
+                GuiUtil.drawSmoothRect(x, y, w, h + 3, 2, new Color(34, 34, 34).getRGB());
+            }
 
             CFontRenderer.TEXT.drawCenteredString(module.getName(), x + w / 2f, y + 3, module.isEnabled() ? -1 : new Color(150, 150, 150).getRGB());
         }

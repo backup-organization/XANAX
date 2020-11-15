@@ -44,6 +44,12 @@ public final class CategoryButton implements GuiBase, MinecraftInstance
 
         if (selected)
         {
+            boolean outline = ModuleManager.INSTANCE.getSetting("ClickGUI", "Outline").toBoolean().getValue();
+
+            float[] hue = new float[]{(float) (System.currentTimeMillis() % 11520L) / 11520.0f};
+            Color c = new Color(Color.HSBtoRGB(hue[0], 1.0f, 1.0f));
+
+            if (outline) GuiUtil.drawSmoothRect(x - 1, y - 1, w + 2, h + 2, 2, c.getRGB());
             GuiUtil.drawSmoothRect(x, y, w, h + 3, 2, new Color(43, 43, 43).getRGB());
         }
 

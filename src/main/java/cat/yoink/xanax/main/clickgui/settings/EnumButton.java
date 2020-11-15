@@ -6,6 +6,8 @@ import cat.yoink.xanax.main.module.Module;
 import cat.yoink.xanax.main.setting.EnumSetting;
 import cat.yoink.xanax.main.util.GuiUtil;
 
+import java.awt.*;
+
 public final class EnumButton extends SettingButton
 {
     private final EnumSetting setting;
@@ -19,7 +21,10 @@ public final class EnumButton extends SettingButton
     @Override
     public void drawScreen(int mouseX, int mouseY, int windowX, int windowY, boolean self)
     {
-        CFontRenderer.TEXT.drawString(setting.getName() + " -> " + setting.getValue(), x + 5, y + 5.5f, -1);
+        GuiUtil.drawSmoothRect(x + 3, y + 4, 50, 12, 1, new Color(20, 20, 20).getRGB());
+
+        CFontRenderer.SMALLTEXT.drawString(setting.getValue(), x + 8, y + 6.5f, -1);
+        CFontRenderer.TEXT.drawString(setting.getName(), x + 57, y + 5.5f, -1);
     }
 
     @Override
