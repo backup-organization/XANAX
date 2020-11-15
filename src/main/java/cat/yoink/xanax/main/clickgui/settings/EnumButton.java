@@ -3,6 +3,7 @@ package cat.yoink.xanax.main.clickgui.settings;
 import cat.yoink.xanax.main.clickgui.SettingButton;
 import cat.yoink.xanax.main.font.CFontRenderer;
 import cat.yoink.xanax.main.module.Module;
+import cat.yoink.xanax.main.module.ModuleManager;
 import cat.yoink.xanax.main.setting.EnumSetting;
 import cat.yoink.xanax.main.util.GuiUtil;
 
@@ -21,9 +22,14 @@ public final class EnumButton extends SettingButton
     @Override
     public void drawScreen(int mouseX, int mouseY, int windowX, int windowY, boolean self)
     {
-        GuiUtil.drawSmoothRect(x + 3, y + 4, 50, 12, 1, new Color(20, 20, 20).getRGB());
+        boolean outline = ModuleManager.INSTANCE.getSetting("ClickGUI", "Outline").toBoolean().getValue();
 
+        float[] hue = new float[]{(float) (System.currentTimeMillis() % 11520L) / 11520.0f};
+        Color c = new Color(Color.HSBtoRGB(hue[0], 1.0f, 1.0f));
+
+        GuiUtil.drawSmoothRect(x + 3, y + 4, 50, 12, 1, new Color(20, 20, 20).getRGB(), outline, c.getRGB());
         CFontRenderer.SMALLTEXT.drawString(setting.getValue(), x + 8, y + 6.5f, -1);
+
         CFontRenderer.TEXT.drawString(setting.getName(), x + 57, y + 5.5f, -1);
     }
 
