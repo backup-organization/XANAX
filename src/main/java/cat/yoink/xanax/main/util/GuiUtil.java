@@ -1,5 +1,6 @@
 package cat.yoink.xanax.main.util;
 
+import cat.yoink.xanax.main.MinecraftInstance;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
@@ -8,7 +9,7 @@ import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 
-public final class GuiUtil
+public final class GuiUtil implements MinecraftInstance
 {
     public static void drawRect(int x, int y, int w, int h, int c)
     {
