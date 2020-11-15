@@ -2,6 +2,7 @@ package cat.yoink.xanax.main.module;
 
 import cat.yoink.xanax.main.module.modules.client.ClickGUI;
 import cat.yoink.xanax.main.module.modules.combat.Criticals;
+import cat.yoink.xanax.main.module.modules.misc.Swing;
 import cat.yoink.xanax.main.setting.Setting;
 
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public enum ModuleManager
 
     ModuleManager()
     {
-        addModules(new Criticals(), new ClickGUI());
+        addModules(new Criticals(), new ClickGUI(), new Swing());
     }
 
     private void addModules(Module... modules)
