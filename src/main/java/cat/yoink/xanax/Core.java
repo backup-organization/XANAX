@@ -18,7 +18,7 @@ public final class Core implements IFMLLoadingPlugin
 
 //        Loader.INSTANCE.load();
 
-//        Loader.INSTANCE.loadMixin();
+        Loader.INSTANCE.loadMixin();
     }
 
     @Mod.EventHandler
