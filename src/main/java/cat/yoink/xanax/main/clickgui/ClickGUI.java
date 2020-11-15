@@ -45,15 +45,27 @@ public final class ClickGUI extends GuiScreen
         float[] hue = new float[]{(float) (System.currentTimeMillis() % 11520L) / 11520.0f};
         Color c = new Color(Color.HSBtoRGB(hue[0], 1.0f, 1.0f));
 
+
         GuiUtil.drawSmoothRect(x, y, w, h, 3, new Color(52, 52, 52).getRGB(), outline, c.getRGB());
         GuiUtil.drawRect(x + 10, y + 50, w - 20, h - 60, new Color(43, 43, 43).getRGB(), outline, c.getRGB());
         GuiUtil.drawRect(x + 15, y + 70, w - 30, h - 85, new Color(34, 34, 34).getRGB(), outline, c.getRGB());
 
-        GuiUtil.drawSmoothRect(x + 15, y + 57, 10, 10, 3, new Color(34, 34, 34).getRGB(), outline, c.getRGB());
-        CFontRenderer.TEXT.drawString("<", x + 16, y + 57.5f, -1);
+        CategoryButton selected = buttons.stream().filter(CategoryButton::isSelected).findAny().orElse(null);
 
-        GuiUtil.drawSmoothRect(x + 355, y + 57, 10, 10, 3, new Color(34, 34, 34).getRGB(), outline, c.getRGB());
-        CFontRenderer.TEXT.drawString(">", x + 356.5f, y + 57.5f, -1);
+        if (selected != null)
+        {
+            if (selected.getTab() > 0)
+            {
+                GuiUtil.drawSmoothRect(x + 15, y + 57, 10, 10, 3, new Color(34, 34, 34).getRGB(), outline, c.getRGB());
+                CFontRenderer.TEXT.drawString("<", x + 16, y + 57.5f, -1);
+            }
+
+            if (selected.getTab() < selected.getButtons().size() - 5)
+            {
+                GuiUtil.drawSmoothRect(x + 355, y + 57, 10, 10, 3, new Color(34, 34, 34).getRGB(), outline, c.getRGB());
+                CFontRenderer.TEXT.drawString(">", x + 356.5f, y + 57.5f, -1);
+            }
+        }
 
         CFontRenderer.TITLE.drawCenteredString("XANAX", x + w / 2f, y + 5, c.getRGB());
 

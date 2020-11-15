@@ -139,4 +139,14 @@ public final class CategoryButton implements GuiBase, MinecraftInstance
     {
         return buttons;
     }
+
+    public boolean isSelected()
+    {
+        return selected;
+    }
+
+    public int getTab()
+    {
+        return tab;
+    }
 }
