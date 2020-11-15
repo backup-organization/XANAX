@@ -59,7 +59,7 @@ public final class NumberButton extends SettingButton
     @Override
     public void onGuiClosed()
     {
-
+        dragging = false;
     }
 
     private void updateSlider(int mouseX)
