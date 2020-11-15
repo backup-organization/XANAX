@@ -18,25 +18,7 @@ public enum ModuleManager
 
     ModuleManager()
     {
-        addModules(new Criticals(),
-                new oink(),
-                new toink(),
-                new boink(),
-                new voink(),
-                new yoink(),
-                new Criticals(),
-                new oink(),
-                new toink(),
-                new boink(),
-                new voink(),
-                new yoink(),
-                new Criticals(),
-                new oink(),
-                new toink(),
-                new boink(),
-                new voink(),
-                new yoink(),
-                new ClickGUI());
+        addModules(new Criticals(), new ClickGUI());
     }
 
     private void addModules(Module... modules)
