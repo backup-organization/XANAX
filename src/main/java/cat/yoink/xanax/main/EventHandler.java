@@ -1,4 +1,4 @@
-package cat.yoink.xanax.main.handling;
+package cat.yoink.xanax.main;
 
 import cat.yoink.xanax.main.module.Module;
 import cat.yoink.xanax.main.module.ModuleManager;
@@ -6,7 +6,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
 import org.lwjgl.input.Keyboard;
 
-public final class EventSubscriber
+public class EventHandler
 {
     @SubscribeEvent
     public void onInputKeyInput(InputEvent.KeyInputEvent event)

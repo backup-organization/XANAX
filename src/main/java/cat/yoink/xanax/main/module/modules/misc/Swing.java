@@ -1,7 +1,7 @@
 package cat.yoink.xanax.main.module.modules.misc;
 
 import cat.yoink.xanax.main.event.PacketEvent;
-import cat.yoink.xanax.main.handling.Mapping;
+import cat.yoink.xanax.main.util.Mapping;
 import cat.yoink.xanax.main.module.Category;
 import cat.yoink.xanax.main.module.Module;
 import cat.yoink.xanax.main.setting.EnumSetting;
@@ -28,7 +28,7 @@ public final class Swing extends Module
         if (mode.getValue().equalsIgnoreCase("None")) event.setCanceled(true);
 
         try {
-            Field hand = CPacketAnimation.class.getDeclaredField(Mapping.INSTANCE.cPacketAnimationHand);
+            Field hand = CPacketAnimation.class.getDeclaredField(Mapping.cPacketAnimationHand);
             hand.setAccessible(true);
             hand.set(event.getPacket(), mode.getValue().equalsIgnoreCase("MainHand") ? EnumHand.MAIN_HAND : EnumHand.OFF_HAND);
         } catch (Exception ignored) {}

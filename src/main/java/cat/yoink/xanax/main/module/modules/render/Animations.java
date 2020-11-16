@@ -1,6 +1,6 @@
 package cat.yoink.xanax.main.module.modules.render;
 
-import cat.yoink.xanax.main.handling.Mapping;
+import cat.yoink.xanax.main.util.Mapping;
 import cat.yoink.xanax.main.module.Category;
 import cat.yoink.xanax.main.module.Module;
 import net.minecraft.client.renderer.ItemRenderer;
@@ -24,12 +24,12 @@ public final class Animations extends Module
 
         try
         {
-            Field prevEquippedProgressMainHand = Mapping.INSTANCE.getField(ItemRenderer.class, Mapping.INSTANCE.itemRendererPrevEquippedProgressMainHand);
-            Field prevEquippedProgressOffHand = Mapping.INSTANCE.getField(ItemRenderer.class, Mapping.INSTANCE.itemRendererPrevEquippedProgressOffHand);
-            Field equippedProgressMainHand = Mapping.INSTANCE.getField(ItemRenderer.class, Mapping.INSTANCE.itemRendererEquippedProgressMainHand);
-            Field equippedProgressOffHand = Mapping.INSTANCE.getField(ItemRenderer.class, Mapping.INSTANCE.itemRendererEquippedProgressOffHand);
-            Field itemStackMainHand = Mapping.INSTANCE.getField(ItemRenderer.class, Mapping.INSTANCE.itemRendererItemStackMainHand);
-            Field itemStackOffHand = Mapping.INSTANCE.getField(ItemRenderer.class, Mapping.INSTANCE.itemRendererItemStackOffHand);
+            Field prevEquippedProgressMainHand = Mapping.getField(ItemRenderer.class, Mapping.itemRendererPrevEquippedProgressMainHand);
+            Field prevEquippedProgressOffHand = Mapping.getField(ItemRenderer.class, Mapping.itemRendererPrevEquippedProgressOffHand);
+            Field equippedProgressMainHand = Mapping.getField(ItemRenderer.class, Mapping.itemRendererEquippedProgressMainHand);
+            Field equippedProgressOffHand = Mapping.getField(ItemRenderer.class, Mapping.itemRendererEquippedProgressOffHand);
+            Field itemStackMainHand = Mapping.getField(ItemRenderer.class, Mapping.itemRendererItemStackMainHand);
+            Field itemStackOffHand = Mapping.getField(ItemRenderer.class, Mapping.itemRendererItemStackOffHand);
 
             prevEquippedProgressMainHand.setAccessible(true);
             prevEquippedProgressOffHand.setAccessible(true);
