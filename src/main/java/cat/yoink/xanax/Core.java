@@ -40,6 +40,6 @@ public final class Core implements IFMLLoadingPlugin
     @Override
     public String getAccessTransformerClass()
     {
-        return null;
+        return Transformer.class.getName();
     }
 }
