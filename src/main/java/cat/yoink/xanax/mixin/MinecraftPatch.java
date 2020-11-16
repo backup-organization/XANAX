@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Minecraft.class)
-public class MinecraftPatch
+public abstract class MinecraftPatch
 {
     @Inject(method = "init", at = @At("RETURN"))
     private void init(CallbackInfo ci)
