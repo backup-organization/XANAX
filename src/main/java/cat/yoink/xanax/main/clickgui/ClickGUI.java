@@ -68,6 +68,12 @@ public final class ClickGUI extends GuiScreen
 
         CFontRenderer.TITLE.drawCenteredString("XANAX", x + w / 2f, y + 5, c.getRGB());
 
+        if (ModuleManager.INSTANCE.getSetting("ClickGUI", "Closing").toEnum().is("Button") || ModuleManager.INSTANCE.getSetting("ClickGUI", "Closing").toEnum().is("Both"))
+        {
+            GuiUtil.drawSmoothRect(x + w - 15, y + 5, 10, 10, 3, new Color(34, 34, 34).getRGB());
+            CFontRenderer.TEXT.drawString("X", x + w - 13, y + 6, -1);
+        }
+
         if (dragging)
         {
             for (int i = 0; i < buttons.size(); i++)
@@ -91,6 +97,12 @@ public final class ClickGUI extends GuiScreen
             dragY = y - mouseY;
         }
 
+        if ((ModuleManager.INSTANCE.getSetting("ClickGUI", "Closing").toEnum().is("Button") || ModuleManager.INSTANCE.getSetting("ClickGUI", "Closing").toEnum().is("Both")) && GuiUtil.isHover(x + w - 15, y + 5, 10, 10, mouseX, mouseY))
+        {
+            dragging = false;
+            mc.displayGuiScreen(null);
+        }
+
         buttons.forEach(button -> button.mouseClicked(mouseX, mouseY, mouseButton, true));
     }
 
@@ -105,7 +117,7 @@ public final class ClickGUI extends GuiScreen
     @Override
     protected void keyTyped(char typedChar, int keyCode)
     {
-        if (keyCode == 1) mc.displayGuiScreen(null);
+        if (keyCode == 1 && ModuleManager.INSTANCE.getSetting("ClickGUI", "Closing").toEnum().is("Keyboard") || ModuleManager.INSTANCE.getSetting("ClickGUI", "Closing").toEnum().is("Both")) mc.displayGuiScreen(null);
 
         buttons.forEach(button -> button.keyTyped(typedChar, keyCode));
     }
@@ -114,6 +126,7 @@ public final class ClickGUI extends GuiScreen
     public void onGuiClosed()
     {
         ModuleManager.INSTANCE.getModule("ClickGUI").disable();
+        dragging = false;
 
         buttons.forEach(CategoryButton::onGuiClosed);
     }

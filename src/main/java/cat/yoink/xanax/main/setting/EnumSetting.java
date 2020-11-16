@@ -22,7 +22,7 @@ public final class EnumSetting extends Setting
 
     public boolean is(String mode)
     {
-        return index == mode.indexOf(mode);
+        return getValue().equalsIgnoreCase(mode);
     }
 
     public void cycleForward()
