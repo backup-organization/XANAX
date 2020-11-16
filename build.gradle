@@ -85,7 +85,7 @@ shadowJar {
 
 task clientJar(type: Jar, dependsOn: jar) {
     from(zipTree(shadowJar.archivePath)) {
-        include "cat/yoink/xanax/**"
+        include "cat/yoink/xanax/main/**"
     }
     baseName = ""
     version = ""
@@ -94,7 +94,7 @@ task clientJar(type: Jar, dependsOn: jar) {
 
 task loaderJar(type: Jar, dependsOn: shadowJar) {
     from(zipTree(shadowJar.archivePath)) {
-        exclude "cat/yoink/xanax/**"
+        exclude "cat/yoink/xanax/main/**"
     }
     baseName = ""
     version = ""

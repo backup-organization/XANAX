@@ -1,13 +1,10 @@
 package cat.yoink.xanax;
 
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
 
 import java.util.Map;
 
 @IFMLLoadingPlugin.MCVersion("1.12.2")
-@Mod(modid = "loader", name = "Loader", version = Core.VERSION)
 public final class Core implements IFMLLoadingPlugin
 {
     public static final String VERSION = "1";
@@ -16,17 +13,10 @@ public final class Core implements IFMLLoadingPlugin
     {
 //        Loader.INSTANCE.update(VERSION);
 
-//        Loader.INSTANCE.load();
+        Loader.INSTANCE.load();
 
-//        Loader.INSTANCE.loadMixin();
+        Loader.INSTANCE.loadMixin();
     }
-
-    @Mod.EventHandler
-    public void initialize(FMLInitializationEvent event)
-    {
-        EntryPoint.INSTANCE.initialize();
-    }
-
 
     @Override
     public String[] getASMTransformerClass()
