@@ -7,11 +7,9 @@ import java.util.Map;
 @IFMLLoadingPlugin.MCVersion("1.12.2")
 public final class Core implements IFMLLoadingPlugin
 {
-    public static final String VERSION = "1";
-
     public Core()
     {
-//        Loader.INSTANCE.update(VERSION);
+//        Loader.INSTANCE.update("1");
 
         Loader.INSTANCE.loadMixin();
     }
