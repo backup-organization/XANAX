@@ -44,4 +44,15 @@ public final class WorldUtil implements MinecraftInstance
 
         return false;
     }
+
+    public static boolean isInterceptedByOther(BlockPos pos)
+    {
+        for (Entity entity : mc.world.loadedEntityList)
+        {
+            if (entity.equals(mc.player)) continue;
+            if (new AxisAlignedBB(pos).intersects(entity.getEntityBoundingBox())) return true;
+        }
+
+        return false;
+    }
 }

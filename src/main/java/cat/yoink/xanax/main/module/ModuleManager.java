@@ -1,6 +1,7 @@
 package cat.yoink.xanax.main.module;
 
 import cat.yoink.xanax.main.module.modules.client.ClickGUI;
+import cat.yoink.xanax.main.module.modules.combat.Burrow;
 import cat.yoink.xanax.main.module.modules.combat.Criticals;
 import cat.yoink.xanax.main.module.modules.combat.Surround;
 import cat.yoink.xanax.main.module.modules.misc.Swing;
@@ -20,7 +21,7 @@ public enum ModuleManager
 
     ModuleManager()
     {
-        addModules(new Criticals(), new ClickGUI(), new Swing(), new Animations(), new Surround());
+        addModules(new Criticals(), new ClickGUI(), new Swing(), new Animations(), new Surround(), new Burrow());
     }
 
     private void addModules(Module... modules)
