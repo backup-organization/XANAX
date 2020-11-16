@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 
 public abstract class CFont
 {
-    private float imgSize = 512;
+    private final float imgSize = 512;
     protected CharData[] charData = new CharData[256];
     protected Font font;
     protected boolean antiAlias;
@@ -133,7 +133,7 @@ public abstract class CFont
         int width = 0;
         for (char c : text.toCharArray())
         {
-            if ((c < this.charData.length) && (c >= 0)) width += this.charData[c].width - 8 + this.charOffset;
+            if (c < this.charData.length) width += this.charData[c].width - 8 + this.charOffset;
         }
         return width / 2;
     }
@@ -177,7 +177,7 @@ public abstract class CFont
         tex = setupTexture(font, this.antiAlias, this.fractionalMetrics, this.charData);
     }
 
-    protected class CharData
+    protected static class CharData
     {
         public int width;
         public int height;
