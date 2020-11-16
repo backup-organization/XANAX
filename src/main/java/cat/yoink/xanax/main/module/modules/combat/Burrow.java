@@ -2,7 +2,9 @@ package cat.yoink.xanax.main.module.modules.combat;
 
 import cat.yoink.xanax.main.module.Category;
 import cat.yoink.xanax.main.module.Module;
+import cat.yoink.xanax.main.setting.BooleanSetting;
 import cat.yoink.xanax.main.setting.EnumSetting;
+import cat.yoink.xanax.main.util.ChatUtil;
 import cat.yoink.xanax.main.util.InventoryUtil;
 import cat.yoink.xanax.main.util.WorldUtil;
 import net.minecraft.init.Blocks;
@@ -14,6 +16,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 public final class Burrow extends Module
 {
     private final EnumSetting mode = addSetting(new EnumSetting("LagBackMode", "Jump", "Jump", "TP", "Packet"));
+    private final BooleanSetting announce = addSetting(new BooleanSetting("Announce", false));
     private BlockPos originalPos;
 
     public Burrow()
@@ -31,6 +34,8 @@ public final class Burrow extends Module
             disable();
             return;
         }
+
+        if (announce.getValue()) ChatUtil.sendPrivateMessage("Enabled Burrow");
 
         mc.player.jump();
     }

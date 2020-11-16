@@ -5,6 +5,7 @@ import cat.yoink.xanax.main.module.Module;
 import cat.yoink.xanax.main.setting.BooleanSetting;
 import cat.yoink.xanax.main.setting.EnumSetting;
 import cat.yoink.xanax.main.setting.NumberSetting;
+import cat.yoink.xanax.main.util.ChatUtil;
 import cat.yoink.xanax.main.util.InventoryUtil;
 import cat.yoink.xanax.main.util.WorldUtil;
 import net.minecraft.init.Blocks;
@@ -24,6 +25,7 @@ public final class Surround extends Module
     private final EnumSetting disable = addSetting(new EnumSetting("Disable", "WhenDone", "WhenDone", "OnLeave", "Off"));
     private final BooleanSetting enderChest = addSetting(new BooleanSetting("EnderChest", false));
     private final BooleanSetting center = addSetting(new BooleanSetting("Center", false));
+    private final BooleanSetting announce = addSetting(new BooleanSetting("Announce", false));
     private final List<Vec3d> positions = Arrays.asList(new Vec3d(1, -1, 0), new Vec3d(-1, -1, 0), new Vec3d(0, -1, 1), new Vec3d(0, -1, -1), new Vec3d(1, 0, 0), new Vec3d(-1, 0, 0), new Vec3d(0, 0, 1), new Vec3d(0, 0, -1));
     private boolean finished;
     private Vec3d playerPos;
@@ -75,8 +77,9 @@ public final class Surround extends Module
                 z = centerPos.getZ() + 0.5;
                 centerPlayer(x, y, z);
             }
-
         }
+
+        if (announce.getValue()) ChatUtil.sendPrivateMessage("Enabled Surround");
     }
 
     @SubscribeEvent
@@ -85,7 +88,10 @@ public final class Surround extends Module
         if (nullCheck()) return;
 
         if (finished && (disable.getValue().equalsIgnoreCase("WhenDone") || (disable.getValue().equalsIgnoreCase("OnLeave") && !mc.player.onGround)))
+        {
             disable();
+            if (announce.getValue()) ChatUtil.sendPrivateMessage("Disabled Surround");
+        }
 
         int blocksPlaced = 0;
 
