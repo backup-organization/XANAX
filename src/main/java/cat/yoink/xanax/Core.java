@@ -13,8 +13,6 @@ public final class Core implements IFMLLoadingPlugin
     {
 //        Loader.INSTANCE.update(VERSION);
 
-        Loader.INSTANCE.load();
-
         Loader.INSTANCE.loadMixin();
     }
 
