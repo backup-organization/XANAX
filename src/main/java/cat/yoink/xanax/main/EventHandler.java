@@ -6,7 +6,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
 import org.lwjgl.input.Keyboard;
 
-public class EventHandler
+public final class EventHandler implements MinecraftInstance
 {
     @SubscribeEvent
     public void onInputKeyInput(InputEvent.KeyInputEvent event)
