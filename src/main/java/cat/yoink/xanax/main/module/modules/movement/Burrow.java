@@ -4,6 +4,7 @@ import cat.yoink.xanax.main.module.Category;
 import cat.yoink.xanax.main.module.Module;
 import cat.yoink.xanax.main.setting.BooleanSetting;
 import cat.yoink.xanax.main.setting.EnumSetting;
+import cat.yoink.xanax.main.setting.NumberSetting;
 import cat.yoink.xanax.main.util.ChatUtil;
 import cat.yoink.xanax.main.util.InventoryUtil;
 import cat.yoink.xanax.main.util.WorldUtil;
@@ -16,6 +17,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 public final class Burrow extends Module
 {
     private final EnumSetting mode = addSetting(new EnumSetting("LagBackMode", "Jump", "Jump", "TP", "Packet"));
+    private final NumberSetting height = addSetting(new NumberSetting("Height", 1.2, 1, 1.3, 0.01));
     private final BooleanSetting announce = addSetting(new BooleanSetting("Announce", false));
     private BlockPos originalPos;
 
@@ -45,7 +47,7 @@ public final class Burrow extends Module
     {
         if (nullCheck()) return;
 
-        if (mc.player.posY > originalPos.getY() + 1.25)
+        if (mc.player.posY > originalPos.getY() + height.getValue())
         {
             int oldSlot = mc.player.inventory.currentItem;
 
