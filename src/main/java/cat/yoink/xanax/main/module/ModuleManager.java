@@ -8,6 +8,7 @@ import cat.yoink.xanax.main.module.modules.misc.Swing;
 import cat.yoink.xanax.main.module.modules.movement.FastFall;
 import cat.yoink.xanax.main.module.modules.movement.Velocity;
 import cat.yoink.xanax.main.module.modules.render.Animations;
+import cat.yoink.xanax.main.module.modules.render.HitMarkers;
 import cat.yoink.xanax.main.setting.Setting;
 
 import java.util.ArrayList;
@@ -30,7 +31,8 @@ public enum ModuleManager
                 new Surround(),
                 new Burrow(),
                 new FastFall(),
-                new Velocity());
+                new Velocity(),
+                new HitMarkers());
     }
 
     private void addModules(Module... modules)
