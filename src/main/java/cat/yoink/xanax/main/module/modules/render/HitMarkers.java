@@ -57,6 +57,4 @@ public final class HitMarkers extends Module
             GlStateManager.disableBlend();
         }
     }
-
-
 }
