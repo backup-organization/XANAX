@@ -6,6 +6,7 @@ import cat.yoink.xanax.main.module.modules.combat.Criticals;
 import cat.yoink.xanax.main.module.modules.combat.Surround;
 import cat.yoink.xanax.main.module.modules.misc.Swing;
 import cat.yoink.xanax.main.module.modules.movement.FastFall;
+import cat.yoink.xanax.main.module.modules.movement.Velocity;
 import cat.yoink.xanax.main.module.modules.render.Animations;
 import cat.yoink.xanax.main.setting.Setting;
 
@@ -28,7 +29,8 @@ public enum ModuleManager
                 new Animations(),
                 new Surround(),
                 new Burrow(),
-                new FastFall());
+                new FastFall(),
+                new Velocity());
     }
 
     private void addModules(Module... modules)
