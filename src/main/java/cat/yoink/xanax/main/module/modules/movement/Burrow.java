@@ -1,4 +1,4 @@
-package cat.yoink.xanax.main.module.modules.combat;
+package cat.yoink.xanax.main.module.modules.movement;
 
 import cat.yoink.xanax.main.module.Category;
 import cat.yoink.xanax.main.module.Module;
@@ -21,7 +21,7 @@ public final class Burrow extends Module
 
     public Burrow()
     {
-        super("Burrow", Category.COMBAT);
+        super("Burrow", Category.MOVEMENT);
     }
 
     @Override
