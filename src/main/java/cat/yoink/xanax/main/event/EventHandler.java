@@ -7,6 +7,7 @@ import cat.yoink.xanax.main.module.Module;
 import cat.yoink.xanax.main.module.ModuleManager;
 import net.minecraftforge.client.event.PlayerSPPushOutOfBlocksEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
 import org.lwjgl.input.Keyboard;
@@ -26,13 +27,13 @@ public final class EventHandler implements MinecraftInstance
     @SubscribeEvent
     public void onTickClientTick(ClientTickEvent event)
     {
-        if (!nullCheck()) Main.EVENT_BUS.dispatchEvent(new TickEvent());
+        if (isSafe()) Main.EVENT_BUS.dispatchEvent(new TickEvent());
     }
 
     @SubscribeEvent
     public void onAttackEntity(net.minecraftforge.event.entity.player.AttackEntityEvent event)
     {
-        if (!nullCheck() && Main.EVENT_BUS.dispatchEvent(new AttackEntityEvent(event.getEntityPlayer())).isCancelled())
+        if (isSafe() && Main.EVENT_BUS.dispatchEvent(new AttackEntityEvent(event.getEntityPlayer())).isCancelled())
             event.setCanceled(true);
     }
 
@@ -40,19 +41,25 @@ public final class EventHandler implements MinecraftInstance
     public void onRenderGameOverlay(RenderGameOverlayEvent event)
     {
         if (!event.getType().equals(RenderGameOverlayEvent.ElementType.TEXT)) return;
-        if (!nullCheck() && Main.EVENT_BUS.dispatchEvent(new Render2DEvent()).isCancelled())
+        if (isSafe() && Main.EVENT_BUS.dispatchEvent(new Render2DEvent()).isCancelled())
             event.setCanceled(true);
     }
 
     @SubscribeEvent
     public void onPlayerSPPushOutOfBlocks(PlayerSPPushOutOfBlocksEvent event)
     {
-        if (!nullCheck() && Main.EVENT_BUS.dispatchEvent(new BlockPushEvent()).isCancelled())
+        if (isSafe() && Main.EVENT_BUS.dispatchEvent(new BlockPushEvent()).isCancelled())
             event.setCanceled(true);
     }
 
-    protected final boolean nullCheck()
+    @SubscribeEvent
+    public void onRenderWorldLast(RenderWorldLastEvent event)
     {
-        return mc.player == null || mc.world == null;
+        if (isSafe()) Main.EVENT_BUS.dispatchEvent(new Render3DEvent());
+    }
+
+    protected final boolean isSafe()
+    {
+        return mc.player != null && mc.world != null;
     }
 }

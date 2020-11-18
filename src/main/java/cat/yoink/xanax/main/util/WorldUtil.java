@@ -1,6 +1,7 @@
 package cat.yoink.xanax.main.util;
 
 import cat.yoink.xanax.main.MinecraftInstance;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.network.play.client.CPacketEntityAction;
@@ -54,5 +55,43 @@ public final class WorldUtil implements MinecraftInstance
         }
 
         return false;
+    }
+
+    public static boolean isInHole(Entity entity)
+    {
+        return isHole(new BlockPos(entity.posX, entity.posY, entity.posZ));
+    }
+
+    public static boolean isObsidianHole(BlockPos blockPos)
+    {
+        for (BlockPos blockPos2 : new BlockPos[]{blockPos.north(), blockPos.south(), blockPos.east(), blockPos.west(), blockPos.down()})
+        {
+            IBlockState iBlockState = mc.world.getBlockState(blockPos2);
+            if (iBlockState.getBlock() != Blocks.AIR && iBlockState.getBlock() == Blocks.OBSIDIAN) continue;
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean isBedrockHole(BlockPos blockPos)
+    {
+        for (BlockPos blockPos2 : new BlockPos[]{blockPos.north(), blockPos.south(), blockPos.east(), blockPos.west(), blockPos.down()})
+        {
+            IBlockState iBlockState = mc.world.getBlockState(blockPos2);
+            if (iBlockState.getBlock() != Blocks.AIR && iBlockState.getBlock() == Blocks.BEDROCK) continue;
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean isHole(BlockPos blockPos)
+    {
+        for (BlockPos blockPos2 : new BlockPos[]{blockPos.north(), blockPos.south(), blockPos.east(), blockPos.west(), blockPos.down()})
+        {
+            IBlockState iBlockState = mc.world.getBlockState(blockPos2);
+            if (iBlockState.getBlock() != Blocks.AIR && (iBlockState.getBlock() == Blocks.BEDROCK || iBlockState.getBlock() == Blocks.OBSIDIAN)) continue;
+            return false;
+        }
+        return true;
     }
 }
