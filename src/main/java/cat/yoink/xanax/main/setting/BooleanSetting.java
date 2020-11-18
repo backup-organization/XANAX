@@ -29,4 +29,9 @@ public final class BooleanSetting extends Setting
     {
         value = !value;
     }
+
+    public void setValue(boolean value)
+    {
+        this.value = value;
+    }
 }

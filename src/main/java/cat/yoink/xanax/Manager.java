@@ -5,14 +5,15 @@ import cat.yoink.xanax.main.MinecraftInstance;
 import cat.yoink.xanax.main.config.ConfigManager;
 import net.minecraftforge.common.MinecraftForge;
 
-public enum EntryPoint implements MinecraftInstance
+public enum Manager implements MinecraftInstance
 {
     INSTANCE;
 
-    public void initialize()
+    public void startup()
     {
         ConfigManager.loadConfig();
 
+        Runtime.getRuntime().addShutdownHook(new Thread(ConfigManager::saveConfig));
         MinecraftForge.EVENT_BUS.register(new EventHandler());
     }
 }

@@ -3,9 +3,12 @@ package cat.yoink.xanax.main.config;
 import cat.yoink.xanax.main.MinecraftInstance;
 import cat.yoink.xanax.main.module.Module;
 import cat.yoink.xanax.main.module.ModuleManager;
+import cat.yoink.xanax.main.setting.BooleanSetting;
+import cat.yoink.xanax.main.setting.EnumSetting;
+import cat.yoink.xanax.main.setting.NumberSetting;
+import cat.yoink.xanax.main.setting.Setting;
 import cat.yoink.xanax.main.util.FileUtil;
 import net.minecraftforge.common.MinecraftForge;
-import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,11 +30,32 @@ public enum ConfigManager implements MinecraftInstance
             ModuleManager.INSTANCE.getModule(s).setEnabled(true);
             MinecraftForge.EVENT_BUS.register(ModuleManager.INSTANCE.getModule(s));
         });
+
+        getFile("Binds.txt").forEach(s -> {
+            Module module = ModuleManager.INSTANCE.getModule(s.split(":")[0]);
+            if (module != null) module.setBind(Integer.parseInt(s.split(":")[1]));
+        });
+
+        getFile("Settings.txt").forEach(s -> {
+            Module module = ModuleManager.INSTANCE.getModule(s.split(":")[0]);
+            if (module != null)
+            {
+                Setting setting = module.getSetting(s.split(":")[1]);
+                if (setting != null)
+                {
+                    if (setting instanceof BooleanSetting) ((BooleanSetting) setting).setValue(Boolean.parseBoolean(s.split(":")[2]));
+                    if (setting instanceof NumberSetting) ((NumberSetting) setting).setValue(Double.parseDouble(s.split(":")[2]));
+                    if (setting instanceof EnumSetting) ((EnumSetting) setting).setIndex(Integer.parseInt(s.split(":")[2]));
+                }
+            }
+        });
     }
 
     private void saveConfiguration()
     {
-//        saveFile("ToggledModules.txt", ModuleManager.INSTANCE.getModules().stream().filter(Module::isEnabled).collect(Collectors.toCollection(ArrayList::new)));
+        saveFile("ToggledModules.txt", ModuleManager.INSTANCE.getModules().stream().filter(Module::isEnabled).map(Module::getName).collect(Collectors.toList()));
+        saveFile("Binds.txt", ModuleManager.INSTANCE.getModules().stream().map(module -> module.getName() + ":" + module.getBind()).collect(Collectors.toList()));
+        saveFile("Settings.txt", ModuleManager.INSTANCE.getConfig());
     }
 
     private void saveFile(String name, List<String> lines)

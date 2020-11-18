@@ -9,12 +9,12 @@ import cat.yoink.xanax.main.module.modules.movement.FastFall;
 import cat.yoink.xanax.main.module.modules.movement.Velocity;
 import cat.yoink.xanax.main.module.modules.render.Animations;
 import cat.yoink.xanax.main.module.modules.render.HitMarkers;
+import cat.yoink.xanax.main.setting.BooleanSetting;
+import cat.yoink.xanax.main.setting.EnumSetting;
+import cat.yoink.xanax.main.setting.NumberSetting;
 import cat.yoink.xanax.main.setting.Setting;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Objects;
+import java.util.*;
 
 public enum ModuleManager
 {
@@ -54,5 +54,20 @@ public enum ModuleManager
     public Module getModule(String name)
     {
         return modules.stream().filter(module -> module.getName().equalsIgnoreCase(name)).findAny().orElse(null);
+    }
+
+    public List<String> getConfig()
+    {
+        List<String> config = new ArrayList<>();
+
+        modules.forEach(module -> module.getSettings().forEach(setting -> {
+            StringBuilder builder = new StringBuilder(module.getName() + ":" + setting.getName() + ":");
+            if (setting instanceof BooleanSetting) builder.append(((BooleanSetting) setting).getValue());
+            else if (setting instanceof NumberSetting) builder.append(((NumberSetting) setting).getValue());
+            else if (setting instanceof EnumSetting) builder.append(((EnumSetting) setting).getIndex());
+            config.add(builder.toString());
+        }));
+
+        return config;
     }
 }
