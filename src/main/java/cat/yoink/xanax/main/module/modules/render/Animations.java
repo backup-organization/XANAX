@@ -1,10 +1,10 @@
 package cat.yoink.xanax.main.module.modules.render;
 
+import cat.yoink.xanax.main.event.events.TickEvent;
 import cat.yoink.xanax.main.module.Category;
 import cat.yoink.xanax.main.module.Module;
 import net.minecraft.util.EnumHand;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
+import team.stiff.pomelo.impl.annotated.handler.annotation.Listener;
 
 public final class Animations extends Module
 {
@@ -13,8 +13,8 @@ public final class Animations extends Module
         super("Animations", Category.RENDER);
     }
 
-    @SubscribeEvent
-    public void onTickClientTick(TickEvent.ClientTickEvent event)
+    @Listener
+    public void onTickClientTick(TickEvent event)
     {
         if (nullCheck()) return;
 

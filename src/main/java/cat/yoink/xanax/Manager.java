@@ -1,13 +1,17 @@
 package cat.yoink.xanax;
 
-import cat.yoink.xanax.main.EventHandler;
+import cat.yoink.xanax.main.event.EventHandler;
 import cat.yoink.xanax.main.MinecraftInstance;
 import cat.yoink.xanax.main.config.ConfigManager;
 import net.minecraftforge.common.MinecraftForge;
+import team.stiff.pomelo.EventManager;
+import team.stiff.pomelo.impl.annotated.AnnotatedEventManager;
 
 public enum Manager implements MinecraftInstance
 {
     INSTANCE;
+
+    public static final EventManager EVENT_BUS = new AnnotatedEventManager();
 
     public void startup()
     {

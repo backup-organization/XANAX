@@ -1,10 +1,10 @@
 package cat.yoink.xanax.mixin;
 
-import cat.yoink.xanax.main.event.CollisionEvent;
-import cat.yoink.xanax.main.event.WaterPushEvent;
+import cat.yoink.xanax.Manager;
+import cat.yoink.xanax.main.event.events.CollisionEvent;
+import cat.yoink.xanax.main.event.events.WaterPushEvent;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraftforge.common.MinecraftForge;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -18,17 +18,17 @@ public abstract class EntityPlayerPatch
     public void applyEntityCollision(Entity entity, CallbackInfo ci)
     {
         CollisionEvent event = new CollisionEvent(entity);
-        MinecraftForge.EVENT_BUS.post(event);
+        Manager.EVENT_BUS.dispatchEvent(event);
 
-        if (event.isCanceled()) ci.cancel();
+        if (event.isCancelled()) ci.cancel();
     }
 
     @Inject(method = "isPushedByWater", at = @At("HEAD"), cancellable = true)
     public void isPushedByWater(CallbackInfoReturnable<Boolean> cir)
     {
         WaterPushEvent event = new WaterPushEvent();
-        MinecraftForge.EVENT_BUS.post(event);
+        Manager.EVENT_BUS.dispatchEvent(event);
 
-        if (event.isCanceled()) cir.setReturnValue(false);
+        if (event.isCancelled()) cir.setReturnValue(false);
     }
 }

@@ -1,8 +1,8 @@
 package cat.yoink.xanax.main.module.modules.movement;
 
-import cat.yoink.xanax.main.event.CollisionEvent;
-import cat.yoink.xanax.main.event.PacketEvent;
-import cat.yoink.xanax.main.event.WaterPushEvent;
+import cat.yoink.xanax.main.event.events.CollisionEvent;
+import cat.yoink.xanax.main.event.events.PacketEvent;
+import cat.yoink.xanax.main.event.events.WaterPushEvent;
 import cat.yoink.xanax.main.module.Category;
 import cat.yoink.xanax.main.module.Module;
 import cat.yoink.xanax.main.setting.BooleanSetting;
@@ -13,6 +13,7 @@ import net.minecraft.network.play.server.SPacketEntityVelocity;
 import net.minecraft.network.play.server.SPacketExplosion;
 import net.minecraftforge.client.event.PlayerSPPushOutOfBlocksEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import team.stiff.pomelo.impl.annotated.handler.annotation.Listener;
 
 public final class Velocity extends Module
 {
@@ -34,26 +35,26 @@ public final class Velocity extends Module
         if (!nullCheck() && noPush.getValue() && event.getEntity().equals(mc.player)) event.setCanceled(true);
     }
 
-    @SubscribeEvent
+    @Listener
     public void onWaterPush(WaterPushEvent event)
     {
-        if (!nullCheck() && noPush.getValue()) event.setCanceled(true);
+        if (!nullCheck() && noPush.getValue()) event.setCancelled(true);
     }
 
-    @SubscribeEvent
+    @Listener
     public void onCollision(CollisionEvent event)
     {
-        if (!nullCheck() && noPush.getValue()) event.setCanceled(true);
+        if (!nullCheck() && noPush.getValue()) event.setCancelled(true);
     }
 
-    @SubscribeEvent
+    @Listener
     public void onPacket(PacketEvent event)
     {
         if (nullCheck()) return;
 
         if (event.getPacket() instanceof SPacketEntityStatus && !fishable.getValue() && ((SPacketEntityStatus) event.getPacket()).getOpCode() == 31 && ((SPacketEntityStatus) event.getPacket()).getEntity(mc.world) instanceof EntityFishHook && ((EntityFishHook) ((SPacketEntityStatus) event.getPacket()).getEntity(mc.world)).caughtEntity.equals(mc.player))
         {
-            event.setCanceled(true);
+            event.setCancelled(true);
         }
 
         if (event.getPacket() instanceof SPacketEntityVelocity && velocity.getValue() && ((SPacketEntityVelocity) event.getPacket()).getEntityID() == mc.player.getEntityId())

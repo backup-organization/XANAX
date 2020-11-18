@@ -1,5 +1,7 @@
 package cat.yoink.xanax.main.module.modules.render;
 
+import cat.yoink.xanax.main.event.events.AttackEntityEvent;
+import cat.yoink.xanax.main.event.events.TickEvent;
 import cat.yoink.xanax.main.module.Category;
 import cat.yoink.xanax.main.module.Module;
 import cat.yoink.xanax.main.setting.NumberSetting;
@@ -8,9 +10,7 @@ import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.event.entity.player.AttackEntityEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
+import team.stiff.pomelo.impl.annotated.handler.annotation.Listener;
 
 public final class HitMarkers extends Module
 {
@@ -25,7 +25,7 @@ public final class HitMarkers extends Module
         super("HitMarkers", Category.RENDER);
     }
 
-    @SubscribeEvent
+    @Listener
     public void onAttackEntity(AttackEntityEvent event)
     {
         if (nullCheck() || !event.getEntity().equals(mc.player)) return;
@@ -33,15 +33,15 @@ public final class HitMarkers extends Module
         renderTicks = 0;
     }
 
-    @SubscribeEvent
-    public void onTickClientTick(TickEvent.ClientTickEvent event)
+    @Listener
+    public void onTickClientTick(TickEvent event)
     {
         if (nullCheck()) return;
 
         renderTicks++;
     }
 
-    @SubscribeEvent
+    @Listener
     public void onRenderGameOverlay(RenderGameOverlayEvent event)
     {
         if (nullCheck() || !event.getType().equals(RenderGameOverlayEvent.ElementType.TEXT)) return;

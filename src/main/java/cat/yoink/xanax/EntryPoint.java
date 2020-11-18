@@ -7,7 +7,7 @@ import java.util.Map;
 
 @IFMLLoadingPlugin.MCVersion("1.12.2")
 @Mod(modid = "xanax")
-public final class Main implements IFMLLoadingPlugin
+public final class EntryPoint implements IFMLLoadingPlugin
 {
     @Override
     public String[] getASMTransformerClass()

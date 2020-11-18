@@ -1,11 +1,9 @@
-package cat.yoink.xanax.main.event;
+package cat.yoink.xanax.main.event.events;
 
+import cat.yoink.xanax.main.event.EventBase;
 import net.minecraft.network.Packet;
-import net.minecraftforge.fml.common.eventhandler.Cancelable;
-import net.minecraftforge.fml.common.eventhandler.Event;
 
-@Cancelable
-public final class PacketEvent extends Event
+public final class PacketEvent extends EventBase
 {
     private final Packet<?> packet;
     private final Type type;

@@ -1,11 +1,9 @@
-package cat.yoink.xanax.main.event;
+package cat.yoink.xanax.main.event.events;
 
+import cat.yoink.xanax.main.event.EventBase;
 import net.minecraft.entity.Entity;
-import net.minecraftforge.fml.common.eventhandler.Cancelable;
-import net.minecraftforge.fml.common.eventhandler.Event;
 
-@Cancelable
-public class CollisionEvent extends Event
+public final class CollisionEvent extends EventBase
 {
     private final Entity entity;
 

@@ -1,5 +1,6 @@
 package cat.yoink.xanax.main.module.modules.movement;
 
+import cat.yoink.xanax.main.event.events.TickEvent;
 import cat.yoink.xanax.main.module.Category;
 import cat.yoink.xanax.main.module.Module;
 import cat.yoink.xanax.main.setting.BooleanSetting;
@@ -11,8 +12,7 @@ import cat.yoink.xanax.main.util.WorldUtil;
 import net.minecraft.init.Blocks;
 import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
+import team.stiff.pomelo.impl.annotated.handler.annotation.Listener;
 
 public final class Burrow extends Module
 {
@@ -42,8 +42,8 @@ public final class Burrow extends Module
         mc.player.jump();
     }
 
-    @SubscribeEvent
-    public void onTickClientTick(TickEvent.ClientTickEvent event)
+    @Listener
+    public void onTickClientTick(TickEvent event)
     {
         if (nullCheck()) return;
 

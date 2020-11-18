@@ -1,14 +1,14 @@
 package cat.yoink.xanax.main.module.modules.combat;
 
-import cat.yoink.xanax.main.event.PacketEvent;
+import cat.yoink.xanax.main.event.events.PacketEvent;
 import cat.yoink.xanax.main.module.Category;
 import cat.yoink.xanax.main.module.Module;
 import cat.yoink.xanax.main.setting.BooleanSetting;
 import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.network.play.client.CPacketUseEntity;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.lwjgl.input.Keyboard;
+import team.stiff.pomelo.impl.annotated.handler.annotation.Listener;
 
 public final class Criticals extends Module
 {
@@ -20,7 +20,7 @@ public final class Criticals extends Module
         setBind(Keyboard.KEY_G);
     }
 
-    @SubscribeEvent
+    @Listener
     public void onPacket(PacketEvent event)
     {
         if (nullCheck() || event.getType() == PacketEvent.Type.INCOMING || !(event.getPacket() instanceof CPacketUseEntity) || ((CPacketUseEntity) event.getPacket()).getAction() != CPacketUseEntity.Action.ATTACK || !mc.player.onGround || !crystals.getValue() && ((CPacketUseEntity) event.getPacket()).getEntityFromWorld(mc.world) instanceof EntityEnderCrystal)
