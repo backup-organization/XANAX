@@ -32,26 +32,24 @@ public final class Velocity extends Module
     @SubscribeEvent
     public void onPlayerSPPushOutOfBlocks(PlayerSPPushOutOfBlocksEvent event)
     {
-        if (!nullCheck() && noPush.getValue() && event.getEntity().equals(mc.player)) event.setCanceled(true);
+        if (noPush.getValue() && event.getEntity().equals(mc.player)) event.setCanceled(true);
     }
 
     @Listener
     public void onWaterPush(WaterPushEvent event)
     {
-        if (!nullCheck() && noPush.getValue()) event.setCancelled(true);
+        if (noPush.getValue()) event.setCancelled(true);
     }
 
     @Listener
     public void onCollision(CollisionEvent event)
     {
-        if (!nullCheck() && noPush.getValue()) event.setCancelled(true);
+        if (noPush.getValue()) event.setCancelled(true);
     }
 
     @Listener
     public void onPacket(PacketEvent event)
     {
-        if (nullCheck()) return;
-
         if (event.getPacket() instanceof SPacketEntityStatus && !fishable.getValue() && ((SPacketEntityStatus) event.getPacket()).getOpCode() == 31 && ((SPacketEntityStatus) event.getPacket()).getEntity(mc.world) instanceof EntityFishHook && ((EntityFishHook) ((SPacketEntityStatus) event.getPacket()).getEntity(mc.world)).caughtEntity.equals(mc.player))
         {
             event.setCancelled(true);

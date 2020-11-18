@@ -49,7 +49,7 @@ public enum ConfigManager implements MinecraftInstance
 
     private void saveConfiguration()
     {
-        saveFile("ToggledModules.txt", ModuleManager.INSTANCE.getModules().stream().filter(Module::isEnabled).map(Module::getName).collect(Collectors.toList()));
+        saveFile("ToggledModules.txt", ModuleManager.INSTANCE.getModules().stream().filter(Module::isEnabled).filter(module -> !module.getName().equalsIgnoreCase("ClickGUI")).map(Module::getName).collect(Collectors.toList()));
         saveFile("Binds.txt", ModuleManager.INSTANCE.getModules().stream().map(module -> module.getName() + ":" + module.getBind()).collect(Collectors.toList()));
         saveFile("Settings.txt", ModuleManager.INSTANCE.getConfig());
     }

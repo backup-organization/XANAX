@@ -45,8 +45,6 @@ public final class Burrow extends Module
     @Listener
     public void onTickClientTick(TickEvent event)
     {
-        if (nullCheck()) return;
-
         if (mc.player.posY > originalPos.getY() + height.getValue())
         {
             int oldSlot = mc.player.inventory.currentItem;

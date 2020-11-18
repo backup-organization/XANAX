@@ -16,8 +16,6 @@ public final class Animations extends Module
     @Listener
     public void onTickClientTick(TickEvent event)
     {
-        if (nullCheck()) return;
-
         if (mc.entityRenderer.itemRenderer.prevEquippedProgressMainHand >= 0.9)
         {
             mc.entityRenderer.itemRenderer.equippedProgressMainHand = 1;

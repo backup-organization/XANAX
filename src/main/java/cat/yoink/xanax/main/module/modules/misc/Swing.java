@@ -20,7 +20,7 @@ public final class Swing extends Module
     @Listener
     public void onPacket(PacketEvent event)
     {
-        if (nullCheck() || event.getType().equals(PacketEvent.Type.INCOMING) || !(event.getPacket() instanceof CPacketAnimation)) return;
+        if (event.getType().equals(PacketEvent.Type.INCOMING) || !(event.getPacket() instanceof CPacketAnimation)) return;
 
         if (mode.getValue().equalsIgnoreCase("None")) event.setCancelled(true);
 

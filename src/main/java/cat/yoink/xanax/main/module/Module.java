@@ -55,11 +55,6 @@ public abstract class Module implements MinecraftInstance
         return settings.stream().filter(setting -> setting.getName().equalsIgnoreCase(name)).findAny().orElse(null);
     }
 
-    protected final boolean nullCheck()
-    {
-        return mc.player == null || mc.world == null;
-    }
-
     public final String getName()
     {
         return name;

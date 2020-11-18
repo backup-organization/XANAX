@@ -85,8 +85,6 @@ public final class Surround extends Module
     @Listener
     public void onTick(TickEvent event)
     {
-        if (nullCheck()) return;
-
         if (finished && (disable.getValue().equalsIgnoreCase("WhenDone") || (disable.getValue().equalsIgnoreCase("OnLeave") && !mc.player.onGround)))
         {
             disable();

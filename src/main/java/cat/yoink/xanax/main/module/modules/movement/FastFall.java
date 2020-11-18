@@ -26,7 +26,7 @@ public final class FastFall extends Module
     @Listener
     public void onTickClientTick(TickEvent event)
     {
-        if (nullCheck() || !mc.player.onGround || noLiquid.getValue() && (mc.player.isInLava() || mc.player.isInWater()) || holeOnly.getValue() && !fallingIntoHole())
+        if (!mc.player.onGround || noLiquid.getValue() && (mc.player.isInLava() || mc.player.isInWater()) || holeOnly.getValue() && !fallingIntoHole())
             return;
 
         mc.player.motionY -= speed.getValue();

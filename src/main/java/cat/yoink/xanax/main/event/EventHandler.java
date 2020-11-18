@@ -39,6 +39,7 @@ public final class EventHandler implements MinecraftInstance
     @SubscribeEvent
     public void onRenderGameOverlay(RenderGameOverlayEvent event)
     {
+        if (!event.getType().equals(RenderGameOverlayEvent.ElementType.TEXT)) return;
         if (!nullCheck() && Manager.EVENT_BUS.dispatchEvent(new Render2DEvent()).isCancelled())
             event.setCanceled(true);
     }
