@@ -38,16 +38,12 @@ public enum ConfigManager implements MinecraftInstance
 
         getFile("Settings.txt").forEach(s -> {
             Module module = ModuleManager.INSTANCE.getModule(s.split(":")[0]);
-            if (module != null)
-            {
-                Setting setting = module.getSetting(s.split(":")[1]);
-                if (setting != null)
-                {
-                    if (setting instanceof BooleanSetting) ((BooleanSetting) setting).setValue(Boolean.parseBoolean(s.split(":")[2]));
-                    if (setting instanceof NumberSetting) ((NumberSetting) setting).setValue(Double.parseDouble(s.split(":")[2]));
-                    if (setting instanceof EnumSetting) ((EnumSetting) setting).setIndex(Integer.parseInt(s.split(":")[2]));
-                }
-            }
+            if (module == null) return;
+            Setting setting = module.getSetting(s.split(":")[1]);
+            if (setting == null) return;
+            if (setting instanceof BooleanSetting) ((BooleanSetting) setting).setValue(Boolean.parseBoolean(s.split(":")[2]));
+            if (setting instanceof NumberSetting) ((NumberSetting) setting).setValue(Double.parseDouble(s.split(":")[2]));
+            if (setting instanceof EnumSetting) ((EnumSetting) setting).setIndex(Integer.parseInt(s.split(":")[2]));
         });
     }
 
@@ -66,15 +62,8 @@ public enum ConfigManager implements MinecraftInstance
 
     private List<String> getFile(String name)
     {
-        try
-        {
-            return FileUtil.loadFile(new File(folder.getAbsolutePath(), name));
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-            return new ArrayList<>();
-        }
+        try { return FileUtil.loadFile(new File(folder.getAbsolutePath(), name)); }
+        catch (IOException e) { return new ArrayList<>(); }
     }
 
     public static void loadConfig()
