@@ -22,13 +22,14 @@ public final class Surround extends Module
 {
     private final NumberSetting blocksPerTick = addSetting(new NumberSetting("BlocksPerTick", 1, 1, 10, 1));
     private final BooleanSetting obsidian = addSetting(new BooleanSetting("Obsidian", true));
-    private final EnumSetting disable = addSetting(new EnumSetting("Disable", "WhenDone", "WhenDone", "OnLeave", "Off"));
+    private final EnumSetting disable = addSetting(new EnumSetting("Disable", "WhenDone", "WhenDone", "OnLeave", "YChange", "Off"));
     private final BooleanSetting enderChest = addSetting(new BooleanSetting("EnderChest", false));
     private final BooleanSetting center = addSetting(new BooleanSetting("Center", false));
     private final BooleanSetting announce = addSetting(new BooleanSetting("Announce", false));
     private final List<Vec3d> positions = Arrays.asList(new Vec3d(1, -1, 0), new Vec3d(-1, -1, 0), new Vec3d(0, -1, 1), new Vec3d(0, -1, -1), new Vec3d(1, 0, 0), new Vec3d(-1, 0, 0), new Vec3d(0, 0, 1), new Vec3d(0, 0, -1));
     private boolean finished;
     private Vec3d playerPos;
+    private double startY;
 
     public Surround()
     {
@@ -39,6 +40,7 @@ public final class Surround extends Module
     protected void onEnable()
     {
         finished = false;
+        startY = mc.player.posY;
 
         if (center.getValue())
         {
@@ -85,6 +87,11 @@ public final class Surround extends Module
     @Listener
     public void onTick(TickEvent event)
     {
+        if (disable.is("YChange") && mc.player.posY != startY)
+        {
+            disable();
+        }
+
         if (finished && (disable.getValue().equalsIgnoreCase("WhenDone") || (disable.getValue().equalsIgnoreCase("OnLeave") && !mc.player.onGround)))
         {
             disable();
