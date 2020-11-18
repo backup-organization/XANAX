@@ -10,6 +10,7 @@ import cat.yoink.xanax.main.module.modules.movement.Velocity;
 import cat.yoink.xanax.main.module.modules.render.Animations;
 import cat.yoink.xanax.main.module.modules.render.FeetHighlight;
 import cat.yoink.xanax.main.module.modules.render.HitMarkers;
+import cat.yoink.xanax.main.module.modules.world.PacketMine;
 import cat.yoink.xanax.main.setting.BooleanSetting;
 import cat.yoink.xanax.main.setting.EnumSetting;
 import cat.yoink.xanax.main.setting.NumberSetting;
@@ -34,7 +35,8 @@ public enum ModuleManager
                 new FastFall(),
                 new Velocity(),
                 new HitMarkers(),
-                new FeetHighlight());
+                new FeetHighlight(),
+                new PacketMine());
     }
 
     private void addModules(Module... modules)

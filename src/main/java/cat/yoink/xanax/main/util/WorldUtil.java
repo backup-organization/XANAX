@@ -94,4 +94,10 @@ public final class WorldUtil implements MinecraftInstance
         }
         return true;
     }
+
+    @SuppressWarnings("deprecation")
+    public static boolean isBreakable(BlockPos pos)
+    {
+        return mc.world.getBlockState(pos).getBlock().getBlockHardness(mc.world.getBlockState(pos), mc.world, pos) != -1;
+    }
 }
