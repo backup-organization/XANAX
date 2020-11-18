@@ -39,8 +39,16 @@ public final class Surround extends Module
     @Override
     protected void onEnable()
     {
+        if (announce.getValue()) ChatUtil.sendPrivateMessage("Enabled Surround");
+
         finished = false;
         startY = mc.player.posY;
+
+        if (InventoryUtil.getHotbarSlot(Blocks.OBSIDIAN) == -1)
+        {
+            disable();
+            return;
+        }
 
         if (center.getValue())
         {
@@ -80,21 +88,23 @@ public final class Surround extends Module
                 centerPlayer(x, y, z);
             }
         }
-
-        if (announce.getValue()) ChatUtil.sendPrivateMessage("Enabled Surround");
     }
 
     @Listener
     public void onTick(TickEvent event)
     {
+        if (!enabled) return;
+
         if (disable.is("YChange") && mc.player.posY != startY)
         {
             disable();
+            return;
         }
 
         if (finished && (disable.getValue().equalsIgnoreCase("WhenDone") || (disable.getValue().equalsIgnoreCase("OnLeave") && !mc.player.onGround)))
         {
             disable();
+            return;
         }
 
         int blocksPlaced = 0;
