@@ -63,7 +63,8 @@ public enum ConfigManager implements MinecraftInstance
     private List<String> getFile(String name)
     {
         try { return FileUtil.loadFile(new File(folder.getAbsolutePath(), name)); }
-        catch (IOException e) { return new ArrayList<>(); }
+        catch (IOException e) { e.printStackTrace(); }
+        return new ArrayList<>();
     }
 
     public static void loadConfig()
