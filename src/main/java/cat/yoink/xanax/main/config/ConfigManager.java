@@ -1,5 +1,6 @@
 package cat.yoink.xanax.main.config;
 
+import cat.yoink.xanax.Manager;
 import cat.yoink.xanax.main.MinecraftInstance;
 import cat.yoink.xanax.main.module.Module;
 import cat.yoink.xanax.main.module.ModuleManager;
@@ -8,7 +9,6 @@ import cat.yoink.xanax.main.setting.EnumSetting;
 import cat.yoink.xanax.main.setting.NumberSetting;
 import cat.yoink.xanax.main.setting.Setting;
 import cat.yoink.xanax.main.util.FileUtil;
-import net.minecraftforge.common.MinecraftForge;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,7 +28,7 @@ public enum ConfigManager implements MinecraftInstance
 
         getFile("ToggledModules.txt").forEach(s -> {
             ModuleManager.INSTANCE.getModule(s).setEnabled(true);
-            MinecraftForge.EVENT_BUS.register(ModuleManager.INSTANCE.getModule(s));
+            Manager.EVENT_BUS.addEventListener(ModuleManager.INSTANCE.getModule(s));
         });
 
         getFile("Binds.txt").forEach(s -> {
