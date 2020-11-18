@@ -90,7 +90,6 @@ public final class Surround extends Module
         if (finished && (disable.getValue().equalsIgnoreCase("WhenDone") || (disable.getValue().equalsIgnoreCase("OnLeave") && !mc.player.onGround)))
         {
             disable();
-            if (announce.getValue()) ChatUtil.sendPrivateMessage("Disabled Surround");
         }
 
         int blocksPlaced = 0;
@@ -124,6 +123,12 @@ public final class Surround extends Module
             if (WorldUtil.isIntercepted(pos)) blocksPlaced++;
         }
         if (blocksPlaced == 0) finished = true;
+    }
+
+    @Override
+    protected void onDisable()
+    {
+        if (announce.getValue()) ChatUtil.sendPrivateMessage("Disabled Surround");
     }
 
     private int getSlot()
