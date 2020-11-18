@@ -56,7 +56,7 @@ jar {
                 "MixinConfigs": "mixins.xanax.json",
                 "TweakClass": "org.spongepowered.asm.launch.MixinTweaker",
                 "FMLCorePluginContainsFMLMod": "true",
-                "FMLCorePlugin": "cat.yoink.xanax.EntryPoint",
+                "FMLCorePlugin": "cat.yoink.xanax.core.EntryPoint",
                 "ForceLoadAsMod": "true",
                 "FMLAT": "xanax_at.cfg"
         )

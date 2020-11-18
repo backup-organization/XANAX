@@ -1,4 +1,4 @@
-package cat.yoink.xanax;
+package cat.yoink.xanax.core;
 
 import net.minecraft.launchwrapper.Launch;
 import net.minecraft.launchwrapper.LaunchClassLoader;

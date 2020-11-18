@@ -1,4 +1,4 @@
-package cat.yoink.xanax;
+package cat.yoink.xanax.core;
 
 import net.minecraftforge.fml.common.asm.transformers.AccessTransformer;
 

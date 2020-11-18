@@ -1,6 +1,6 @@
 package cat.yoink.xanax.main.config;
 
-import cat.yoink.xanax.Manager;
+import cat.yoink.xanax.core.Main;
 import cat.yoink.xanax.main.MinecraftInstance;
 import cat.yoink.xanax.main.module.Module;
 import cat.yoink.xanax.main.module.ModuleManager;
@@ -28,7 +28,7 @@ public enum ConfigManager implements MinecraftInstance
 
         getFile("ToggledModules.txt").forEach(s -> {
             ModuleManager.INSTANCE.getModule(s).setEnabled(true);
-            Manager.EVENT_BUS.addEventListener(ModuleManager.INSTANCE.getModule(s));
+            Main.EVENT_BUS.addEventListener(ModuleManager.INSTANCE.getModule(s));
         });
 
         getFile("Binds.txt").forEach(s -> {

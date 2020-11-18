@@ -1,6 +1,6 @@
 package cat.yoink.xanax.mixin;
 
-import cat.yoink.xanax.Manager;
+import cat.yoink.xanax.core.Main;
 import cat.yoink.xanax.main.event.events.PacketEvent;
 import io.netty.channel.ChannelHandlerContext;
 import net.minecraft.network.NetworkManager;
@@ -17,7 +17,7 @@ public abstract class NetworkManagerPatch
     private void onSendPacket(Packet<?> packet, CallbackInfo callbackInfo)
     {
         PacketEvent event = new PacketEvent(packet, PacketEvent.Type.OUTGOING);
-        Manager.EVENT_BUS.dispatchEvent(event);
+        Main.EVENT_BUS.dispatchEvent(event);
 
         if (event.isCancelled()) callbackInfo.cancel();
     }
@@ -26,7 +26,7 @@ public abstract class NetworkManagerPatch
     private void onChannelRead(ChannelHandlerContext context, Packet<?> packet, CallbackInfo callbackInfo)
     {
         PacketEvent event = new PacketEvent(packet, PacketEvent.Type.INCOMING);
-        Manager.EVENT_BUS.dispatchEvent(event);
+        Main.EVENT_BUS.dispatchEvent(event);
 
         if (event.isCancelled()) callbackInfo.cancel();
     }

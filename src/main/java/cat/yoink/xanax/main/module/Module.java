@@ -1,6 +1,6 @@
 package cat.yoink.xanax.main.module;
 
-import cat.yoink.xanax.Manager;
+import cat.yoink.xanax.core.Main;
 import cat.yoink.xanax.main.MinecraftInstance;
 import cat.yoink.xanax.main.setting.Setting;
 
@@ -28,14 +28,14 @@ public abstract class Module implements MinecraftInstance
     {
         enabled = true;
         onEnable();
-        Manager.EVENT_BUS.addEventListener(this);
+        Main.EVENT_BUS.addEventListener(this);
     }
 
     public final void disable()
     {
         enabled = false;
         onDisable();
-        Manager.EVENT_BUS.removeEventListener(this);
+        Main.EVENT_BUS.removeEventListener(this);
     }
 
     public final void toggle()

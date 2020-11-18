@@ -1,4 +1,4 @@
-package cat.yoink.xanax;
+package cat.yoink.xanax.core;
 
 import cat.yoink.xanax.main.event.EventHandler;
 import cat.yoink.xanax.main.MinecraftInstance;
@@ -7,7 +7,7 @@ import net.minecraftforge.common.MinecraftForge;
 import team.stiff.pomelo.EventManager;
 import team.stiff.pomelo.impl.annotated.AnnotatedEventManager;
 
-public enum Manager implements MinecraftInstance
+public enum Main implements MinecraftInstance
 {
     INSTANCE;
 

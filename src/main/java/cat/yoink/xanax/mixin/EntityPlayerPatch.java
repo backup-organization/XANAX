@@ -1,6 +1,6 @@
 package cat.yoink.xanax.mixin;
 
-import cat.yoink.xanax.Manager;
+import cat.yoink.xanax.core.Main;
 import cat.yoink.xanax.main.event.events.CollisionEvent;
 import cat.yoink.xanax.main.event.events.WaterPushEvent;
 import net.minecraft.entity.Entity;
@@ -18,7 +18,7 @@ public abstract class EntityPlayerPatch
     public void applyEntityCollision(Entity entity, CallbackInfo ci)
     {
         CollisionEvent event = new CollisionEvent(entity);
-        Manager.EVENT_BUS.dispatchEvent(event);
+        Main.EVENT_BUS.dispatchEvent(event);
 
         if (event.isCancelled()) ci.cancel();
     }
@@ -27,7 +27,7 @@ public abstract class EntityPlayerPatch
     public void isPushedByWater(CallbackInfoReturnable<Boolean> cir)
     {
         WaterPushEvent event = new WaterPushEvent();
-        Manager.EVENT_BUS.dispatchEvent(event);
+        Main.EVENT_BUS.dispatchEvent(event);
 
         if (event.isCancelled()) cir.setReturnValue(false);
     }
