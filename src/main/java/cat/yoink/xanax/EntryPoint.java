@@ -1,12 +1,10 @@
 package cat.yoink.xanax;
 
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
 
 import java.util.Map;
 
 @IFMLLoadingPlugin.MCVersion("1.12.2")
-@Mod(modid = "xanax")
 public final class EntryPoint implements IFMLLoadingPlugin
 {
     @Override
