@@ -11,6 +11,7 @@ import cat.yoink.xanax.main.module.modules.movement.Velocity;
 import cat.yoink.xanax.main.module.modules.render.Animations;
 import cat.yoink.xanax.main.module.modules.render.FeetHighlight;
 import cat.yoink.xanax.main.module.modules.render.HitMarkers;
+import cat.yoink.xanax.main.module.modules.render.HoleESP;
 import cat.yoink.xanax.main.module.modules.world.PacketMine;
 import cat.yoink.xanax.main.setting.BooleanSetting;
 import cat.yoink.xanax.main.setting.EnumSetting;
@@ -38,7 +39,8 @@ public enum ModuleManager
                 new HitMarkers(),
                 new FeetHighlight(),
                 new PacketMine(),
-                new ChatSuffix());
+                new ChatSuffix(),
+                new HoleESP());
     }
 
     private void addModules(Module... modules)
