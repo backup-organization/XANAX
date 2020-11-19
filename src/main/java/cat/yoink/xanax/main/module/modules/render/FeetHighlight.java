@@ -26,7 +26,7 @@ public final class FeetHighlight extends Module
 
     public FeetHighlight()
     {
-        super("FeetHighlight", Category.RENDER);
+        super("FeetESP", Category.RENDER);
     }
 
     @Listener
