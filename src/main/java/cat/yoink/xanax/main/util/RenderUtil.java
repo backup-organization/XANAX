@@ -53,4 +53,9 @@ public final class RenderUtil implements MinecraftInstance
         GlStateManager.disableBlend();
         GlStateManager.popMatrix();
     }
+
+    public static AxisAlignedBB convertBox(AxisAlignedBB box)
+    {
+        return new AxisAlignedBB(box.minX - mc.getRenderManager().viewerPosX, box.minY - mc.getRenderManager().viewerPosY, box.minZ - mc.getRenderManager().viewerPosZ, box.maxX - mc.getRenderManager().viewerPosX, box.maxY - mc.getRenderManager().viewerPosY, box.maxZ - mc.getRenderManager().viewerPosZ);
+    }
 }

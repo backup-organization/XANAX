@@ -1,24 +1,12 @@
 package cat.yoink.xanax.main.module;
 
-import cat.yoink.xanax.main.module.modules.client.ClickGUI;
-import cat.yoink.xanax.main.module.modules.client.DiscordRPC;
-import cat.yoink.xanax.main.module.modules.misc.ChatSuffix;
-import cat.yoink.xanax.main.module.modules.misc.Replenish;
-import cat.yoink.xanax.main.module.modules.movement.Burrow;
-import cat.yoink.xanax.main.module.modules.combat.Criticals;
-import cat.yoink.xanax.main.module.modules.combat.Surround;
-import cat.yoink.xanax.main.module.modules.misc.Swing;
-import cat.yoink.xanax.main.module.modules.movement.FastFall;
-import cat.yoink.xanax.main.module.modules.movement.Velocity;
-import cat.yoink.xanax.main.module.modules.render.Animations;
-import cat.yoink.xanax.main.module.modules.render.FeetHighlight;
-import cat.yoink.xanax.main.module.modules.render.HitMarkers;
-import cat.yoink.xanax.main.module.modules.render.HoleESP;
-import cat.yoink.xanax.main.module.modules.world.PacketMine;
-import cat.yoink.xanax.main.setting.BooleanSetting;
-import cat.yoink.xanax.main.setting.EnumSetting;
-import cat.yoink.xanax.main.setting.NumberSetting;
-import cat.yoink.xanax.main.setting.Setting;
+import cat.yoink.xanax.main.module.modules.client.*;
+import cat.yoink.xanax.main.module.modules.combat.*;
+import cat.yoink.xanax.main.module.modules.misc.*;
+import cat.yoink.xanax.main.module.modules.movement.*;
+import cat.yoink.xanax.main.module.modules.render.*;
+import cat.yoink.xanax.main.module.modules.world.*;
+import cat.yoink.xanax.main.setting.*;
 
 import java.util.*;
 
@@ -44,7 +32,8 @@ public enum ModuleManager
                 new ChatSuffix(),
                 new HoleESP(),
                 new Replenish(),
-                new DiscordRPC());
+                new DiscordRPC(),
+                new BlockHighlight());
     }
 
     private void addModules(Module... modules)
