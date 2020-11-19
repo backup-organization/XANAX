@@ -27,23 +27,43 @@ public enum ConfigManager implements MinecraftInstance
         if (!folder.exists() && !folder.mkdirs()) return;
 
         getFile("ToggledModules.txt").forEach(s -> {
-            ModuleManager.INSTANCE.getModule(s).setEnabled(true);
-            Main.EVENT_BUS.addEventListener(ModuleManager.INSTANCE.getModule(s));
+            try
+            {
+                ModuleManager.INSTANCE.getModule(s).setEnabled(true);
+                Main.EVENT_BUS.addEventListener(ModuleManager.INSTANCE.getModule(s));
+            }
+            catch (Exception ignored)
+            {
+            }
         });
 
         getFile("Binds.txt").forEach(s -> {
-            Module module = ModuleManager.INSTANCE.getModule(s.split(":")[0]);
-            if (module != null) module.setBind(Integer.parseInt(s.split(":")[1]));
+            try
+            {
+                Module module = ModuleManager.INSTANCE.getModule(s.split(":")[0]);
+                if (module != null) module.setBind(Integer.parseInt(s.split(":")[1]));
+            }
+            catch (Exception ignored)
+            {
+            }
         });
 
         getFile("Settings.txt").forEach(s -> {
-            Module module = ModuleManager.INSTANCE.getModule(s.split(":")[0]);
-            if (module == null) return;
-            Setting setting = module.getSetting(s.split(":")[1]);
-            if (setting == null) return;
-            if (setting instanceof BooleanSetting) ((BooleanSetting) setting).setValue(Boolean.parseBoolean(s.split(":")[2]));
-            if (setting instanceof NumberSetting) ((NumberSetting) setting).setValue(Double.parseDouble(s.split(":")[2]));
-            if (setting instanceof EnumSetting) ((EnumSetting) setting).setIndex(Integer.parseInt(s.split(":")[2]));
+            try
+            {
+                Module module = ModuleManager.INSTANCE.getModule(s.split(":")[0]);
+                if (module == null) return;
+                Setting setting = module.getSetting(s.split(":")[1]);
+                if (setting == null) return;
+                if (setting instanceof BooleanSetting)
+                    ((BooleanSetting) setting).setValue(Boolean.parseBoolean(s.split(":")[2]));
+                if (setting instanceof NumberSetting)
+                    ((NumberSetting) setting).setValue(Double.parseDouble(s.split(":")[2]));
+                if (setting instanceof EnumSetting) ((EnumSetting) setting).setIndex(Integer.parseInt(s.split(":")[2]));
+            }
+            catch (Exception ignored)
+            {
+            }
         });
     }
 

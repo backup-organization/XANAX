@@ -33,7 +33,8 @@ public enum ModuleManager
                 new HoleESP(),
                 new Replenish(),
                 new DiscordRPC(),
-                new BlockHighlight());
+                new BlockHighlight(),
+                new GhostEntity());
     }
 
     private void addModules(Module... modules)
