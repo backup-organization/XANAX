@@ -1,6 +1,7 @@
 package cat.yoink.xanax.main.module;
 
 import cat.yoink.xanax.main.module.modules.client.ClickGUI;
+import cat.yoink.xanax.main.module.modules.client.DiscordRPC;
 import cat.yoink.xanax.main.module.modules.misc.ChatSuffix;
 import cat.yoink.xanax.main.module.modules.misc.Replenish;
 import cat.yoink.xanax.main.module.modules.movement.Burrow;
@@ -42,7 +43,8 @@ public enum ModuleManager
                 new PacketMine(),
                 new ChatSuffix(),
                 new HoleESP(),
-                new Replenish());
+                new Replenish(),
+                new DiscordRPC());
     }
 
     private void addModules(Module... modules)
