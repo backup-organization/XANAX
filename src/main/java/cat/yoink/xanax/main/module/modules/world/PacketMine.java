@@ -12,6 +12,7 @@ import cat.yoink.xanax.main.util.WorldUtil;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.network.play.client.CPacketPlayerDigging;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import team.stiff.pomelo.impl.annotated.handler.annotation.Listener;
 
@@ -28,6 +29,7 @@ public final class PacketMine extends Module
     private final NumberSetting alpha = addSetting(new NumberSetting("Alpha", 100, 0, 255, 1));
     private final BooleanSetting change = addSetting(new BooleanSetting("Change", false));
     private final BooleanSetting noBreak = addSetting(new BooleanSetting("NoBreak", false));
+    private final BooleanSetting swing = addSetting(new BooleanSetting("Swing", false));
     private BlockPos breakBlock;
     private int miningTicks;
 
@@ -41,6 +43,7 @@ public final class PacketMine extends Module
     {
         if (WorldUtil.isBreakable(event.getPos()))
         {
+            if (swing.getValue()) mc.player.swingArm(EnumHand.MAIN_HAND);
             mc.player.connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.START_DESTROY_BLOCK, event.getPos(), event.getFace()));
             mc.player.connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.STOP_DESTROY_BLOCK, event.getPos(), event.getFace()));
 
@@ -53,6 +56,7 @@ public final class PacketMine extends Module
     public void tickEvent(TickEvent event)
     {
         if (breakBlock != null && mc.player.getHeldItemMainhand().getItem() == Items.DIAMOND_PICKAXE) miningTicks++;
+        if (breakBlock != null && miningTicks > 200) miningTicks = 0;
     }
 
     @Listener
