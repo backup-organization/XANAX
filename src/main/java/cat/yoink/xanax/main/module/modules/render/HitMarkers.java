@@ -18,7 +18,7 @@ public final class HitMarkers extends Module
     private final NumberSetting width = addSetting(new NumberSetting("Width", 20, 4, 40, 2));
     private final NumberSetting time = addSetting(new NumberSetting("Time", 25, 1, 50, 1));
     private final ResourceLocation image = new ResourceLocation("hitmarker.png");
-    private int renderTicks;
+    private int renderTicks = 100;
 
     public HitMarkers()
     {
