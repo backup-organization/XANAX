@@ -39,6 +39,7 @@ repositories {
         url = "http://repo.spongepowered.org/maven/"
     }
     mavenCentral()
+    jcenter()
 }
 
 dependencies {
@@ -48,6 +49,7 @@ dependencies {
         exclude module: "gson"
         exclude module: "commons-io"
     }
+    compile "club.minnced:java-discord-rpc:2.0.2"
 }
 
 jar {
@@ -70,7 +72,7 @@ mixin {
 
 reobf {
     shadowJar {
-        mappingType = 'SEARGE'
+        mappingType = "SEARGE"
         classpath = sourceSets.main.compileClasspath
     }
 }
@@ -78,10 +80,11 @@ reobf {
 shadowJar {
     dependencies {
         include(dependency("org.spongepowered:mixin"))
+        include(dependency("club.minnced:java-discord-rpc"))
     }
     exclude "dummyThing"
     exclude "LICENSE.txt"
-    classifier = 'release'
+    classifier = "release"
 }
 
 task clientJar(type: Jar, dependsOn: jar) {
@@ -126,5 +129,5 @@ sourceSets {
 
 task copyDeps(type: Copy) {
     from configurations.runtime
-    into 'build/lib'
+    into "build/lib"
 }

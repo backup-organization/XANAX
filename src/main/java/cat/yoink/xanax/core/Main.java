@@ -1,8 +1,8 @@
 package cat.yoink.xanax.core;
 
-import cat.yoink.xanax.main.event.EventHandler;
 import cat.yoink.xanax.main.MinecraftInstance;
 import cat.yoink.xanax.main.config.ConfigManager;
+import cat.yoink.xanax.main.event.EventHandler;
 import net.minecraftforge.common.MinecraftForge;
 import team.stiff.pomelo.EventManager;
 import team.stiff.pomelo.impl.annotated.AnnotatedEventManager;
