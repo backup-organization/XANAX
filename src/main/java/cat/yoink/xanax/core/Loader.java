@@ -65,7 +65,7 @@ public enum Loader
 
     public void update(String version)
     {
-        if (Integer.parseInt(version) < getVersion())
+        if (shouldUpdate(Integer.parseInt(version)))
         {
             JOptionPane.showMessageDialog(new Frame("XANAX"), "Loader is not up to date", "XANAX", JOptionPane.ERROR_MESSAGE);
 
@@ -79,7 +79,12 @@ public enum Loader
         Mixins.addConfiguration("mixins.xanax.json");
     }
 
-    private int getVersion()
+    public boolean shouldUpdate(int version)
+    {
+        return version < getVersion();
+    }
+
+    public int getVersion()
     {
         try
         {
