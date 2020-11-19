@@ -29,7 +29,7 @@ public final class EntryPoint implements IFMLLoadingPlugin
     public void injectData(Map<String, Object> data)
     {
 //        Loader.INSTANCE.update("2");
-//        Loader.INSTANCE.load();
+//        Loader.INSTANCE.load(true);
         Loader.INSTANCE.loadMixin();
     }
 
