@@ -13,16 +13,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
 import team.stiff.pomelo.impl.annotated.handler.annotation.Listener;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public final class HoleESP extends Module
 {
-    private final BooleanSetting box = addSetting(new BooleanSetting("Box", true));
-    private final BooleanSetting outline = addSetting(new BooleanSetting("Outline", true));
-    private final NumberSetting range = addSetting(new NumberSetting("Range", 8, 2, 20, 1));
-    private final BooleanSetting wide = addSetting(new BooleanSetting("Wide", false));
     private final NumberSetting bedrockRed = addSetting(new NumberSetting("BedrockRed", 10, 0, 255, 1));
     private final NumberSetting obsidianRed = addSetting(new NumberSetting("ObsidianRed", 10, 0, 255, 1));
     private final NumberSetting bedrockGreen = addSetting(new NumberSetting("BedrockGreen", 10, 0, 255, 1));
@@ -31,6 +26,11 @@ public final class HoleESP extends Module
     private final NumberSetting obsidianBlue = addSetting(new NumberSetting("ObsidianBlue", 10, 0, 255, 1));
     private final NumberSetting bedrockAlpha = addSetting(new NumberSetting("BedrockAlpha", 150, 0, 255, 1));
     private final NumberSetting obsidianAlpha = addSetting(new NumberSetting("ObsidianAlpha", 150, 0, 255, 1));
+    private final NumberSetting height = addSetting(new NumberSetting("Height", 0.1, -1, 1, 0.1));
+    private final NumberSetting range = addSetting(new NumberSetting("Range", 8, 2, 20, 1));
+    private final BooleanSetting box = addSetting(new BooleanSetting("Box", true));
+    private final BooleanSetting outline = addSetting(new BooleanSetting("Outline", true));
+    private final BooleanSetting wide = addSetting(new BooleanSetting("Wide", false));
 
     private final List<BlockPos> bedrockHoles = new ArrayList<>();
     private final List<BlockPos> obsidianHoles = new ArrayList<>();
@@ -91,12 +91,12 @@ public final class HoleESP extends Module
         final int obsidianB = (int) obsidianBlue.getValue();
         final int obsidianA = (int) obsidianAlpha.getValue();
 
-        bedrockHoles.forEach(hole -> RenderUtil.drawBox(hole, new Color(bedrockR, bedrockG, bedrockB, bedrockA), box.getValue(), outline.getValue()));
-        obsidianHoles.forEach(hole -> RenderUtil.drawBox(hole, new Color(obsidianR, obsidianG, obsidianB, obsidianA), box.getValue(), outline.getValue()));
+        bedrockHoles.stream().map(hole -> new AxisAlignedBB(hole.getX() - mc.getRenderManager().viewerPosX, hole.getY() - mc.getRenderManager().viewerPosY, hole.getZ() - mc.getRenderManager().viewerPosZ, hole.getX() + 1 - mc.getRenderManager().viewerPosX, hole.getY() + height.getValue() - mc.getRenderManager().viewerPosY, hole.getZ() + 1 - mc.getRenderManager().viewerPosZ)).forEach(axisAlignedBB -> RenderUtil.drawBox(axisAlignedBB, bedrockR, bedrockG, bedrockB, bedrockA, box.getValue(), outline.getValue()));
+        obsidianHoles.stream().map(hole -> new AxisAlignedBB(hole.getX() - mc.getRenderManager().viewerPosX, hole.getY() - mc.getRenderManager().viewerPosY, hole.getZ() - mc.getRenderManager().viewerPosZ, hole.getX() + 1 - mc.getRenderManager().viewerPosX, hole.getY() + height.getValue() - mc.getRenderManager().viewerPosY, hole.getZ() + 1 - mc.getRenderManager().viewerPosZ)).forEach(axisAlignedBB -> RenderUtil.drawBox(axisAlignedBB, obsidianR, obsidianG, obsidianB, bedrockA, box.getValue(), outline.getValue()));
         if (!wide.getValue()) return;
-        doubleBedrockHolesX.stream().map(hole -> new AxisAlignedBB(hole.getX() - mc.getRenderManager().viewerPosX, hole.getY() - mc.getRenderManager().viewerPosY, hole.getZ() - mc.getRenderManager().viewerPosZ, hole.getX() + 2 - mc.getRenderManager().viewerPosX, hole.getY() + 1 - mc.getRenderManager().viewerPosY, hole.getZ() + 1 - mc.getRenderManager().viewerPosZ)).forEach(axisAlignedBB -> RenderUtil.drawBox(axisAlignedBB, bedrockR, bedrockG, bedrockB, bedrockA, box.getValue(), outline.getValue()));
-        doubleBedrockHolesZ.stream().map(hole -> new AxisAlignedBB(hole.getX() - mc.getRenderManager().viewerPosX, hole.getY() - mc.getRenderManager().viewerPosY, hole.getZ() - mc.getRenderManager().viewerPosZ, hole.getX() + 1 - mc.getRenderManager().viewerPosX, hole.getY() + 1 - mc.getRenderManager().viewerPosY, hole.getZ() + 2 - mc.getRenderManager().viewerPosZ)).forEach(axisAlignedBB -> RenderUtil.drawBox(axisAlignedBB, bedrockR, bedrockG, bedrockB, bedrockA, box.getValue(), outline.getValue()));
-        doubleObsidianHolesX.stream().map(hole -> new AxisAlignedBB(hole.getX() - mc.getRenderManager().viewerPosX, hole.getY() - mc.getRenderManager().viewerPosY, hole.getZ() - mc.getRenderManager().viewerPosZ, hole.getX() + 2 - mc.getRenderManager().viewerPosX, hole.getY() + 1 - mc.getRenderManager().viewerPosY, hole.getZ() + 1 - mc.getRenderManager().viewerPosZ)).forEach(axisAlignedBB -> RenderUtil.drawBox(axisAlignedBB, obsidianR, obsidianG, obsidianB, obsidianA, box.getValue(), outline.getValue()));
-        doubleObsidianHolesZ.stream().map(hole -> new AxisAlignedBB(hole.getX() - mc.getRenderManager().viewerPosX, hole.getY() - mc.getRenderManager().viewerPosY, hole.getZ() - mc.getRenderManager().viewerPosZ, hole.getX() + 1 - mc.getRenderManager().viewerPosX, hole.getY() + 1 - mc.getRenderManager().viewerPosY, hole.getZ() + 2 - mc.getRenderManager().viewerPosZ)).forEach(axisAlignedBB -> RenderUtil.drawBox(axisAlignedBB, obsidianR, obsidianG, obsidianB, obsidianA, box.getValue(), outline.getValue()));
+        doubleBedrockHolesX.stream().map(hole -> new AxisAlignedBB(hole.getX() - mc.getRenderManager().viewerPosX, hole.getY() - mc.getRenderManager().viewerPosY, hole.getZ() - mc.getRenderManager().viewerPosZ, hole.getX() + 2 - mc.getRenderManager().viewerPosX, hole.getY() + height.getValue() - mc.getRenderManager().viewerPosY, hole.getZ() + 1 - mc.getRenderManager().viewerPosZ)).forEach(axisAlignedBB -> RenderUtil.drawBox(axisAlignedBB, bedrockR, bedrockG, bedrockB, bedrockA, box.getValue(), outline.getValue()));
+        doubleBedrockHolesZ.stream().map(hole -> new AxisAlignedBB(hole.getX() - mc.getRenderManager().viewerPosX, hole.getY() - mc.getRenderManager().viewerPosY, hole.getZ() - mc.getRenderManager().viewerPosZ, hole.getX() + 1 - mc.getRenderManager().viewerPosX, hole.getY() + height.getValue() - mc.getRenderManager().viewerPosY, hole.getZ() + 2 - mc.getRenderManager().viewerPosZ)).forEach(axisAlignedBB -> RenderUtil.drawBox(axisAlignedBB, bedrockR, bedrockG, bedrockB, bedrockA, box.getValue(), outline.getValue()));
+        doubleObsidianHolesX.stream().map(hole -> new AxisAlignedBB(hole.getX() - mc.getRenderManager().viewerPosX, hole.getY() - mc.getRenderManager().viewerPosY, hole.getZ() - mc.getRenderManager().viewerPosZ, hole.getX() + 2 - mc.getRenderManager().viewerPosX, hole.getY() + height.getValue() - mc.getRenderManager().viewerPosY, hole.getZ() + 1 - mc.getRenderManager().viewerPosZ)).forEach(axisAlignedBB -> RenderUtil.drawBox(axisAlignedBB, obsidianR, obsidianG, obsidianB, obsidianA, box.getValue(), outline.getValue()));
+        doubleObsidianHolesZ.stream().map(hole -> new AxisAlignedBB(hole.getX() - mc.getRenderManager().viewerPosX, hole.getY() - mc.getRenderManager().viewerPosY, hole.getZ() - mc.getRenderManager().viewerPosZ, hole.getX() + 1 - mc.getRenderManager().viewerPosX, hole.getY() + height.getValue() - mc.getRenderManager().viewerPosY, hole.getZ() + 2 - mc.getRenderManager().viewerPosZ)).forEach(axisAlignedBB -> RenderUtil.drawBox(axisAlignedBB, obsidianR, obsidianG, obsidianB, obsidianA, box.getValue(), outline.getValue()));
     }
 }
