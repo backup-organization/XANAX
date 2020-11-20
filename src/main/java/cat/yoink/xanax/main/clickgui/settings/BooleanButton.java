@@ -27,17 +27,17 @@ public final class BooleanButton extends SettingButton
         final float[] hue = new float[]{(float) (System.currentTimeMillis() % 11520L) / 11520.0f};
         final Color c = new Color(Color.HSBtoRGB(hue[0], 1.0f, 1.0f));
 
-        GuiUtil.drawSmoothRect(x + 5, y + 5, 10, 10, 1, new Color(20, 20, 20).getRGB(), outline, c.getRGB());
+        GuiUtil.drawSmoothRect(this.x + 5, this.y + 5, 10, 10, 1, new Color(20, 20, 20).getRGB(), outline, c.getRGB());
 
-        if (setting.getValue()) GuiUtil.drawSmoothRect(x + 7, y + 7, 6, 6, 1, c.getRGB());
+        if (this.setting.getValue()) GuiUtil.drawSmoothRect(this.x + 7, this.y + 7, 6, 6, 1, c.getRGB());
 
-        CFontRenderer.TEXT.drawString(setting.getName(), x + 20, y + 5.5f, -1);
+        CFontRenderer.TEXT.drawString(this.setting.getName(), this.x + 20, this.y + 5.5f, -1);
     }
 
     @Override
     public void mouseClicked(final int mouseX, final int mouseY, final int mouseButton, final boolean self)
     {
-        if (GuiUtil.isHover(x, y, w, h - 1, mouseX, mouseY)) setting.toggle();
+        if (GuiUtil.isHover(this.x, this.y, this.w, this.h - 1, mouseX, mouseY)) this.setting.toggle();
     }
 
     @Override

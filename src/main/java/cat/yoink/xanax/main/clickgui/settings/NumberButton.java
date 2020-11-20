@@ -31,23 +31,23 @@ public final class NumberButton extends SettingButton
         final float[] hue = new float[]{(float) (System.currentTimeMillis() % 11520L) / 11520.0f};
         final Color c = new Color(Color.HSBtoRGB(hue[0], 1.0f, 1.0f));
 
-        GuiUtil.drawRect(x + 5, y + 5, 100, 10, new Color(20, 20, 20).getRGB(), outline, c.getRGB());
-        GuiUtil.drawRect(x + sliderWidth - 2 + 8, y + 6, 4, 8, c.getRGB());
+        GuiUtil.drawRect(this.x + 5, this.y + 5, 100, 10, new Color(20, 20, 20).getRGB(), outline, c.getRGB());
+        GuiUtil.drawRect(this.x + this.sliderWidth - 2 + 8, this.y + 6, 4, 8, c.getRGB());
 
-        CFontRenderer.SMALLTEXT.drawCenteredString(String.valueOf(setting.getValue()), x + 55, y + 6.5f, -1);
-        CFontRenderer.TEXT.drawString(setting.getName(), x + 109, y + 5.5f, -1);
+        CFontRenderer.SMALLTEXT.drawCenteredString(String.valueOf(this.setting.getValue()), this.x + 55, this.y + 6.5f, -1);
+        CFontRenderer.TEXT.drawString(this.setting.getName(), this.x + 109, this.y + 5.5f, -1);
     }
 
     @Override
     public void mouseClicked(final int mouseX, final int mouseY, final int mouseButton, final boolean self)
     {
-        if (GuiUtil.isHover(x, y, w, h - 1, mouseX, mouseY)) dragging = true;
+        if (GuiUtil.isHover(this.x, this.y, this.w, this.h - 1, mouseX, mouseY)) this.dragging = true;
     }
 
     @Override
     public void mouseReleased(final int mouseX, final int mouseY, final int state)
     {
-        dragging = false;
+        this.dragging = false;
     }
 
     @Override
@@ -59,23 +59,23 @@ public final class NumberButton extends SettingButton
     @Override
     public void onGuiClosed()
     {
-        dragging = false;
+        this.dragging = false;
     }
 
     private void updateSlider(final int mouseX)
     {
-        final double diff = Math.min(94, Math.max(0, mouseX - x - 8));
+        final double diff = Math.min(94, Math.max(0, mouseX - this.x - 8));
 
-        final double minimum = setting.getMinimum();
-        final double maximum = setting.getMaximum();
+        final double minimum = this.setting.getMinimum();
+        final double maximum = this.setting.getMaximum();
 
-        sliderWidth = (int) (94f * (setting.getValue() - minimum) / (maximum - minimum));
+        this.sliderWidth = (int) (94f * (this.setting.getValue() - minimum) / (maximum - minimum));
 
-        if (dragging)
+        if (this.dragging)
         {
-            if (diff == 0) setting.setValue(minimum);
-            else if (diff == 94) setting.setValue(maximum);
-            else setting.setValue(diff / 96f * (maximum - minimum) + minimum);
+            if (diff == 0) this.setting.setValue(minimum);
+            else if (diff == 94) this.setting.setValue(maximum);
+            else this.setting.setValue(diff / 96f * (maximum - minimum) + minimum);
         }
     }
 }

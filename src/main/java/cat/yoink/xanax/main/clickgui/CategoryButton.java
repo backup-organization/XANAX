@@ -35,7 +35,7 @@ public final class CategoryButton implements GuiBase, MinecraftInstance
         final List<Module> modules = ModuleManager.INSTANCE.getModules().stream().filter(m -> m.getCategory().equals(category)).collect(Collectors.toList());
         for (int i = 0; i < modules.size(); i++)
         {
-            buttons.add(new ModuleButton(modules.get(i), windowX + 30 + i * 65, y + 20, 60, 15, this, windowX, windowY));
+            this.buttons.add(new ModuleButton(modules.get(i), windowX + 30 + i * 65, y + 20, 60, 15, this, windowX, windowY));
         }
     }
 
@@ -45,35 +45,35 @@ public final class CategoryButton implements GuiBase, MinecraftInstance
         this.windowX = windowX;
         this.windowY = windowY;
 
-        if (selected)
+        if (this.selected)
         {
             final boolean outline = ModuleManager.INSTANCE.getSetting("ClickGUI", "Outline").toBoolean().getValue();
 
             final float[] hue = new float[]{(float) (System.currentTimeMillis() % 11520L) / 11520.0f};
             final Color c = new Color(Color.HSBtoRGB(hue[0], 1.0f, 1.0f));
 
-            if (outline) GuiUtil.drawSmoothRect(x - 1, y - 1, w + 2, h + 2, 2, c.getRGB());
-            GuiUtil.drawSmoothRect(x, y, w, h + 3, 2, new Color(43, 43, 43).getRGB());
+            if (outline) GuiUtil.drawSmoothRect(this.x - 1, this.y - 1, this.w + 2, this.h + 2, 2, c.getRGB());
+            GuiUtil.drawSmoothRect(this.x, this.y, this.w, this.h + 3, 2, new Color(43, 43, 43).getRGB());
         }
 
-        CFontRenderer.TEXT.drawString(category.getName(), x + (w / 2f) - (CFontRenderer.TEXT.getStringWidth(category.getName()) / 2f), y + 3, -1);
+        CFontRenderer.TEXT.drawString(this.category.getName(), this.x + (this.w / 2f) - (CFontRenderer.TEXT.getStringWidth(this.category.getName()) / 2f), this.y + 3, -1);
 
-        if (selected)
+        if (this.selected)
         {
             int modX = 0;
-            for (int i = 0; i < buttons.size(); i++)
+            for (int i = 0; i < this.buttons.size(); i++)
             {
-                if (i < tab || i > tab + 4)
+                if (i < this.tab || i > this.tab + 4)
                 {
-                    buttons.get(i).drawScreen(mouseX, mouseY, windowX, windowY, false);
+                    this.buttons.get(i).drawScreen(mouseX, mouseY, windowX, windowY, false);
                     continue;
                 }
 
-                final ModuleButton button = buttons.get(i);
+                final ModuleButton button = this.buttons.get(i);
 
                 button.setX(windowX + 30 + modX * 65);
-                button.setY(y + 20);
-                buttons.get(i).drawScreen(mouseX, mouseY, windowX, windowY, true);
+                button.setY(this.y + 20);
+                this.buttons.get(i).drawScreen(mouseX, mouseY, windowX, windowY, true);
 
                 modX++;
             }
@@ -83,29 +83,31 @@ public final class CategoryButton implements GuiBase, MinecraftInstance
     @Override
     public void mouseClicked(final int mouseX, final int mouseY, final int mouseButton, final boolean self)
     {
-        if (GuiUtil.isHover(x, y, w, h, mouseX, mouseY) && mouseButton == 0)
+        if (GuiUtil.isHover(this.x, this.y, this.w, this.h, mouseX, mouseY) && mouseButton == 0)
         {
             ClickGUI.INSTANCE.getButtons().forEach(b -> b.selected = false);
-            selected = true;
+            this.selected = true;
         }
 
-        if (mouseButton == 0 && selected)
+        if (mouseButton == 0 && this.selected)
         {
-            if (GuiUtil.isHover(windowX + 15, windowY + 57, 10, 10, mouseX, mouseY) && tab > 0) tab--;
-            if (GuiUtil.isHover(windowX + 355, windowY + 57, 10, 10, mouseX, mouseY) && tab < buttons.size() - 5) tab++;
+            if (GuiUtil.isHover(this.windowX + 15, this.windowY + 57, 10, 10, mouseX, mouseY) && this.tab > 0)
+                this.tab--;
+            if (GuiUtil.isHover(this.windowX + 355, this.windowY + 57, 10, 10, mouseX, mouseY) && this.tab < this.buttons.size() - 5)
+                this.tab++;
         }
 
-        if (selected)
+        if (this.selected)
         {
-            for (int i = 0; i < buttons.size(); i++)
+            for (int i = 0; i < this.buttons.size(); i++)
             {
-                if (i < tab || i > tab + 4)
+                if (i < this.tab || i > this.tab + 4)
                 {
-                    buttons.get(i).mouseClicked(mouseX, mouseY, mouseButton, false);
+                    this.buttons.get(i).mouseClicked(mouseX, mouseY, mouseButton, false);
                     continue;
                 }
 
-                buttons.get(i).mouseClicked(mouseX, mouseY, mouseButton, true);
+                this.buttons.get(i).mouseClicked(mouseX, mouseY, mouseButton, true);
             }
         }
     }
@@ -113,19 +115,19 @@ public final class CategoryButton implements GuiBase, MinecraftInstance
     @Override
     public void mouseReleased(final int mouseX, final int mouseY, final int state)
     {
-        if (selected) buttons.forEach(button -> button.mouseReleased(mouseX, mouseY, state));
+        if (this.selected) this.buttons.forEach(button -> button.mouseReleased(mouseX, mouseY, state));
     }
 
     @Override
     public void keyTyped(final char typedChar, final int keyCode)
     {
-        if (selected) buttons.forEach(button -> button.keyTyped(typedChar, keyCode));
+        if (this.selected) this.buttons.forEach(button -> button.keyTyped(typedChar, keyCode));
     }
 
     @Override
     public void onGuiClosed()
     {
-        if (selected) buttons.forEach(ModuleButton::onGuiClosed);
+        if (this.selected) this.buttons.forEach(ModuleButton::onGuiClosed);
     }
 
     public void setX(final int x)
@@ -140,16 +142,16 @@ public final class CategoryButton implements GuiBase, MinecraftInstance
 
     public List<ModuleButton> getButtons()
     {
-        return buttons;
+        return this.buttons;
     }
 
     public boolean isSelected()
     {
-        return selected;
+        return this.selected;
     }
 
     public int getTab()
     {
-        return tab;
+        return this.tab;
     }
 }

@@ -27,19 +27,19 @@ public final class EnumButton extends SettingButton
         final float[] hue = new float[]{(float) (System.currentTimeMillis() % 11520L) / 11520.0f};
         final Color c = new Color(Color.HSBtoRGB(hue[0], 1.0f, 1.0f));
 
-        GuiUtil.drawRect(x + 5, y + 5, 50, 10, new Color(20, 20, 20).getRGB(), outline, c.getRGB());
-        CFontRenderer.SMALLTEXT.drawString(setting.getValue(), x + 8, y + 6.5f, -1);
+        GuiUtil.drawRect(this.x + 5, this.y + 5, 50, 10, new Color(20, 20, 20).getRGB(), outline, c.getRGB());
+        CFontRenderer.SMALLTEXT.drawString(this.setting.getValue(), this.x + 8, this.y + 6.5f, -1);
 
-        CFontRenderer.TEXT.drawString(setting.getName(), x + 59, y + 5.5f, -1);
+        CFontRenderer.TEXT.drawString(this.setting.getName(), this.x + 59, this.y + 5.5f, -1);
     }
 
     @Override
     public void mouseClicked(final int mouseX, final int mouseY, final int mouseButton, final boolean self)
     {
-        if (GuiUtil.isHover(x, y, w, h - 1, mouseX, mouseY))
+        if (GuiUtil.isHover(this.x, this.y, this.w, this.h - 1, mouseX, mouseY))
         {
-            if (mouseButton == 0) setting.cycleForward();
-            else if (mouseButton == 1) setting.cycleBackward();
+            if (mouseButton == 0) this.setting.cycleForward();
+            else if (mouseButton == 1) this.setting.cycleBackward();
         }
     }
 
