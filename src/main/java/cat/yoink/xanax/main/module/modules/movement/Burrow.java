@@ -16,7 +16,7 @@ import team.stiff.pomelo.impl.annotated.handler.annotation.Listener;
 
 public final class Burrow extends Module
 {
-    private final EnumSetting mode = addSetting(new EnumSetting("LagBackMode", "Jump", "Jump", "TP", "Packet"));
+    private final EnumSetting mode = addSetting(new EnumSetting("LagBackMode", "Jump", "Jump", "HighJump", "TP", "Packet"));
     private final NumberSetting height = addSetting(new NumberSetting("Height", 1.2, 1, 1.3, 0.01));
     private final BooleanSetting announce = addSetting(new BooleanSetting("Announce", false));
     private BlockPos originalPos;
@@ -56,9 +56,9 @@ public final class Burrow extends Module
             mc.player.inventory.currentItem = oldSlot;
 
             if (mode.is("Jump")) mc.player.jump();
+            else if (mode.is("HighJump")) mc.player.motionY = 0.7;
             else if (mode.is("TP")) mc.player.posY = originalPos.getY();
-            else if (mode.is("Packet"))
-                mc.player.connection.sendPacket(new CPacketPlayer.Position(mc.player.posX, originalPos.getY(), mc.player.posZ, true));
+            else if (mode.is("Packet")) mc.player.connection.sendPacket(new CPacketPlayer.Position(mc.player.posX, originalPos.getY(), mc.player.posZ, true));
 
             disable();
         }
