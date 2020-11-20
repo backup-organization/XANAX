@@ -15,35 +15,35 @@ public enum Discord
 
     Discord()
     {
-        presence = new DiscordRichPresence();
-        rpc = DiscordRPC.INSTANCE;
-        connected = false;
-        id = "778887499362861067";
+        this.presence = new DiscordRichPresence();
+        this.rpc = DiscordRPC.INSTANCE;
+        this.connected = false;
+        this.id = "778887499362861067";
     }
 
     public void start()
     {
-        if (connected) return;
-        presence.startTimestamp = System.currentTimeMillis() / 1000L;
+        if (this.connected) return;
+        this.presence.startTimestamp = System.currentTimeMillis() / 1000L;
 
         final DiscordEventHandlers handlers = new DiscordEventHandlers();
 
-        rpc.Discord_Initialize(id, handlers, true, "");
-        rpc.Discord_UpdatePresence(presence);
+        this.rpc.Discord_Initialize(this.id, handlers, true, "");
+        this.rpc.Discord_UpdatePresence(this.presence);
 
-        presence.details = "strong hack";
-        presence.largeImageKey = "yum";
-        rpc.Discord_UpdatePresence(presence);
+        this.presence.details = "strong hack";
+        this.presence.largeImageKey = "yum";
+        this.rpc.Discord_UpdatePresence(this.presence);
 
-        connected = true;
+        this.connected = true;
         new Thread(this::startThread).start();
     }
 
     public void stop()
     {
-        if (!connected) return;
-        connected = false;
-        rpc.Discord_Shutdown();
+        if (!this.connected) return;
+        this.connected = false;
+        this.rpc.Discord_Shutdown();
     }
 
     @SuppressWarnings("ALL")

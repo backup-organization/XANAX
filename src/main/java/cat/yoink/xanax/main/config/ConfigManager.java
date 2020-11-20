@@ -20,21 +20,21 @@ public enum ConfigManager implements MinecraftInstance
 {
     INSTANCE;
 
-    private final File folder = new File(mc.gameDir + File.separator + "xanax");
+    private final File folder = new File(MinecraftInstance.mc.gameDir + File.separator + "xanax");
 
     public static void loadConfig()
     {
-        INSTANCE.loadConfiguration();
+        ConfigManager.INSTANCE.loadConfiguration();
     }
 
     public static void saveConfig()
     {
-        INSTANCE.saveConfiguration();
+        ConfigManager.INSTANCE.saveConfiguration();
     }
 
     private void loadConfiguration()
     {
-        if (!folder.exists() && !folder.mkdirs()) return;
+        if (!this.folder.exists() && !this.folder.mkdirs()) return;
 
         for (final String s2 : getFile("ToggledModules.txt"))
         {
@@ -91,7 +91,7 @@ public enum ConfigManager implements MinecraftInstance
     {
         try
         {
-            FileUtil.saveFile(new File(folder.getAbsolutePath(), name), lines);
+            FileUtil.saveFile(new File(this.folder.getAbsolutePath(), name), lines);
         }
         catch (final IOException e)
         {
@@ -103,7 +103,7 @@ public enum ConfigManager implements MinecraftInstance
     {
         try
         {
-            return FileUtil.loadFile(new File(folder.getAbsolutePath(), name));
+            return FileUtil.loadFile(new File(this.folder.getAbsolutePath(), name));
         }
         catch (final IOException e)
         {
