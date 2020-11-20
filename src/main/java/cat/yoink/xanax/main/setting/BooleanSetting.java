@@ -12,7 +12,7 @@ public final class BooleanSetting extends Setting
 
     public boolean getValue()
     {
-        return value;
+        return this.value;
     }
 
     public void setValue(final boolean value)
@@ -22,16 +22,16 @@ public final class BooleanSetting extends Setting
 
     public void enable()
     {
-        value = true;
+        this.value = true;
     }
 
     public void disable()
     {
-        value = false;
+        this.value = false;
     }
 
     public void toggle()
     {
-        value = !value;
+        this.value = !this.value;
     }
 }

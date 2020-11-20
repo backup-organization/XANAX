@@ -11,7 +11,7 @@ public abstract class Setting
 
     public String getName()
     {
-        return name;
+        return this.name;
     }
 
     public BooleanSetting toBoolean()

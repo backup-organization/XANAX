@@ -17,7 +17,7 @@ public final class EnumSetting extends Setting
 
     public String getValue()
     {
-        return values.get(index);
+        return this.values.get(this.index);
     }
 
     public boolean is(final String mode)
@@ -27,19 +27,19 @@ public final class EnumSetting extends Setting
 
     public void cycleForward()
     {
-        if (index < values.size() - 1) index++;
-        else index = 0;
+        if (this.index < this.values.size() - 1) this.index++;
+        else this.index = 0;
     }
 
     public void cycleBackward()
     {
-        if (index > 0) index--;
-        else index = values.size() - 1;
+        if (this.index > 0) this.index--;
+        else this.index = this.values.size() - 1;
     }
 
     public int getIndex()
     {
-        return index;
+        return this.index;
     }
 
     public void setIndex(final int index)
@@ -49,6 +49,6 @@ public final class EnumSetting extends Setting
 
     public List<String> getValues()
     {
-        return values;
+        return this.values;
     }
 }

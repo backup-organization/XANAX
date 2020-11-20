@@ -18,37 +18,37 @@ public final class NumberSetting extends Setting
 
     public double getValue()
     {
-        return value;
+        return this.value;
     }
 
     public void setValue(final double value)
     {
-        final double precision = 1 / increment;
-        this.value = Math.round(Math.max(minimum, Math.min(maximum, value)) * precision) / precision;
+        final double precision = 1 / this.increment;
+        this.value = Math.round(Math.max(this.minimum, Math.min(this.maximum, value)) * precision) / precision;
     }
 
     public void increment()
     {
-        setValue(value + increment);
+        setValue(this.value + this.increment);
     }
 
     public void decrement()
     {
-        setValue(value - increment);
+        setValue(this.value - this.increment);
     }
 
     public double getMinimum()
     {
-        return minimum;
+        return this.minimum;
     }
 
     public double getMaximum()
     {
-        return maximum;
+        return this.maximum;
     }
 
     public double getIncrement()
     {
-        return increment;
+        return this.increment;
     }
 }
