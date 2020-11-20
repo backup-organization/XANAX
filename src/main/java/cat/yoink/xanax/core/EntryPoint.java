@@ -28,8 +28,8 @@ public final class EntryPoint implements IFMLLoadingPlugin
     @Override
     public void injectData(final Map<String, Object> data)
     {
-        Loader.INSTANCE.update("8");
-        Loader.INSTANCE.load();
+//        Loader.INSTANCE.update("8");
+//        Loader.INSTANCE.load();
         Loader.INSTANCE.loadMixin();
     }
 
