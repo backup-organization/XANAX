@@ -12,6 +12,7 @@ import cat.yoink.xanax.main.module.modules.movement.Burrow;
 import cat.yoink.xanax.main.module.modules.movement.FastFall;
 import cat.yoink.xanax.main.module.modules.movement.Velocity;
 import cat.yoink.xanax.main.module.modules.render.*;
+import cat.yoink.xanax.main.module.modules.world.BuildHeight;
 import cat.yoink.xanax.main.module.modules.world.GhostEntity;
 import cat.yoink.xanax.main.module.modules.world.PacketMine;
 import cat.yoink.xanax.main.setting.BooleanSetting;
@@ -46,7 +47,8 @@ public enum ModuleManager
                 new DiscordRPC(),
                 new BlockHighlight(),
                 new GhostEntity(),
-                new MiddleClick());
+                new MiddleClick(),
+                new BuildHeight());
     }
 
     private void addModules(final Module... modules)
