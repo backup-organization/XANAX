@@ -86,8 +86,8 @@ public final class CFontRenderer extends CFont
         GlStateManager.color((color >> 16 & 0xFF) / 255.0F, (color >> 8 & 0xFF) / 255.0F, (color & 0xFF) / 255.0F, alpha);
         final int size = text.length();
         GlStateManager.enableTexture2D();
-        GlStateManager.bindTexture(tex.getGlTextureId());
-        GL11.glBindTexture(GL11.GL_TEXTURE_2D, tex.getGlTextureId());
+        GlStateManager.bindTexture(this.tex.getGlTextureId());
+        GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.tex.getGlTextureId());
         for (int i = 0; i < size; i++)
         {
             final char character = text.charAt(i);
@@ -107,7 +107,7 @@ public final class CFontRenderer extends CFont
                     italic = false;
                     underline = false;
                     strikethrough = false;
-                    GlStateManager.bindTexture(tex.getGlTextureId());
+                    GlStateManager.bindTexture(this.tex.getGlTextureId());
                     // GL11.glBindTexture(GL11.GL_TEXTURE_2D,
                     // tex.getGlTextureId());
                     currentData = this.charData;
@@ -121,14 +121,14 @@ public final class CFontRenderer extends CFont
                     bold = true;
                     if (italic)
                     {
-                        GlStateManager.bindTexture(texItalicBold.getGlTextureId());
+                        GlStateManager.bindTexture(this.texItalicBold.getGlTextureId());
                         // GL11.glBindTexture(GL11.GL_TEXTURE_2D,
                         // texItalicBold.getGlTextureId());
                         currentData = this.boldItalicChars;
                     }
                     else
                     {
-                        GlStateManager.bindTexture(texBold.getGlTextureId());
+                        GlStateManager.bindTexture(this.texBold.getGlTextureId());
                         // GL11.glBindTexture(GL11.GL_TEXTURE_2D,
                         // texBold.getGlTextureId());
                         currentData = this.boldChars;
@@ -141,14 +141,14 @@ public final class CFontRenderer extends CFont
                     italic = true;
                     if (bold)
                     {
-                        GlStateManager.bindTexture(texItalicBold.getGlTextureId());
+                        GlStateManager.bindTexture(this.texItalicBold.getGlTextureId());
                         // GL11.glBindTexture(GL11.GL_TEXTURE_2D,
                         // texItalicBold.getGlTextureId());
                         currentData = this.boldItalicChars;
                     }
                     else
                     {
-                        GlStateManager.bindTexture(texItalic.getGlTextureId());
+                        GlStateManager.bindTexture(this.texItalic.getGlTextureId());
                         // GL11.glBindTexture(GL11.GL_TEXTURE_2D,
                         // texItalic.getGlTextureId());
                         currentData = this.italicChars;
@@ -161,7 +161,7 @@ public final class CFontRenderer extends CFont
                     underline = false;
                     strikethrough = false;
                     GlStateManager.color((color >> 16 & 0xFF) / 255.0F, (color >> 8 & 0xFF) / 255.0F, (color & 0xFF) / 255.0F, alpha);
-                    GlStateManager.bindTexture(tex.getGlTextureId());
+                    GlStateManager.bindTexture(this.tex.getGlTextureId());
                     // GL11.glBindTexture(GL11.GL_TEXTURE_2D,
                     // tex.getGlTextureId());
                     currentData = this.charData;
@@ -235,9 +235,9 @@ public final class CFontRenderer extends CFont
 
     private void setupBoldItalicIDs()
     {
-        texBold = setupTexture(this.font.deriveFont(Font.BOLD), this.antiAlias, this.fractionalMetrics, this.boldChars);
-        texItalic = setupTexture(this.font.deriveFont(Font.ITALIC), this.antiAlias, this.fractionalMetrics, this.italicChars);
-        texItalicBold = setupTexture(this.font.deriveFont(Font.BOLD | Font.ITALIC), this.antiAlias, this.fractionalMetrics, this.boldItalicChars);
+        this.texBold = setupTexture(this.font.deriveFont(Font.BOLD), this.antiAlias, this.fractionalMetrics, this.boldChars);
+        this.texItalic = setupTexture(this.font.deriveFont(Font.ITALIC), this.antiAlias, this.fractionalMetrics, this.italicChars);
+        this.texItalicBold = setupTexture(this.font.deriveFont(Font.BOLD | Font.ITALIC), this.antiAlias, this.fractionalMetrics, this.boldItalicChars);
     }
 
     private void drawLine(final double x, final double y, final double x1, final double y1)

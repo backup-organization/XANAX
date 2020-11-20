@@ -23,7 +23,7 @@ public abstract class CFont
         this.font = font;
         this.antiAlias = antiAlias;
         this.fractionalMetrics = fractionalMetrics;
-        tex = setupTexture(font, antiAlias, fractionalMetrics, this.charData);
+        this.tex = setupTexture(font, antiAlias, fractionalMetrics, this.charData);
     }
 
     protected DynamicTexture setupTexture(final Font font, final boolean antiAlias, final boolean fractionalMetrics, final CharData[] chars)
@@ -100,10 +100,10 @@ public abstract class CFont
 
     protected void drawQuad(final float x, final float y, final float width, final float height, final float srcX, final float srcY, final float srcWidth, final float srcHeight)
     {
-        final float renderSRCX = srcX / imgSize;
-        final float renderSRCY = srcY / imgSize;
-        final float renderSRCWidth = srcWidth / imgSize;
-        final float renderSRCHeight = srcHeight / imgSize;
+        final float renderSRCX = srcX / this.imgSize;
+        final float renderSRCY = srcY / this.imgSize;
+        final float renderSRCWidth = srcWidth / this.imgSize;
+        final float renderSRCHeight = srcHeight / this.imgSize;
         GL11.glTexCoord2f(renderSRCX + renderSRCWidth, renderSRCY);
         GL11.glVertex2d(x + width, y);
         GL11.glTexCoord2f(renderSRCX, renderSRCY);
@@ -148,7 +148,7 @@ public abstract class CFont
         if (this.antiAlias != antiAlias)
         {
             this.antiAlias = antiAlias;
-            tex = setupTexture(this.font, antiAlias, this.fractionalMetrics, this.charData);
+            this.tex = setupTexture(this.font, antiAlias, this.fractionalMetrics, this.charData);
         }
     }
 
@@ -162,7 +162,7 @@ public abstract class CFont
         if (this.fractionalMetrics != fractionalMetrics)
         {
             this.fractionalMetrics = fractionalMetrics;
-            tex = setupTexture(this.font, this.antiAlias, fractionalMetrics, this.charData);
+            this.tex = setupTexture(this.font, this.antiAlias, fractionalMetrics, this.charData);
         }
     }
 
@@ -174,7 +174,7 @@ public abstract class CFont
     public void setFont(final Font font)
     {
         this.font = font;
-        tex = setupTexture(font, this.antiAlias, this.fractionalMetrics, this.charData);
+        this.tex = setupTexture(font, this.antiAlias, this.fractionalMetrics, this.charData);
     }
 
     protected static class CharData
