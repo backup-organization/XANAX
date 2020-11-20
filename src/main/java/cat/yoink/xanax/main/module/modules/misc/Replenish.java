@@ -12,27 +12,33 @@ import team.stiff.pomelo.impl.annotated.handler.annotation.Listener;
 import java.util.HashMap;
 import java.util.Map;
 
-public final class Replenish extends Module {
+public final class Replenish extends Module
+{
     private final NumberSetting threshold = addSetting(new NumberSetting("Threshold", 20, 1, 63, 1));
     private final NumberSetting tickDelay = addSetting(new NumberSetting("TickDelay", 4, 0, 20, 1));
     private int delayStep = 0;
 
-    public Replenish() {
+    public Replenish()
+    {
         super("Replenish", Category.MISC);
     }
 
-    private Map<Integer, ItemStack> getInventory() {
+    private Map<Integer, ItemStack> getInventory()
+    {
         return getInventorySlots(9, 35);
     }
 
-    private Map<Integer, ItemStack> getHotbar() {
+    private Map<Integer, ItemStack> getHotbar()
+    {
         return getInventorySlots(36, 44);
     }
 
-    private Map<Integer, ItemStack> getInventorySlots(final int current, final int last) {
+    private Map<Integer, ItemStack> getInventorySlots(final int current, final int last)
+    {
         int c = current;
         final Map<Integer, ItemStack> fullInventorySlots = new HashMap<>();
-        while (c <= last) {
+        while (c <= last)
+        {
             fullInventorySlots.put(c, mc.player.inventoryContainer.getInventory().get(c));
             c++;
         }
@@ -40,8 +46,10 @@ public final class Replenish extends Module {
     }
 
     @Listener
-    public void onTick(final TickEvent event) {
-        if (delayStep < tickDelay.getValue()) {
+    public void onTick(final TickEvent event)
+    {
+        if (delayStep < tickDelay.getValue())
+        {
             delayStep++;
             return;
         }
@@ -58,9 +66,11 @@ public final class Replenish extends Module {
         mc.playerController.windowClick(0, inventorySlot, 0, ClickType.PICKUP, mc.player);
     }
 
-    private int[] findReplenishableHotbarSlot() {
+    private int[] findReplenishableHotbarSlot()
+    {
         final int[] returnPair = {0, 0};
-        for (final Map.Entry<Integer, ItemStack> hotbarSlot : getHotbar().entrySet()) {
+        for (final Map.Entry<Integer, ItemStack> hotbarSlot : getHotbar().entrySet())
+        {
             final ItemStack stack = hotbarSlot.getValue();
             final int inventorySlot = findCompatibleInventorySlot(stack);
             if (stack.isEmpty() || stack.getItem() == Items.AIR || !stack.isStackable() || stack.getCount() >= stack.getMaxStackSize() || stack.getCount() > threshold.getValue() || inventorySlot == -1)
@@ -72,15 +82,18 @@ public final class Replenish extends Module {
         return returnPair;
     }
 
-    private int findCompatibleInventorySlot(final ItemStack hotbarStack) {
+    private int findCompatibleInventorySlot(final ItemStack hotbarStack)
+    {
         int inventorySlot = -1;
         int smallestStackSize = 999;
-        for (final Map.Entry<Integer, ItemStack> entry : getInventory().entrySet()) {
+        for (final Map.Entry<Integer, ItemStack> entry : getInventory().entrySet())
+        {
             final ItemStack inventoryStack = entry.getValue();
             if (inventoryStack.isEmpty() || inventoryStack.getItem() == Items.AIR || !isCompatibleStacks(hotbarStack, inventoryStack))
                 continue;
             final int currentStackSize = mc.player.inventoryContainer.getInventory().get(entry.getKey()).getCount();
-            if (smallestStackSize > currentStackSize) {
+            if (smallestStackSize > currentStackSize)
+            {
                 smallestStackSize = currentStackSize;
                 inventorySlot = entry.getKey();
             }
@@ -88,7 +101,8 @@ public final class Replenish extends Module {
         return inventorySlot;
     }
 
-    private boolean isCompatibleStacks(final ItemStack stack1, final ItemStack stack2) {
+    private boolean isCompatibleStacks(final ItemStack stack1, final ItemStack stack2)
+    {
         if (!stack1.getItem().equals(stack2.getItem()) || !stack1.getDisplayName().equals(stack2.getDisplayName()))
             return false;
         return stack1.getItemDamage() == stack2.getItemDamage();

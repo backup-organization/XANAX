@@ -1,6 +1,7 @@
 package cat.yoink.xanax.main.module;
 
-public enum Category {
+public enum Category
+{
     COMBAT("Combat"),
     MOVEMENT("Movement"),
     WORLD("World"),
@@ -10,11 +11,13 @@ public enum Category {
 
     private final String name;
 
-    Category(final String name) {
+    Category(final String name)
+    {
         this.name = name;
     }
 
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
 }

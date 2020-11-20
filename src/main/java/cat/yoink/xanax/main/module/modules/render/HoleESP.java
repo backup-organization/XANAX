@@ -17,7 +17,8 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class HoleESP extends Module {
+public final class HoleESP extends Module
+{
     private final BooleanSetting box = addSetting(new BooleanSetting("Box", true));
     private final BooleanSetting outline = addSetting(new BooleanSetting("Outline", true));
     private final NumberSetting range = addSetting(new NumberSetting("Range", 8, 2, 20, 1));
@@ -38,12 +39,14 @@ public final class HoleESP extends Module {
     private final List<BlockPos> doubleObsidianHolesX = new ArrayList<>();
     private final List<BlockPos> doubleObsidianHolesZ = new ArrayList<>();
 
-    public HoleESP() {
+    public HoleESP()
+    {
         super("HoleESP", Category.RENDER);
     }
 
     @Listener
-    public void tickEvent(final TickEvent event) {
+    public void tickEvent(final TickEvent event)
+    {
         bedrockHoles.clear();
         obsidianHoles.clear();
         doubleBedrockHolesX.clear();
@@ -54,14 +57,18 @@ public final class HoleESP extends Module {
         assert mc.renderViewEntity != null;
         final Vec3i vec3i = new Vec3i(mc.renderViewEntity.posX, mc.renderViewEntity.posY, mc.renderViewEntity.posZ);
 
-        for (int i = vec3i.getX() - (int) range.getValue(); i < vec3i.getX() + (int) range.getValue(); ++i) {
-            for (int j = vec3i.getZ() - (int) range.getValue(); j < vec3i.getZ() + (int) range.getValue(); ++j) {
-                for (int k = vec3i.getY() + (int) range.getValue(); k > vec3i.getY() - (int) range.getValue(); --k) {
+        for (int i = vec3i.getX() - (int) range.getValue(); i < vec3i.getX() + (int) range.getValue(); ++i)
+        {
+            for (int j = vec3i.getZ() - (int) range.getValue(); j < vec3i.getZ() + (int) range.getValue(); ++j)
+            {
+                for (int k = vec3i.getY() + (int) range.getValue(); k > vec3i.getY() - (int) range.getValue(); --k)
+                {
                     final BlockPos blockPos = new BlockPos(i, k, j);
 
                     if (WorldUtil.isBedrockHole(blockPos)) bedrockHoles.add(blockPos);
                     else if (WorldUtil.isHole(blockPos)) obsidianHoles.add(blockPos);
-                    else if (wide.getValue()) {
+                    else if (wide.getValue())
+                    {
                         if (WorldUtil.isDoubleBedrockHoleX(blockPos)) doubleBedrockHolesX.add(blockPos);
                         else if (WorldUtil.isDoubleBedrockHoleZ(blockPos)) doubleBedrockHolesZ.add(blockPos);
                         else if (WorldUtil.isDoubleHoleX(blockPos)) doubleObsidianHolesX.add(blockPos);
@@ -73,7 +80,8 @@ public final class HoleESP extends Module {
     }
 
     @Listener
-    public void render3D(final Render3DEvent event) {
+    public void render3D(final Render3DEvent event)
+    {
         final int bedrockR = (int) bedrockRed.getValue();
         final int bedrockG = (int) bedrockGreen.getValue();
         final int bedrockB = (int) bedrockBlue.getValue();

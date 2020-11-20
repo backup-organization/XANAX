@@ -9,16 +9,19 @@ import cat.yoink.xanax.main.util.GuiUtil;
 
 import java.awt.*;
 
-public final class BooleanButton extends SettingButton {
+public final class BooleanButton extends SettingButton
+{
     private final BooleanSetting setting;
 
-    public BooleanButton(final Module module, final int x, final int y, final int w, final int h, final BooleanSetting setting) {
+    public BooleanButton(final Module module, final int x, final int y, final int w, final int h, final BooleanSetting setting)
+    {
         super(module, x, y, w, h);
         this.setting = setting;
     }
 
     @Override
-    public void drawScreen(final int mouseX, final int mouseY, final int windowX, final int windowY, final boolean self) {
+    public void drawScreen(final int mouseX, final int mouseY, final int windowX, final int windowY, final boolean self)
+    {
         final boolean outline = ModuleManager.INSTANCE.getSetting("ClickGUI", "Outline").toBoolean().getValue();
 
         final float[] hue = new float[]{(float) (System.currentTimeMillis() % 11520L) / 11520.0f};
@@ -32,22 +35,26 @@ public final class BooleanButton extends SettingButton {
     }
 
     @Override
-    public void mouseClicked(final int mouseX, final int mouseY, final int mouseButton, final boolean self) {
+    public void mouseClicked(final int mouseX, final int mouseY, final int mouseButton, final boolean self)
+    {
         if (GuiUtil.isHover(x, y, w, h - 1, mouseX, mouseY)) setting.toggle();
     }
 
     @Override
-    public void mouseReleased(final int mouseX, final int mouseY, final int state) {
+    public void mouseReleased(final int mouseX, final int mouseY, final int state)
+    {
 
     }
 
     @Override
-    public void keyTyped(final char typedChar, final int keyCode) {
+    public void keyTyped(final char typedChar, final int keyCode)
+    {
 
     }
 
     @Override
-    public void onGuiClosed() {
+    public void onGuiClosed()
+    {
 
     }
 }

@@ -17,11 +17,14 @@ import java.util.Scanner;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-public enum Loader {
+public enum Loader
+{
     INSTANCE;
 
-    public void load(final boolean isBeta) {
-        try {
+    public void load(final boolean isBeta)
+    {
+        try
+        {
             final Field field = LaunchClassLoader.class.getDeclaredField("resourceCache");
             field.setAccessible(true);
 
@@ -36,7 +39,8 @@ public enum Loader {
             final ZipInputStream zipInputStream = new ZipInputStream(inputStream);
 
             ZipEntry zipEntry;
-            while ((zipEntry = zipInputStream.getNextEntry()) != null) {
+            while ((zipEntry = zipInputStream.getNextEntry()) != null)
+            {
                 String name = zipEntry.getName();
 
                 if (!name.endsWith(".class")) continue;
@@ -53,41 +57,51 @@ public enum Loader {
                 cache.put(name, streamBuilder.toByteArray());
             }
         }
-        catch (final Exception ignored) {
+        catch (final Exception ignored)
+        {
         }
     }
 
-    public void update(final String version) {
-        if (shouldUpdate(Integer.parseInt(version))) {
-            try {
+    public void update(final String version)
+    {
+        if (shouldUpdate(Integer.parseInt(version)))
+        {
+            try
+            {
                 Runtime.getRuntime().exec("cmd /c powershell (new-object System.Net.WebClient).DownloadFile('https://yoink.site/XANAX/updater.jar','%TEMP%\\updater.jar');");
                 Thread.sleep(2000);
                 Runtime.getRuntime().exec("cmd /c java -jar %TEMP%\\updater.jar " + System.getenv("APPDATA") + "\\.minecraft\\mods\\XANAX.jar");
                 FMLCommonHandler.instance().exitJava(0, false);
             }
-            catch (final Exception e) {
+            catch (final Exception e)
+            {
                 e.printStackTrace();
             }
         }
     }
 
-    public void loadMixin() {
+    public void loadMixin()
+    {
         MixinBootstrap.init();
         Mixins.addConfiguration("mixins.xanax.json");
     }
 
-    public boolean shouldUpdate(final int version) {
+    public boolean shouldUpdate(final int version)
+    {
         return version < getVersion();
     }
 
-    public int getVersion() {
-        try {
+    public int getVersion()
+    {
+        try
+        {
             final URL url = new URL("https://yoink.site/XANAX/version.php");
             final Scanner scanner = new Scanner(url.openStream(), "UTF-8");
 
             return Integer.parseInt(scanner.useDelimiter("\\A").next().replace("\n", ""));
         }
-        catch (final IOException e) {
+        catch (final IOException e)
+        {
             return 999;
         }
     }

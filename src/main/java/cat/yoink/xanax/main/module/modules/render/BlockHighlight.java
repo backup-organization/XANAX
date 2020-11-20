@@ -14,7 +14,8 @@ import team.stiff.pomelo.impl.annotated.handler.annotation.Listener;
 
 import java.awt.*;
 
-public final class BlockHighlight extends Module {
+public final class BlockHighlight extends Module
+{
     private final NumberSetting red = addSetting(new NumberSetting("Red", 50, 0, 255, 1));
     private final EnumSetting mode = addSetting(new EnumSetting("Mode", "Specific", "Specific", "Full"));
     private final NumberSetting green = addSetting(new NumberSetting("Green", 50, 0, 255, 1));
@@ -23,23 +24,28 @@ public final class BlockHighlight extends Module {
     private final BooleanSetting outline = addSetting(new BooleanSetting("Outline", true));
     private final NumberSetting alpha = addSetting(new NumberSetting("Alpha", 100, 0, 255, 1));
 
-    public BlockHighlight() {
+    public BlockHighlight()
+    {
         super("BlockESP", Category.RENDER);
     }
 
     @Listener
-    public void render3D(final Render3DEvent event) {
+    public void render3D(final Render3DEvent event)
+    {
         final RayTraceResult result = mc.objectMouseOver;
 
-        if (result != null && result.typeOfHit == RayTraceResult.Type.BLOCK) {
+        if (result != null && result.typeOfHit == RayTraceResult.Type.BLOCK)
+        {
             final BlockPos blockPos = result.getBlockPos();
 
-            if (mode.is("Specific")) {
+            if (mode.is("Specific"))
+            {
                 AxisAlignedBB box = mc.world.getBlockState(blockPos).getBoundingBox(mc.world, blockPos).offset(blockPos);
                 box = RenderUtil.convertBox(box);
                 RenderUtil.drawBox(box, (int) red.getValue(), (int) green.getValue(), (int) blue.getValue(), (int) alpha.getValue(), this.box.getValue(), outline.getValue());
             }
-            else {
+            else
+            {
                 RenderUtil.drawBox(blockPos, new Color((int) red.getValue(), (int) green.getValue(), (int) blue.getValue(), (int) alpha.getValue()), this.box.getValue(), outline.getValue());
             }
         }

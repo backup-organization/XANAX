@@ -9,25 +9,31 @@ import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 
-public final class RenderUtil implements MinecraftInstance {
-    public static void drawBox(final AxisAlignedBB bb, final int red, final int green, final int blue, final int alpha, final boolean box, final boolean outline) {
-        try {
+public final class RenderUtil implements MinecraftInstance
+{
+    public static void drawBox(final AxisAlignedBB bb, final int red, final int green, final int blue, final int alpha, final boolean box, final boolean outline)
+    {
+        try
+        {
             glSetup();
             if (box) RenderGlobal.renderFilledBox(bb, red / 255f, green / 255f, blue / 255f, alpha / 255f);
             if (outline)
                 RenderGlobal.drawSelectionBoundingBox(bb, red / 255f, green / 255f, blue / 255f, (alpha / 255f) * 1.5F);
             glCleanup();
         }
-        catch (final Exception ignored) {
+        catch (final Exception ignored)
+        {
         }
     }
 
-    public static void drawBox(final BlockPos blockPos, final Color color, final boolean box, final boolean outline) {
+    public static void drawBox(final BlockPos blockPos, final Color color, final boolean box, final boolean outline)
+    {
         final AxisAlignedBB axisAlignedBB = new AxisAlignedBB(blockPos.getX() - mc.getRenderManager().viewerPosX, blockPos.getY() - mc.getRenderManager().viewerPosY, blockPos.getZ() - mc.getRenderManager().viewerPosZ, blockPos.getX() + 1 - mc.getRenderManager().viewerPosX, blockPos.getY() + 1 - mc.getRenderManager().viewerPosY, blockPos.getZ() + 1 - mc.getRenderManager().viewerPosZ);
         drawBox(axisAlignedBB, color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha(), box, outline);
     }
 
-    public static void glSetup() {
+    public static void glSetup()
+    {
         GlStateManager.pushMatrix();
         GlStateManager.enableBlend();
         GlStateManager.disableDepth();
@@ -39,7 +45,8 @@ public final class RenderUtil implements MinecraftInstance {
         GL11.glLineWidth(1.5f);
     }
 
-    public static void glCleanup() {
+    public static void glCleanup()
+    {
         GL11.glDisable(GL11.GL_LINE_SMOOTH);
         GlStateManager.depthMask(true);
         GlStateManager.enableDepth();
@@ -48,7 +55,8 @@ public final class RenderUtil implements MinecraftInstance {
         GlStateManager.popMatrix();
     }
 
-    public static AxisAlignedBB convertBox(final AxisAlignedBB box) {
+    public static AxisAlignedBB convertBox(final AxisAlignedBB box)
+    {
         return new AxisAlignedBB(box.minX - mc.getRenderManager().viewerPosX, box.minY - mc.getRenderManager().viewerPosY, box.minZ - mc.getRenderManager().viewerPosZ, box.maxX - mc.getRenderManager().viewerPosX, box.maxY - mc.getRenderManager().viewerPosY, box.maxZ - mc.getRenderManager().viewerPosZ);
     }
 }

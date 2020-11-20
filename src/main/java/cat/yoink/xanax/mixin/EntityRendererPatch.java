@@ -16,10 +16,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Mixin(EntityRenderer.class)
-public abstract class EntityRendererPatch implements MinecraftInstance {
+public abstract class EntityRendererPatch implements MinecraftInstance
+{
     @SuppressWarnings("ALL")
     @Redirect(method = "getMouseOver", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/multiplayer/WorldClient;getEntitiesInAABBexcluding(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/AxisAlignedBB;Lcom/google/common/base/Predicate;)Ljava/util/List;"))
-    public List<Entity> getEntitiesInAABBexcluding(final WorldClient worldClient, final Entity entityIn, final AxisAlignedBB boundingBox, final Predicate<? super Entity> predicate) {
+    public List<Entity> getEntitiesInAABBexcluding(final WorldClient worldClient, final Entity entityIn, final AxisAlignedBB boundingBox, final Predicate<? super Entity> predicate)
+    {
         final EntitiesInAABBEvent event = new EntitiesInAABBEvent(worldClient, entityIn, boundingBox, predicate);
 
         if (Main.EVENT_BUS.dispatchEvent(event).isCancelled()) return new ArrayList<>();

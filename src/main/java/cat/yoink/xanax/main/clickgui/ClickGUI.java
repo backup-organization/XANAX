@@ -10,7 +10,8 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class ClickGUI extends GuiScreen {
+public final class ClickGUI extends GuiScreen
+{
     public static final ClickGUI INSTANCE = new ClickGUI();
 
     private final List<CategoryButton> buttons = new ArrayList<>();
@@ -21,16 +22,20 @@ public final class ClickGUI extends GuiScreen {
     private int dragX, dragY;
     private boolean dragging;
 
-    public ClickGUI() {
+    public ClickGUI()
+    {
         final Category[] values = Category.values();
-        for (int i = 0; i < values.length; i++) {
+        for (int i = 0; i < values.length; i++)
+        {
             buttons.add(new CategoryButton(values[i], x + 10 + i * 60, y + 34, 60, 15, x, y));
         }
     }
 
     @Override
-    public void drawScreen(final int mouseX, final int mouseY, final float partialTicks) {
-        if (dragging) {
+    public void drawScreen(final int mouseX, final int mouseY, final float partialTicks)
+    {
+        if (dragging)
+        {
             x = dragX + mouseX;
             y = dragY + mouseY;
         }
@@ -46,13 +51,16 @@ public final class ClickGUI extends GuiScreen {
 
         final CategoryButton selected = buttons.stream().filter(CategoryButton::isSelected).findAny().orElse(null);
 
-        if (selected != null) {
-            if (selected.getTab() > 0) {
+        if (selected != null)
+        {
+            if (selected.getTab() > 0)
+            {
                 GuiUtil.drawSmoothRect(x + 15, y + 57, 10, 10, 3, new Color(34, 34, 34).getRGB(), outline, c.getRGB());
                 CFontRenderer.TEXT.drawString("<", x + 16, y + 57.5f, -1);
             }
 
-            if (selected.getTab() < selected.getButtons().size() - 5) {
+            if (selected.getTab() < selected.getButtons().size() - 5)
+            {
                 GuiUtil.drawSmoothRect(x + 355, y + 57, 10, 10, 3, new Color(34, 34, 34).getRGB(), outline, c.getRGB());
                 CFontRenderer.TEXT.drawString(">", x + 356.5f, y + 57.5f, -1);
             }
@@ -60,13 +68,16 @@ public final class ClickGUI extends GuiScreen {
 
         CFontRenderer.TITLE.drawCenteredString("XANAX", x + w / 2f, y + 5, c.getRGB());
 
-        if (ModuleManager.INSTANCE.getSetting("ClickGUI", "Closing").toEnum().is("Button") || ModuleManager.INSTANCE.getSetting("ClickGUI", "Closing").toEnum().is("Both")) {
+        if (ModuleManager.INSTANCE.getSetting("ClickGUI", "Closing").toEnum().is("Button") || ModuleManager.INSTANCE.getSetting("ClickGUI", "Closing").toEnum().is("Both"))
+        {
             GuiUtil.drawSmoothRect(x + w - 15, y + 5, 10, 10, 3, new Color(34, 34, 34).getRGB());
             CFontRenderer.TEXT.drawString("X", x + w - 13, y + 6, -1);
         }
 
-        if (dragging) {
-            for (int i = 0; i < buttons.size(); i++) {
+        if (dragging)
+        {
+            for (int i = 0; i < buttons.size(); i++)
+            {
                 final CategoryButton button = buttons.get(i);
                 button.setX(x + 10 + i * 60);
                 button.setY(y + 34);
@@ -77,14 +88,17 @@ public final class ClickGUI extends GuiScreen {
     }
 
     @Override
-    protected void mouseClicked(final int mouseX, final int mouseY, final int mouseButton) {
-        if (GuiUtil.isHover(x, y, w, 30, mouseX, mouseY) && mouseButton == 0) {
+    protected void mouseClicked(final int mouseX, final int mouseY, final int mouseButton)
+    {
+        if (GuiUtil.isHover(x, y, w, 30, mouseX, mouseY) && mouseButton == 0)
+        {
             dragging = true;
             dragX = x - mouseX;
             dragY = y - mouseY;
         }
 
-        if ((ModuleManager.INSTANCE.getSetting("ClickGUI", "Closing").toEnum().is("Button") || ModuleManager.INSTANCE.getSetting("ClickGUI", "Closing").toEnum().is("Both")) && GuiUtil.isHover(x + w - 15, y + 5, 10, 10, mouseX, mouseY)) {
+        if ((ModuleManager.INSTANCE.getSetting("ClickGUI", "Closing").toEnum().is("Button") || ModuleManager.INSTANCE.getSetting("ClickGUI", "Closing").toEnum().is("Both")) && GuiUtil.isHover(x + w - 15, y + 5, 10, 10, mouseX, mouseY))
+        {
             dragging = false;
             mc.displayGuiScreen(null);
         }
@@ -93,14 +107,16 @@ public final class ClickGUI extends GuiScreen {
     }
 
     @Override
-    protected void mouseReleased(final int mouseX, final int mouseY, final int state) {
+    protected void mouseReleased(final int mouseX, final int mouseY, final int state)
+    {
         dragging = false;
 
         buttons.forEach(buttons -> buttons.mouseReleased(mouseX, mouseY, state));
     }
 
     @Override
-    protected void keyTyped(final char typedChar, final int keyCode) {
+    protected void keyTyped(final char typedChar, final int keyCode)
+    {
         if (keyCode == 1 && ModuleManager.INSTANCE.getSetting("ClickGUI", "Closing").toEnum().is("Keyboard") || ModuleManager.INSTANCE.getSetting("ClickGUI", "Closing").toEnum().is("Both"))
             mc.displayGuiScreen(null);
 
@@ -108,7 +124,8 @@ public final class ClickGUI extends GuiScreen {
     }
 
     @Override
-    public void onGuiClosed() {
+    public void onGuiClosed()
+    {
         ModuleManager.INSTANCE.getModule("ClickGUI").disable();
         dragging = false;
 
@@ -116,11 +133,13 @@ public final class ClickGUI extends GuiScreen {
     }
 
     @Override
-    public boolean doesGuiPauseGame() {
+    public boolean doesGuiPauseGame()
+    {
         return false;
     }
 
-    public List<CategoryButton> getButtons() {
+    public List<CategoryButton> getButtons()
+    {
         return buttons;
     }
 }

@@ -12,17 +12,21 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public final class ChatSuffix extends Module {
+public final class ChatSuffix extends Module
+{
     private final EnumSetting mode = addSetting(new EnumSetting("Mode", "Smooth", "Smooth", "Small", "Normal"));
     private final BooleanSetting blue = addSetting(new BooleanSetting("Blue", false));
 
-    public ChatSuffix() {
+    public ChatSuffix()
+    {
         super("ChatSuffix", Category.MISC);
     }
 
     @Listener
-    public void onPacket(final PacketEvent event) {
-        if (!event.getType().equals(PacketEvent.Type.INCOMING) && event.getPacket() instanceof CPacketChatMessage) {
+    public void onPacket(final PacketEvent event)
+    {
+        if (!event.getType().equals(PacketEvent.Type.INCOMING) && event.getPacket() instanceof CPacketChatMessage)
+        {
             final List<String> prefixes = new ArrayList<>(Arrays.asList("/", ".", "-", ",", ":", ";", "'", "\"", "+", "\\"));
             for (final String prefix : prefixes)
                 if (((CPacketChatMessage) event.getPacket()).getMessage().startsWith(prefix)) return;
@@ -31,14 +35,16 @@ public final class ChatSuffix extends Module {
         }
     }
 
-    private String getSuffix() {
+    private String getSuffix()
+    {
         final StringBuilder message = new StringBuilder();
 
         message.append(" ");
         if (blue.getValue()) message.append("`");
         message.append("\u23D0 ");
 
-        switch (mode.getValue().toLowerCase()) {
+        switch (mode.getValue().toLowerCase())
+        {
             case "small":
                 message.append("x\u1D00\u0274\u1D00x");
                 break;

@@ -1,25 +1,31 @@
 package cat.yoink.xanax.main.setting;
 
-public abstract class Setting {
+public abstract class Setting
+{
     private final String name;
 
-    public Setting(final String name) {
+    public Setting(final String name)
+    {
         this.name = name;
     }
 
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
 
-    public BooleanSetting toBoolean() {
+    public BooleanSetting toBoolean()
+    {
         return (BooleanSetting) this;
     }
 
-    public NumberSetting toNumber() {
+    public NumberSetting toNumber()
+    {
         return (NumberSetting) this;
     }
 
-    public EnumSetting toEnum() {
+    public EnumSetting toEnum()
+    {
         return (EnumSetting) this;
     }
 }

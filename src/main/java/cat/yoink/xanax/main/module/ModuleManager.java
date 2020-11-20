@@ -20,12 +20,14 @@ import cat.yoink.xanax.main.setting.Setting;
 
 import java.util.*;
 
-public enum ModuleManager {
+public enum ModuleManager
+{
     INSTANCE;
 
     private final ArrayList<Module> modules = new ArrayList<>();
 
-    ModuleManager() {
+    ModuleManager()
+    {
         addModules(new Criticals(),
                 new ClickGUI(),
                 new Swing(),
@@ -45,24 +47,29 @@ public enum ModuleManager {
                 new GhostEntity());
     }
 
-    private void addModules(final Module... modules) {
+    private void addModules(final Module... modules)
+    {
         this.modules.addAll(Arrays.asList(modules));
         this.modules.sort(Comparator.comparing(Module::getName));
     }
 
-    public Setting getSetting(final String moduleName, final String settingName) {
+    public Setting getSetting(final String moduleName, final String settingName)
+    {
         return Objects.requireNonNull(getModules().stream().filter(m -> m.getName().equalsIgnoreCase(moduleName)).findAny().orElse(null)).getSettings().stream().filter(s -> s.getName().equalsIgnoreCase(settingName)).findAny().orElse(null);
     }
 
-    public ArrayList<Module> getModules() {
+    public ArrayList<Module> getModules()
+    {
         return modules;
     }
 
-    public Module getModule(final String name) {
+    public Module getModule(final String name)
+    {
         return modules.stream().filter(module -> module.getName().equalsIgnoreCase(name)).findAny().orElse(null);
     }
 
-    public List<String> getConfig() {
+    public List<String> getConfig()
+    {
         final List<String> config = new ArrayList<>();
 
         modules.forEach(module -> module.getSettings().forEach(setting -> {

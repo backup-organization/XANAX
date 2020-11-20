@@ -4,18 +4,22 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class FileUtil {
-    public static void saveFile(final File file, final List<String> content) throws IOException {
+public final class FileUtil
+{
+    public static void saveFile(final File file, final List<String> content) throws IOException
+    {
         final BufferedWriter out = new BufferedWriter(new FileWriter(file));
 
-        for (final String s : content) {
+        for (final String s : content)
+        {
             out.write(s);
             out.write("\r\n");
         }
         out.close();
     }
 
-    public static List<String> loadFile(final File file) throws IOException {
+    public static List<String> loadFile(final File file) throws IOException
+    {
         final List<String> content = new ArrayList<>();
 
         final FileInputStream stream = new FileInputStream(file.getAbsolutePath());

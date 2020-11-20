@@ -18,7 +18,8 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class ModuleButton implements GuiBase {
+public final class ModuleButton implements GuiBase
+{
     private final List<SettingButton> buttons = new ArrayList<>();
     private final Module module;
     private final CategoryButton parent;
@@ -30,7 +31,8 @@ public final class ModuleButton implements GuiBase {
     private int scroll;
     private boolean binding;
 
-    public ModuleButton(final Module module, final int x, final int y, final int w, final int h, final CategoryButton parent, final int windowX, final int windowY) {
+    public ModuleButton(final Module module, final int x, final int y, final int w, final int h, final CategoryButton parent, final int windowX, final int windowY)
+    {
         this.module = module;
         this.x = x;
         this.y = y;
@@ -40,7 +42,8 @@ public final class ModuleButton implements GuiBase {
 
         int setI = 0;
         final List<Setting> settings = module.getSettings();
-        for (int i = 0; i < settings.size(); i++) {
+        for (int i = 0; i < settings.size(); i++)
+        {
             final Setting setting = settings.get(i);
             final boolean left = i % 2 == 1;
 
@@ -56,9 +59,12 @@ public final class ModuleButton implements GuiBase {
     }
 
     @Override
-    public void drawScreen(final int mouseX, final int mouseY, final int windowX, final int windowY, final boolean self) {
-        if (self) {
-            if (selected) {
+    public void drawScreen(final int mouseX, final int mouseY, final int windowX, final int windowY, final boolean self)
+    {
+        if (self)
+        {
+            if (selected)
+            {
                 final boolean outline = ModuleManager.INSTANCE.getSetting("ClickGUI", "Outline").toBoolean().getValue();
 
                 final float[] hue = new float[]{(float) (System.currentTimeMillis() % 11520L) / 11520.0f};
@@ -71,13 +77,16 @@ public final class ModuleButton implements GuiBase {
             CFontRenderer.TEXT.drawCenteredString(binding ? "Bind..." : module.getName(), x + w / 2f, y + 3, module.isEnabled() ? -1 : new Color(150, 150, 150).getRGB());
         }
 
-        if (selected) {
+        if (selected)
+        {
             doScroll(windowX, windowY, mouseX, mouseY);
 
             int setI = 0;
             int setI2 = 0;
-            for (int i = 0; i < buttons.size(); i++) {
-                if (setI2 < scroll) {
+            for (int i = 0; i < buttons.size(); i++)
+            {
+                if (setI2 < scroll)
+                {
                     setI2++;
                     continue;
                 }
@@ -97,8 +106,10 @@ public final class ModuleButton implements GuiBase {
         }
     }
 
-    private void doScroll(final int windowX, final int windowY, final int mouseX, final int mouseY) {
-        if (GuiUtil.isHover(windowX + 15, windowY + 70, 340, 160, mouseX, mouseY)) {
+    private void doScroll(final int windowX, final int windowY, final int mouseX, final int mouseY)
+    {
+        if (GuiUtil.isHover(windowX + 15, windowY + 70, 340, 160, mouseX, mouseY))
+        {
             final int wheel = Mouse.getDWheel();
             if (wheel < 0 && scroll <= buttons.size() - 17) scroll += 2;
             else if (wheel > 0 && scroll > 0) scroll -= 2;
@@ -106,9 +117,12 @@ public final class ModuleButton implements GuiBase {
     }
 
     @Override
-    public void mouseClicked(final int mouseX, final int mouseY, final int mouseButton, final boolean self) {
-        if (GuiUtil.isHover(x, y, w, h, mouseX, mouseY) && self) {
-            switch (mouseButton) {
+    public void mouseClicked(final int mouseX, final int mouseY, final int mouseButton, final boolean self)
+    {
+        if (GuiUtil.isHover(x, y, w, h, mouseX, mouseY) && self)
+        {
+            switch (mouseButton)
+            {
                 case 0:
                     module.toggle();
                     break;
@@ -128,13 +142,16 @@ public final class ModuleButton implements GuiBase {
     }
 
     @Override
-    public void mouseReleased(final int mouseX, final int mouseY, final int state) {
+    public void mouseReleased(final int mouseX, final int mouseY, final int state)
+    {
         if (selected) buttons.forEach(button -> button.mouseReleased(mouseX, mouseY, state));
     }
 
     @Override
-    public void keyTyped(final char typedChar, final int keyCode) {
-        if (binding) {
+    public void keyTyped(final char typedChar, final int keyCode)
+    {
+        if (binding)
+        {
             if (keyCode == Keyboard.KEY_BACK || keyCode == Keyboard.KEY_DELETE) module.setBind(Keyboard.KEY_NONE);
             else module.setBind(keyCode);
 
@@ -145,15 +162,18 @@ public final class ModuleButton implements GuiBase {
     }
 
     @Override
-    public void onGuiClosed() {
+    public void onGuiClosed()
+    {
         if (selected) buttons.forEach(GuiBase::onGuiClosed);
     }
 
-    public void setX(final int x) {
+    public void setX(final int x)
+    {
         this.x = x;
     }
 
-    public void setY(final int y) {
+    public void setY(final int y)
+    {
         this.y = y;
     }
 }

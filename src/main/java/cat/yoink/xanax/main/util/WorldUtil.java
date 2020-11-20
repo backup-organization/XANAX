@@ -12,10 +12,14 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 
-public final class WorldUtil implements MinecraftInstance {
-    public static void placeBlock(final BlockPos pos) {
-        for (final EnumFacing enumFacing : EnumFacing.values()) {
-            if (!mc.world.getBlockState(pos.offset(enumFacing)).getBlock().equals(Blocks.AIR) && !isIntercepted(pos)) {
+public final class WorldUtil implements MinecraftInstance
+{
+    public static void placeBlock(final BlockPos pos)
+    {
+        for (final EnumFacing enumFacing : EnumFacing.values())
+        {
+            if (!mc.world.getBlockState(pos.offset(enumFacing)).getBlock().equals(Blocks.AIR) && !isIntercepted(pos))
+            {
                 final Vec3d vec = new Vec3d(pos.getX() + 0.5D + (double) enumFacing.getXOffset() * 0.5D, pos.getY() + 0.5D + (double) enumFacing.getYOffset() * 0.5D, pos.getZ() + 0.5D + (double) enumFacing.getZOffset() * 0.5D);
 
                 final float[] old = new float[]{mc.player.rotationYaw, mc.player.rotationPitch};
@@ -32,16 +36,20 @@ public final class WorldUtil implements MinecraftInstance {
         }
     }
 
-    public static boolean isIntercepted(final BlockPos pos) {
-        for (final Entity entity : mc.world.loadedEntityList) {
+    public static boolean isIntercepted(final BlockPos pos)
+    {
+        for (final Entity entity : mc.world.loadedEntityList)
+        {
             if (new AxisAlignedBB(pos).intersects(entity.getEntityBoundingBox())) return true;
         }
 
         return false;
     }
 
-    public static boolean isInterceptedByOther(final BlockPos pos) {
-        for (final Entity entity : mc.world.loadedEntityList) {
+    public static boolean isInterceptedByOther(final BlockPos pos)
+    {
+        for (final Entity entity : mc.world.loadedEntityList)
+        {
             if (entity.equals(mc.player)) continue;
             if (new AxisAlignedBB(pos).intersects(entity.getEntityBoundingBox())) return true;
         }
@@ -49,15 +57,18 @@ public final class WorldUtil implements MinecraftInstance {
         return false;
     }
 
-    public static boolean isInHole(final Entity entity) {
+    public static boolean isInHole(final Entity entity)
+    {
         return isHole(new BlockPos(entity.posX, entity.posY, entity.posZ));
     }
 
-    public static boolean isObsidianHole(final BlockPos blockPos) {
+    public static boolean isObsidianHole(final BlockPos blockPos)
+    {
         if (!mc.world.getBlockState(blockPos).getBlock().equals(Blocks.AIR) || !mc.world.getBlockState(blockPos.add(0, 1, 0)).getBlock().equals(Blocks.AIR) || !mc.world.getBlockState(blockPos.add(0, 2, 0)).getBlock().equals(Blocks.AIR) || !mc.world.getBlockState(blockPos.add(0, 3, 0)).getBlock().equals(Blocks.AIR))
             return false;
 
-        for (final BlockPos blockPos2 : new BlockPos[]{blockPos.north(), blockPos.south(), blockPos.east(), blockPos.west(), blockPos.down()}) {
+        for (final BlockPos blockPos2 : new BlockPos[]{blockPos.north(), blockPos.south(), blockPos.east(), blockPos.west(), blockPos.down()})
+        {
             final IBlockState iBlockState = mc.world.getBlockState(blockPos2);
             if (iBlockState.getBlock() != Blocks.AIR && iBlockState.getBlock() == Blocks.OBSIDIAN) continue;
             return false;
@@ -65,11 +76,13 @@ public final class WorldUtil implements MinecraftInstance {
         return true;
     }
 
-    public static boolean isBedrockHole(final BlockPos blockPos) {
+    public static boolean isBedrockHole(final BlockPos blockPos)
+    {
         if (!mc.world.getBlockState(blockPos).getBlock().equals(Blocks.AIR) || !mc.world.getBlockState(blockPos.add(0, 1, 0)).getBlock().equals(Blocks.AIR) || !mc.world.getBlockState(blockPos.add(0, 2, 0)).getBlock().equals(Blocks.AIR))
             return false;
 
-        for (final BlockPos blockPos2 : new BlockPos[]{blockPos.north(), blockPos.south(), blockPos.east(), blockPos.west(), blockPos.down()}) {
+        for (final BlockPos blockPos2 : new BlockPos[]{blockPos.north(), blockPos.south(), blockPos.east(), blockPos.west(), blockPos.down()})
+        {
             final IBlockState iBlockState = mc.world.getBlockState(blockPos2);
             if (iBlockState.getBlock() != Blocks.AIR && iBlockState.getBlock() == Blocks.BEDROCK) continue;
             return false;
@@ -77,11 +90,13 @@ public final class WorldUtil implements MinecraftInstance {
         return true;
     }
 
-    public static boolean isHole(final BlockPos blockPos) {
+    public static boolean isHole(final BlockPos blockPos)
+    {
         if (!mc.world.getBlockState(blockPos).getBlock().equals(Blocks.AIR) || !mc.world.getBlockState(blockPos.add(0, 1, 0)).getBlock().equals(Blocks.AIR) || !mc.world.getBlockState(blockPos.add(0, 2, 0)).getBlock().equals(Blocks.AIR))
             return false;
 
-        for (final BlockPos blockPos2 : new BlockPos[]{blockPos.north(), blockPos.south(), blockPos.east(), blockPos.west(), blockPos.down()}) {
+        for (final BlockPos blockPos2 : new BlockPos[]{blockPos.north(), blockPos.south(), blockPos.east(), blockPos.west(), blockPos.down()})
+        {
             final IBlockState iBlockState = mc.world.getBlockState(blockPos2);
             if (iBlockState.getBlock() != Blocks.AIR && (iBlockState.getBlock() == Blocks.BEDROCK || iBlockState.getBlock() == Blocks.OBSIDIAN))
                 continue;
@@ -90,14 +105,16 @@ public final class WorldUtil implements MinecraftInstance {
         return true;
     }
 
-    public static boolean isDoubleHoleX(final BlockPos blockPos) {
+    public static boolean isDoubleHoleX(final BlockPos blockPos)
+    {
         if (!mc.world.getBlockState(blockPos).getBlock().equals(Blocks.AIR) || !mc.world.getBlockState(blockPos.add(1, 0, 0)).getBlock().equals(Blocks.AIR))
             return false;
 
         if (!mc.world.getBlockState(blockPos.add(0, 1, 0)).getBlock().equals(Blocks.AIR) && !mc.world.getBlockState(blockPos.add(1, 1, 0)).getBlock().equals(Blocks.AIR))
             return false;
 
-        for (final BlockPos blockPos2 : new BlockPos[]{blockPos.add(2, 0, 0), blockPos.add(1, 0, 1), blockPos.add(1, 0, -1), blockPos.add(-1, 0, 0), blockPos.add(0, 0, 1), blockPos.add(0, 0, -1), blockPos.add(0, -1, 0), blockPos.add(1, -1, 0)}) {
+        for (final BlockPos blockPos2 : new BlockPos[]{blockPos.add(2, 0, 0), blockPos.add(1, 0, 1), blockPos.add(1, 0, -1), blockPos.add(-1, 0, 0), blockPos.add(0, 0, 1), blockPos.add(0, 0, -1), blockPos.add(0, -1, 0), blockPos.add(1, -1, 0)})
+        {
             final IBlockState iBlockState = mc.world.getBlockState(blockPos2);
             if (iBlockState.getBlock() != Blocks.AIR && (iBlockState.getBlock() == Blocks.BEDROCK || iBlockState.getBlock() == Blocks.OBSIDIAN))
                 continue;
@@ -106,14 +123,16 @@ public final class WorldUtil implements MinecraftInstance {
         return true;
     }
 
-    public static boolean isDoubleHoleZ(final BlockPos blockPos) {
+    public static boolean isDoubleHoleZ(final BlockPos blockPos)
+    {
         if (!mc.world.getBlockState(blockPos).getBlock().equals(Blocks.AIR) || !mc.world.getBlockState(blockPos.add(0, 0, 1)).getBlock().equals(Blocks.AIR))
             return false;
 
         if (!mc.world.getBlockState(blockPos.add(0, 1, 0)).getBlock().equals(Blocks.AIR) && !mc.world.getBlockState(blockPos.add(0, 1, 1)).getBlock().equals(Blocks.AIR))
             return false;
 
-        for (final BlockPos blockPos2 : new BlockPos[]{blockPos.add(0, 0, 2), blockPos.add(1, 0, 1), blockPos.add(-1, 0, 1), blockPos.add(0, 0, -1), blockPos.add(1, 0, 0), blockPos.add(-1, 0, 0), blockPos.add(0, -1, 0), blockPos.add(0, -1, 1)}) {
+        for (final BlockPos blockPos2 : new BlockPos[]{blockPos.add(0, 0, 2), blockPos.add(1, 0, 1), blockPos.add(-1, 0, 1), blockPos.add(0, 0, -1), blockPos.add(1, 0, 0), blockPos.add(-1, 0, 0), blockPos.add(0, -1, 0), blockPos.add(0, -1, 1)})
+        {
             final IBlockState iBlockState = mc.world.getBlockState(blockPos2);
             if (iBlockState.getBlock() != Blocks.AIR && (iBlockState.getBlock() == Blocks.BEDROCK || iBlockState.getBlock() == Blocks.OBSIDIAN))
                 continue;
@@ -122,14 +141,16 @@ public final class WorldUtil implements MinecraftInstance {
         return true;
     }
 
-    public static boolean isDoubleBedrockHoleX(final BlockPos blockPos) {
+    public static boolean isDoubleBedrockHoleX(final BlockPos blockPos)
+    {
         if (!mc.world.getBlockState(blockPos).getBlock().equals(Blocks.AIR) || !mc.world.getBlockState(blockPos.add(1, 0, 0)).getBlock().equals(Blocks.AIR))
             return false;
 
         if (!mc.world.getBlockState(blockPos.add(0, 1, 0)).getBlock().equals(Blocks.AIR) && !mc.world.getBlockState(blockPos.add(1, 1, 0)).getBlock().equals(Blocks.AIR))
             return false;
 
-        for (final BlockPos blockPos2 : new BlockPos[]{blockPos.add(2, 0, 0), blockPos.add(1, 0, 1), blockPos.add(1, 0, -1), blockPos.add(-1, 0, 0), blockPos.add(0, 0, 1), blockPos.add(0, 0, -1), blockPos.add(0, -1, 0), blockPos.add(1, -1, 0)}) {
+        for (final BlockPos blockPos2 : new BlockPos[]{blockPos.add(2, 0, 0), blockPos.add(1, 0, 1), blockPos.add(1, 0, -1), blockPos.add(-1, 0, 0), blockPos.add(0, 0, 1), blockPos.add(0, 0, -1), blockPos.add(0, -1, 0), blockPos.add(1, -1, 0)})
+        {
             final IBlockState iBlockState = mc.world.getBlockState(blockPos2);
             if (iBlockState.getBlock() != Blocks.AIR && (iBlockState.getBlock() == Blocks.BEDROCK)) continue;
             return false;
@@ -137,14 +158,16 @@ public final class WorldUtil implements MinecraftInstance {
         return true;
     }
 
-    public static boolean isDoubleBedrockHoleZ(final BlockPos blockPos) {
+    public static boolean isDoubleBedrockHoleZ(final BlockPos blockPos)
+    {
         if (!mc.world.getBlockState(blockPos).getBlock().equals(Blocks.AIR) || !mc.world.getBlockState(blockPos.add(0, 0, 1)).getBlock().equals(Blocks.AIR))
             return false;
 
         if (!mc.world.getBlockState(blockPos.add(0, 1, 0)).getBlock().equals(Blocks.AIR) && !mc.world.getBlockState(blockPos.add(0, 1, 1)).getBlock().equals(Blocks.AIR))
             return false;
 
-        for (final BlockPos blockPos2 : new BlockPos[]{blockPos.add(0, 0, 2), blockPos.add(1, 0, 1), blockPos.add(-1, 0, 1), blockPos.add(0, 0, -1), blockPos.add(1, 0, 0), blockPos.add(-1, 0, 0), blockPos.add(0, -1, 0), blockPos.add(0, -1, 1)}) {
+        for (final BlockPos blockPos2 : new BlockPos[]{blockPos.add(0, 0, 2), blockPos.add(1, 0, 1), blockPos.add(-1, 0, 1), blockPos.add(0, 0, -1), blockPos.add(1, 0, 0), blockPos.add(-1, 0, 0), blockPos.add(0, -1, 0), blockPos.add(0, -1, 1)})
+        {
             final IBlockState iBlockState = mc.world.getBlockState(blockPos2);
             if (iBlockState.getBlock() != Blocks.AIR && (iBlockState.getBlock() == Blocks.BEDROCK)) continue;
             return false;
@@ -152,14 +175,16 @@ public final class WorldUtil implements MinecraftInstance {
         return true;
     }
 
-    public static boolean isDoubleObsidianHoleX(final BlockPos blockPos) {
+    public static boolean isDoubleObsidianHoleX(final BlockPos blockPos)
+    {
         if (!mc.world.getBlockState(blockPos).getBlock().equals(Blocks.AIR) || !mc.world.getBlockState(blockPos.add(1, 0, 0)).getBlock().equals(Blocks.AIR))
             return false;
 
         if (!mc.world.getBlockState(blockPos.add(0, 1, 0)).getBlock().equals(Blocks.AIR) && !mc.world.getBlockState(blockPos.add(1, 1, 0)).getBlock().equals(Blocks.AIR))
             return false;
 
-        for (final BlockPos blockPos2 : new BlockPos[]{blockPos.add(2, 0, 0), blockPos.add(1, 0, 1), blockPos.add(1, 0, -1), blockPos.add(-1, 0, 0), blockPos.add(0, 0, 1), blockPos.add(0, 0, -1), blockPos.add(0, -1, 0), blockPos.add(1, -1, 0)}) {
+        for (final BlockPos blockPos2 : new BlockPos[]{blockPos.add(2, 0, 0), blockPos.add(1, 0, 1), blockPos.add(1, 0, -1), blockPos.add(-1, 0, 0), blockPos.add(0, 0, 1), blockPos.add(0, 0, -1), blockPos.add(0, -1, 0), blockPos.add(1, -1, 0)})
+        {
             final IBlockState iBlockState = mc.world.getBlockState(blockPos2);
             if (iBlockState.getBlock() != Blocks.AIR && (iBlockState.getBlock() == Blocks.OBSIDIAN)) continue;
             return false;
@@ -167,14 +192,16 @@ public final class WorldUtil implements MinecraftInstance {
         return true;
     }
 
-    public static boolean isDoubleObsidianHoleZ(final BlockPos blockPos) {
+    public static boolean isDoubleObsidianHoleZ(final BlockPos blockPos)
+    {
         if (!mc.world.getBlockState(blockPos).getBlock().equals(Blocks.AIR) || !mc.world.getBlockState(blockPos.add(0, 0, 1)).getBlock().equals(Blocks.AIR))
             return false;
 
         if (!mc.world.getBlockState(blockPos.add(0, 1, 0)).getBlock().equals(Blocks.AIR) && !mc.world.getBlockState(blockPos.add(0, 1, 1)).getBlock().equals(Blocks.AIR))
             return false;
 
-        for (final BlockPos blockPos2 : new BlockPos[]{blockPos.add(0, 0, 2), blockPos.add(1, 0, 1), blockPos.add(-1, 0, 1), blockPos.add(0, 0, -1), blockPos.add(1, 0, 0), blockPos.add(-1, 0, 0), blockPos.add(0, -1, 0), blockPos.add(0, -1, 1)}) {
+        for (final BlockPos blockPos2 : new BlockPos[]{blockPos.add(0, 0, 2), blockPos.add(1, 0, 1), blockPos.add(-1, 0, 1), blockPos.add(0, 0, -1), blockPos.add(1, 0, 0), blockPos.add(-1, 0, 0), blockPos.add(0, -1, 0), blockPos.add(0, -1, 1)})
+        {
             final IBlockState iBlockState = mc.world.getBlockState(blockPos2);
             if (iBlockState.getBlock() != Blocks.AIR && (iBlockState.getBlock() == Blocks.OBSIDIAN)) continue;
             return false;
@@ -183,7 +210,8 @@ public final class WorldUtil implements MinecraftInstance {
     }
 
     @SuppressWarnings("deprecation")
-    public static boolean isBreakable(final BlockPos pos) {
+    public static boolean isBreakable(final BlockPos pos)
+    {
         return mc.world.getBlockState(pos).getBlock().getBlockHardness(mc.world.getBlockState(pos), mc.world, pos) != -1;
     }
 }

@@ -9,18 +9,21 @@ import cat.yoink.xanax.main.util.GuiUtil;
 
 import java.awt.*;
 
-public final class NumberButton extends SettingButton {
+public final class NumberButton extends SettingButton
+{
     private final NumberSetting setting;
     private int sliderWidth;
     private boolean dragging;
 
-    public NumberButton(final Module module, final int x, final int y, final int w, final int h, final NumberSetting setting) {
+    public NumberButton(final Module module, final int x, final int y, final int w, final int h, final NumberSetting setting)
+    {
         super(module, x, y, w, h);
         this.setting = setting;
     }
 
     @Override
-    public void drawScreen(final int mouseX, final int mouseY, final int windowX, final int windowY, final boolean self) {
+    public void drawScreen(final int mouseX, final int mouseY, final int windowX, final int windowY, final boolean self)
+    {
         updateSlider(mouseX);
 
         final boolean outline = ModuleManager.INSTANCE.getSetting("ClickGUI", "Outline").toBoolean().getValue();
@@ -36,26 +39,31 @@ public final class NumberButton extends SettingButton {
     }
 
     @Override
-    public void mouseClicked(final int mouseX, final int mouseY, final int mouseButton, final boolean self) {
+    public void mouseClicked(final int mouseX, final int mouseY, final int mouseButton, final boolean self)
+    {
         if (GuiUtil.isHover(x, y, w, h - 1, mouseX, mouseY)) dragging = true;
     }
 
     @Override
-    public void mouseReleased(final int mouseX, final int mouseY, final int state) {
+    public void mouseReleased(final int mouseX, final int mouseY, final int state)
+    {
         dragging = false;
     }
 
     @Override
-    public void keyTyped(final char typedChar, final int keyCode) {
+    public void keyTyped(final char typedChar, final int keyCode)
+    {
 
     }
 
     @Override
-    public void onGuiClosed() {
+    public void onGuiClosed()
+    {
         dragging = false;
     }
 
-    private void updateSlider(final int mouseX) {
+    private void updateSlider(final int mouseX)
+    {
         final double diff = Math.min(94, Math.max(0, mouseX - x - 8));
 
         final double minimum = setting.getMinimum();
@@ -63,7 +71,8 @@ public final class NumberButton extends SettingButton {
 
         sliderWidth = (int) (94f * (setting.getValue() - minimum) / (maximum - minimum));
 
-        if (dragging) {
+        if (dragging)
+        {
             if (diff == 0) setting.setValue(minimum);
             else if (diff == 94) setting.setValue(maximum);
             else setting.setValue(diff / 96f * (maximum - minimum) + minimum);

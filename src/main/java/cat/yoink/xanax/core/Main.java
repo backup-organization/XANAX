@@ -7,12 +7,14 @@ import net.minecraftforge.common.MinecraftForge;
 import team.stiff.pomelo.EventManager;
 import team.stiff.pomelo.impl.annotated.AnnotatedEventManager;
 
-public enum Main implements MinecraftInstance {
+public enum Main implements MinecraftInstance
+{
     INSTANCE;
 
     public static final EventManager EVENT_BUS = new AnnotatedEventManager();
 
-    public void startup() {
+    public void startup()
+    {
         ConfigManager.loadConfig();
 
         Runtime.getRuntime().addShutdownHook(new Thread(ConfigManager::saveConfig));
