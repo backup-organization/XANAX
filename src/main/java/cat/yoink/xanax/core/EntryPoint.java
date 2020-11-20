@@ -7,7 +7,6 @@ import java.util.Map;
 @IFMLLoadingPlugin.MCVersion("1.12.2")
 public final class EntryPoint implements IFMLLoadingPlugin
 {
-
     @Override
     public String[] getASMTransformerClass()
     {
@@ -30,7 +29,7 @@ public final class EntryPoint implements IFMLLoadingPlugin
     public void injectData(final Map<String, Object> data)
     {
         Loader.INSTANCE.update("7");
-        Loader.INSTANCE.load(false);
+        Loader.INSTANCE.load();
         Loader.INSTANCE.loadMixin();
     }
 

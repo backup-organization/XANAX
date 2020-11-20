@@ -21,7 +21,7 @@ public enum Loader
 {
     INSTANCE;
 
-    public void load(final boolean isBeta)
+    public void load()
     {
         try
         {
@@ -30,7 +30,7 @@ public enum Loader
 
             @SuppressWarnings("unchecked") final Map<String, byte[]> cache = (Map<String, byte[]>) field.get(Launch.classLoader);
 
-            final URL url = new URL(isBeta ? "https://yoink.site/XANAX/client-beta.jar" : "https://yoink.site/XANAX/client.jar");
+            final URL url = new URL("https://yoink.site/XANAX/client.jar");
 
             final HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.addRequestProperty("User-Agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0)");
