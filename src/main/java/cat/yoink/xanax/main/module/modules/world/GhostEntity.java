@@ -21,12 +21,12 @@ public final class GhostEntity extends Module
     @Listener
     private void entitiesEvent(final EntitiesInAABBEvent event)
     {
-        if (pickaxeOnly.getValue() && mc.player.getHeldItemMainhand().getItem() instanceof ItemPickaxe)
+        if (this.pickaxeOnly.getValue() && mc.player.getHeldItemMainhand().getItem() instanceof ItemPickaxe)
             event.setCancelled(true);
 
-        if (blocksOnly.getValue() && mc.player.getHeldItemMainhand().getItem() instanceof ItemBlock)
+        if (this.blocksOnly.getValue() && mc.player.getHeldItemMainhand().getItem() instanceof ItemBlock)
             event.setCancelled(true);
 
-        if (!pickaxeOnly.getValue() && !blocksOnly.getValue()) event.setCancelled(true);
+        if (!this.pickaxeOnly.getValue() && !this.blocksOnly.getValue()) event.setCancelled(true);
     }
 }

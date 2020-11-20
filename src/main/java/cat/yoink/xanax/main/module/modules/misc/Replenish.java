@@ -48,12 +48,12 @@ public final class Replenish extends Module
     @Listener
     public void onTick(final TickEvent event)
     {
-        if (delayStep < tickDelay.getValue())
+        if (this.delayStep < this.tickDelay.getValue())
         {
-            delayStep++;
+            this.delayStep++;
             return;
         }
-        else delayStep = 0;
+        else this.delayStep = 0;
 
         final int[] slots = findReplenishableHotbarSlot();
         if (slots == null) return;
@@ -73,7 +73,7 @@ public final class Replenish extends Module
         {
             final ItemStack stack = hotbarSlot.getValue();
             final int inventorySlot = findCompatibleInventorySlot(stack);
-            if (stack.isEmpty() || stack.getItem() == Items.AIR || !stack.isStackable() || stack.getCount() >= stack.getMaxStackSize() || stack.getCount() > threshold.getValue() || inventorySlot == -1)
+            if (stack.isEmpty() || stack.getItem() == Items.AIR || !stack.isStackable() || stack.getCount() >= stack.getMaxStackSize() || stack.getCount() > this.threshold.getValue() || inventorySlot == -1)
                 continue;
 
             returnPair[0] = inventorySlot;

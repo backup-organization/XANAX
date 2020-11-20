@@ -40,10 +40,10 @@ public final class ChatSuffix extends Module
         final StringBuilder message = new StringBuilder();
 
         message.append(" ");
-        if (blue.getValue()) message.append("`");
+        if (this.blue.getValue()) message.append("`");
         message.append("\u23D0 ");
 
-        switch (mode.getValue().toLowerCase())
+        switch (this.mode.getValue().toLowerCase())
         {
             case "small":
                 message.append("x\u1D00\u0274\u1D00x");

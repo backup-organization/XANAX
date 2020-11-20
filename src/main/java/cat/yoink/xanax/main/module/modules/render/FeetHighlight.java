@@ -35,21 +35,21 @@ public final class FeetHighlight extends Module
     {
         for (final EntityPlayer player : mc.world.playerEntities)
         {
-            if (!self.getValue() && player.equals(mc.player)) continue;
+            if (!this.self.getValue() && player.equals(mc.player)) continue;
 
-            if (mode.is("InHole"))
+            if (this.mode.is("InHole"))
             {
                 if (WorldUtil.isInHole(player))
-                    RenderUtil.drawBox(new BlockPos(player.posX, player.posY, player.posZ), new Color((int) red.getValue(), (int) green.getValue(), (int) blue.getValue(), (int) alpha.getValue()), box.getValue(), outline.getValue());
+                    RenderUtil.drawBox(new BlockPos(player.posX, player.posY, player.posZ), new Color((int) this.red.getValue(), (int) this.green.getValue(), (int) this.blue.getValue(), (int) this.alpha.getValue()), this.box.getValue(), this.outline.getValue());
             }
-            else if (mode.is("OutHole"))
+            else if (this.mode.is("OutHole"))
             {
                 if (!WorldUtil.isInHole(player))
-                    RenderUtil.drawBox(new BlockPos(player.posX, player.posY, player.posZ), new Color((int) red.getValue(), (int) green.getValue(), (int) blue.getValue(), (int) alpha.getValue()), box.getValue(), outline.getValue());
+                    RenderUtil.drawBox(new BlockPos(player.posX, player.posY, player.posZ), new Color((int) this.red.getValue(), (int) this.green.getValue(), (int) this.blue.getValue(), (int) this.alpha.getValue()), this.box.getValue(), this.outline.getValue());
             }
             else
             {
-                RenderUtil.drawBox(new BlockPos(player.posX, player.posY, player.posZ), new Color((int) red.getValue(), (int) green.getValue(), (int) blue.getValue(), (int) alpha.getValue()), box.getValue(), outline.getValue());
+                RenderUtil.drawBox(new BlockPos(player.posX, player.posY, player.posZ), new Color((int) this.red.getValue(), (int) this.green.getValue(), (int) this.blue.getValue(), (int) this.alpha.getValue()), this.box.getValue(), this.outline.getValue());
             }
         }
     }

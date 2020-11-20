@@ -39,10 +39,10 @@ public final class Surround extends Module
     @Override
     protected void onEnable()
     {
-        if (announce.getValue()) ChatUtil.sendPrivateMessage("Enabled Surround");
+        if (this.announce.getValue()) ChatUtil.sendPrivateMessage("Enabled Surround");
 
-        finished = false;
-        startY = mc.player.posY;
+        this.finished = false;
+        this.startY = mc.player.posY;
 
         if (InventoryUtil.getHotbarSlot(Blocks.OBSIDIAN) == -1)
         {
@@ -50,10 +50,10 @@ public final class Surround extends Module
             return;
         }
 
-        if (center.getValue())
+        if (this.center.getValue())
         {
             final BlockPos centerPos = mc.player.getPosition();
-            playerPos = mc.player.getPositionVector();
+            this.playerPos = mc.player.getPositionVector();
             final double y = centerPos.getY();
             double x = centerPos.getX();
             double z = centerPos.getZ();
@@ -93,15 +93,15 @@ public final class Surround extends Module
     @Listener
     public void onTick(final TickEvent event)
     {
-        if (!enabled) return;
+        if (!this.enabled) return;
 
-        if (disable.is("YChange") && mc.player.posY != startY)
+        if (this.disable.is("YChange") && mc.player.posY != this.startY)
         {
             disable();
             return;
         }
 
-        if (finished && (disable.getValue().equalsIgnoreCase("WhenDone") || (disable.getValue().equalsIgnoreCase("OnLeave") && !mc.player.onGround)))
+        if (this.finished && (this.disable.getValue().equalsIgnoreCase("WhenDone") || (this.disable.getValue().equalsIgnoreCase("OnLeave") && !mc.player.onGround)))
         {
             disable();
             return;
@@ -109,7 +109,7 @@ public final class Surround extends Module
 
         int blocksPlaced = 0;
 
-        for (final Vec3d position : positions)
+        for (final Vec3d position : this.positions)
         {
             final BlockPos pos = new BlockPos(position.add(mc.player.getPositionVector()));
 
@@ -132,30 +132,30 @@ public final class Surround extends Module
 
                 blocksPlaced++;
 
-                if (blocksPlaced == blocksPerTick.getValue()) return;
+                if (blocksPlaced == this.blocksPerTick.getValue()) return;
             }
 
             if (WorldUtil.isIntercepted(pos)) blocksPlaced++;
         }
-        if (blocksPlaced == 0) finished = true;
+        if (blocksPlaced == 0) this.finished = true;
     }
 
     @Override
     protected void onDisable()
     {
-        if (announce.getValue()) ChatUtil.sendPrivateMessage("Disabled Surround");
+        if (this.announce.getValue()) ChatUtil.sendPrivateMessage("Disabled Surround");
     }
 
     private int getSlot()
     {
         int slot = -1;
 
-        if (enderChest.getValue())
+        if (this.enderChest.getValue())
         {
             final int enderChestSlot = InventoryUtil.getHotbarSlot(Blocks.ENDER_CHEST);
             if (enderChestSlot != -1) slot = enderChestSlot;
         }
-        if (obsidian.getValue())
+        if (this.obsidian.getValue())
         {
             final int obsidianSlot = InventoryUtil.getHotbarSlot(Blocks.OBSIDIAN);
             if (obsidianSlot != -1) slot = obsidianSlot;
@@ -172,6 +172,6 @@ public final class Surround extends Module
 
     double getDst(final Vec3d vec)
     {
-        return playerPos.distanceTo(vec);
+        return this.playerPos.distanceTo(vec);
     }
 }

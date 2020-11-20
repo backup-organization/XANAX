@@ -31,48 +31,48 @@ public abstract class Module implements MinecraftInstance
 
     public final void enable()
     {
-        enabled = true;
+        this.enabled = true;
         onEnable();
         Main.EVENT_BUS.addEventListener(this);
     }
 
     public final void disable()
     {
-        enabled = false;
+        this.enabled = false;
         onDisable();
         Main.EVENT_BUS.removeEventListener(this);
     }
 
     public final void toggle()
     {
-        if (enabled) disable();
+        if (this.enabled) disable();
         else enable();
     }
 
     protected <E extends Setting> E addSetting(final E setting)
     {
-        settings.add(setting);
+        this.settings.add(setting);
         return setting;
     }
 
     public Setting getSetting(final String name)
     {
-        return settings.stream().filter(setting -> setting.getName().equalsIgnoreCase(name)).findAny().orElse(null);
+        return this.settings.stream().filter(setting -> setting.getName().equalsIgnoreCase(name)).findAny().orElse(null);
     }
 
     public final String getName()
     {
-        return name;
+        return this.name;
     }
 
     public final Category getCategory()
     {
-        return category;
+        return this.category;
     }
 
     public final int getBind()
     {
-        return bind;
+        return this.bind;
     }
 
     public final void setBind(final int bind)
@@ -82,7 +82,7 @@ public abstract class Module implements MinecraftInstance
 
     public final boolean isEnabled()
     {
-        return enabled;
+        return this.enabled;
     }
 
     public final void setEnabled(final boolean enabled)
@@ -92,6 +92,6 @@ public abstract class Module implements MinecraftInstance
 
     public List<Setting> getSettings()
     {
-        return settings;
+        return this.settings;
     }
 }

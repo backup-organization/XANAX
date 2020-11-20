@@ -30,26 +30,26 @@ public final class HitMarkers extends Module
     {
         if (!event.getEntity().equals(mc.player)) return;
 
-        renderTicks = 0;
+        this.renderTicks = 0;
     }
 
     @Listener
     public void onTickClientTick(final TickEvent event)
     {
-        renderTicks++;
+        this.renderTicks++;
     }
 
     @Listener
     public void onRenderGameOverlay(final Render2DEvent event)
     {
-        if (renderTicks < time.getValue())
+        if (this.renderTicks < this.time.getValue())
         {
             final ScaledResolution resolution = new ScaledResolution(mc);
 
             GlStateManager.enableBlend();
-            mc.getTextureManager().bindTexture(image);
-            Gui.drawModalRectWithCustomSizedTexture(resolution.getScaledWidth() / 2 - (int) width.getValue() / 2, resolution.getScaledHeight() / 2 - (int) height.getValue() / 2, 0, 0, (int) width.getValue(), (int) height.getValue(), (int) width.getValue(), (int) height.getValue());
-            mc.getTextureManager().deleteTexture(image);
+            mc.getTextureManager().bindTexture(this.image);
+            Gui.drawModalRectWithCustomSizedTexture(resolution.getScaledWidth() / 2 - (int) this.width.getValue() / 2, resolution.getScaledHeight() / 2 - (int) this.height.getValue() / 2, 0, 0, (int) this.width.getValue(), (int) this.height.getValue(), (int) this.width.getValue(), (int) this.height.getValue());
+            mc.getTextureManager().deleteTexture(this.image);
             GlStateManager.disableBlend();
         }
     }

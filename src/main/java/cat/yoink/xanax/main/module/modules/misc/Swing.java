@@ -23,8 +23,8 @@ public final class Swing extends Module
         if (event.getType().equals(PacketEvent.Type.INCOMING) || !(event.getPacket() instanceof CPacketAnimation))
             return;
 
-        if (mode.getValue().equalsIgnoreCase("None")) event.setCancelled(true);
+        if (this.mode.getValue().equalsIgnoreCase("None")) event.setCancelled(true);
 
-        ((CPacketAnimation) event.getPacket()).hand = mode.is("MainHand") ? EnumHand.MAIN_HAND : EnumHand.OFF_HAND;
+        ((CPacketAnimation) event.getPacket()).hand = this.mode.is("MainHand") ? EnumHand.MAIN_HAND : EnumHand.OFF_HAND;
     }
 }

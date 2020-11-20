@@ -45,55 +45,55 @@ public final class PacketMine extends Module
     {
         if (WorldUtil.isBreakable(event.getPos()))
         {
-            if (swing.getValue()) mc.player.swingArm(EnumHand.MAIN_HAND);
+            if (this.swing.getValue()) mc.player.swingArm(EnumHand.MAIN_HAND);
             mc.player.connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.START_DESTROY_BLOCK, event.getPos(), event.getFace()));
             mc.player.connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.STOP_DESTROY_BLOCK, event.getPos(), event.getFace()));
 
-            if (render.is("Full") || render.is("Specific")) breakBlock = event.getPos();
-            if (noBreak.getValue()) event.setCancelled(true);
+            if (this.render.is("Full") || this.render.is("Specific")) this.breakBlock = event.getPos();
+            if (this.noBreak.getValue()) event.setCancelled(true);
         }
     }
 
     @Listener
     public void tickEvent(final TickEvent event)
     {
-        if (breakBlock != null) miningTicks++;
-        if (breakBlock != null && miningTicks > time.getValue())
+        if (this.breakBlock != null) this.miningTicks++;
+        if (this.breakBlock != null && this.miningTicks > this.time.getValue())
         {
-            miningTicks = 0;
-            breakBlock = null;
+            this.miningTicks = 0;
+            this.breakBlock = null;
         }
     }
 
     @Listener
     public void render(final Render3DEvent event)
     {
-        if (breakBlock != null && mc.world.getBlockState(breakBlock).getBlock() == Blocks.AIR)
+        if (this.breakBlock != null && mc.world.getBlockState(this.breakBlock).getBlock() == Blocks.AIR)
         {
-            breakBlock = null;
-            miningTicks = 0;
+            this.breakBlock = null;
+            this.miningTicks = 0;
         }
-        else if (breakBlock != null && miningTicks != 0)
+        else if (this.breakBlock != null && this.miningTicks != 0)
         {
             final Color c;
-            if (change.getValue())
+            if (this.change.getValue())
             {
-                if (miningTicks < 50) c = new Color(200, 10, 10, 150);
+                if (this.miningTicks < 50) c = new Color(200, 10, 10, 150);
                 else c = new Color(10, 200, 10, 150);
             }
             else
             {
-                c = new Color((int) red.getValue() / 255f, (int) green.getValue() / 255f, (int) blue.getValue() / 255f, (int) alpha.getValue() / 255f);
+                c = new Color((int) this.red.getValue() / 255f, (int) this.green.getValue() / 255f, (int) this.blue.getValue() / 255f, (int) this.alpha.getValue() / 255f);
             }
 
-            if (render.is("Specific"))
+            if (this.render.is("Specific"))
             {
-                final AxisAlignedBB bb = RenderUtil.convertBox(mc.world.getBlockState(breakBlock).getBoundingBox(mc.world, breakBlock).offset(breakBlock));
-                RenderUtil.drawBox(bb, c.getRed(), c.getGreen(), c.getBlue(), c.getAlpha(), box.getValue(), outline.getValue());
+                final AxisAlignedBB bb = RenderUtil.convertBox(mc.world.getBlockState(this.breakBlock).getBoundingBox(mc.world, this.breakBlock).offset(this.breakBlock));
+                RenderUtil.drawBox(bb, c.getRed(), c.getGreen(), c.getBlue(), c.getAlpha(), this.box.getValue(), this.outline.getValue());
             }
             else
             {
-                RenderUtil.drawBox(breakBlock, c, box.getValue(), outline.getValue());
+                RenderUtil.drawBox(this.breakBlock, c, this.box.getValue(), this.outline.getValue());
             }
         }
     }

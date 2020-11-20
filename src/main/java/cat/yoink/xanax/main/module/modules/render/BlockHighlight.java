@@ -38,15 +38,15 @@ public final class BlockHighlight extends Module
         {
             final BlockPos blockPos = result.getBlockPos();
 
-            if (mode.is("Specific"))
+            if (this.mode.is("Specific"))
             {
                 AxisAlignedBB box = mc.world.getBlockState(blockPos).getBoundingBox(mc.world, blockPos).offset(blockPos);
                 box = RenderUtil.convertBox(box);
-                RenderUtil.drawBox(box, (int) red.getValue(), (int) green.getValue(), (int) blue.getValue(), (int) alpha.getValue(), this.box.getValue(), outline.getValue());
+                RenderUtil.drawBox(box, (int) this.red.getValue(), (int) this.green.getValue(), (int) this.blue.getValue(), (int) this.alpha.getValue(), this.box.getValue(), this.outline.getValue());
             }
             else
             {
-                RenderUtil.drawBox(blockPos, new Color((int) red.getValue(), (int) green.getValue(), (int) blue.getValue(), (int) alpha.getValue()), this.box.getValue(), outline.getValue());
+                RenderUtil.drawBox(blockPos, new Color((int) this.red.getValue(), (int) this.green.getValue(), (int) this.blue.getValue(), (int) this.alpha.getValue()), this.box.getValue(), this.outline.getValue());
             }
         }
     }

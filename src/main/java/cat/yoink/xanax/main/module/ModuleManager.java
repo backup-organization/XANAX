@@ -64,19 +64,19 @@ public enum ModuleManager
 
     public ArrayList<Module> getModules()
     {
-        return modules;
+        return this.modules;
     }
 
     public Module getModule(final String name)
     {
-        return modules.stream().filter(module -> module.getName().equalsIgnoreCase(name)).findAny().orElse(null);
+        return this.modules.stream().filter(module -> module.getName().equalsIgnoreCase(name)).findAny().orElse(null);
     }
 
     public List<String> getConfig()
     {
         final List<String> config = new ArrayList<>();
 
-        modules.forEach(module -> module.getSettings().forEach(setting -> {
+        this.modules.forEach(module -> module.getSettings().forEach(setting -> {
             final StringBuilder builder = new StringBuilder(module.getName() + ":" + setting.getName() + ":");
             if (setting instanceof BooleanSetting) builder.append(((BooleanSetting) setting).getValue());
             else if (setting instanceof NumberSetting) builder.append(((NumberSetting) setting).getValue());

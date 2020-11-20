@@ -29,15 +29,15 @@ public final class Burrow extends Module
     @Override
     protected void onEnable()
     {
-        originalPos = new BlockPos(mc.player.posX, mc.player.posY, mc.player.posZ);
+        this.originalPos = new BlockPos(mc.player.posX, mc.player.posY, mc.player.posZ);
 
-        if (mc.world.getBlockState(new BlockPos(mc.player.posX, mc.player.posY, mc.player.posZ)).getBlock().equals(Blocks.OBSIDIAN) || WorldUtil.isInterceptedByOther(originalPos) || InventoryUtil.getHotbarSlot(Blocks.OBSIDIAN) == -1)
+        if (mc.world.getBlockState(new BlockPos(mc.player.posX, mc.player.posY, mc.player.posZ)).getBlock().equals(Blocks.OBSIDIAN) || WorldUtil.isInterceptedByOther(this.originalPos) || InventoryUtil.getHotbarSlot(Blocks.OBSIDIAN) == -1)
         {
             disable();
             return;
         }
 
-        if (announce.getValue()) ChatUtil.sendPrivateMessage("Enabled Burrow");
+        if (this.announce.getValue()) ChatUtil.sendPrivateMessage("Enabled Burrow");
 
         mc.player.jump();
     }
@@ -45,20 +45,21 @@ public final class Burrow extends Module
     @Listener
     public void onTickClientTick(final TickEvent event)
     {
-        if (mc.player.posY > originalPos.getY() + height.getValue())
+        if (mc.player.posY > this.originalPos.getY() + this.height.getValue())
         {
             final int oldSlot = mc.player.inventory.currentItem;
 
             mc.player.inventory.currentItem = InventoryUtil.getHotbarSlot(Blocks.OBSIDIAN);
 
-            WorldUtil.placeBlock(originalPos);
+            WorldUtil.placeBlock(this.originalPos);
 
             mc.player.inventory.currentItem = oldSlot;
 
-            if (mode.is("Jump")) mc.player.jump();
-            else if (mode.is("HighJump")) mc.player.motionY = 0.7;
-            else if (mode.is("TP")) mc.player.posY = originalPos.getY();
-            else if (mode.is("Packet")) mc.player.connection.sendPacket(new CPacketPlayer.Position(mc.player.posX, originalPos.getY(), mc.player.posZ, true));
+            if (this.mode.is("Jump")) mc.player.jump();
+            else if (this.mode.is("HighJump")) mc.player.motionY = 0.7;
+            else if (this.mode.is("TP")) mc.player.posY = this.originalPos.getY();
+            else if (this.mode.is("Packet"))
+                mc.player.connection.sendPacket(new CPacketPlayer.Position(mc.player.posX, this.originalPos.getY(), mc.player.posZ, true));
 
             disable();
         }

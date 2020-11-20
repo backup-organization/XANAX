@@ -8,13 +8,13 @@ import org.lwjgl.input.Keyboard;
 
 public final class ClickGUI extends Module
 {
-    private final BooleanSetting outline = addSetting(new BooleanSetting("Outline", false));
-    private final EnumSetting closing = addSetting(new EnumSetting("Closing", "Keyboard", "Keyboard", "Button", "Both"));
-
     public ClickGUI()
     {
         super("ClickGUI", Category.CLIENT);
         setBind(Keyboard.KEY_RSHIFT);
+
+        addSetting(new BooleanSetting("Outline", false));
+        addSetting(new EnumSetting("Closing", "Keyboard", "Keyboard", "Button", "Both"));
     }
 
     @Override

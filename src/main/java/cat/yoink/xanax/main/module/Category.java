@@ -18,6 +18,6 @@ public enum Category
 
     public String getName()
     {
-        return name;
+        return this.name;
     }
 }
