@@ -5,6 +5,7 @@ import cat.yoink.xanax.main.module.modules.client.DiscordRPC;
 import cat.yoink.xanax.main.module.modules.combat.Criticals;
 import cat.yoink.xanax.main.module.modules.combat.Surround;
 import cat.yoink.xanax.main.module.modules.misc.ChatSuffix;
+import cat.yoink.xanax.main.module.modules.misc.MiddleClick;
 import cat.yoink.xanax.main.module.modules.misc.Replenish;
 import cat.yoink.xanax.main.module.modules.misc.Swing;
 import cat.yoink.xanax.main.module.modules.movement.Burrow;
@@ -44,7 +45,8 @@ public enum ModuleManager
                 new Replenish(),
                 new DiscordRPC(),
                 new BlockHighlight(),
-                new GhostEntity());
+                new GhostEntity(),
+                new MiddleClick());
     }
 
     private void addModules(final Module... modules)

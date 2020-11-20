@@ -59,6 +59,12 @@ public final class EventHandler implements MinecraftInstance
         if (isSafe()) Main.EVENT_BUS.dispatchEvent(new Render3DEvent());
     }
 
+    @SubscribeEvent
+    public void onInputMouseInput(final InputEvent.MouseInputEvent event)
+    {
+        if (isSafe()) Main.EVENT_BUS.dispatchEvent(new ClickEvent());
+    }
+
     protected final boolean isSafe()
     {
         return mc.player != null && mc.world != null;
