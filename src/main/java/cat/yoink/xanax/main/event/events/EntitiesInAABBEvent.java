@@ -7,7 +7,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 
 import java.util.function.Predicate;
 
-public class EntitiesInAABBEvent extends EventBase
+public final class EntitiesInAABBEvent extends EventBase
 {
     private final WorldClient worldClient;
     private final Entity entityIn;
@@ -24,21 +24,21 @@ public class EntitiesInAABBEvent extends EventBase
 
     public WorldClient getWorldClient()
     {
-        return worldClient;
+        return this.worldClient;
     }
 
     public Entity getEntityIn()
     {
-        return entityIn;
+        return this.entityIn;
     }
 
     public AxisAlignedBB getBoundingBox()
     {
-        return boundingBox;
+        return this.boundingBox;
     }
 
     public Predicate<? super Entity> getPredicate()
     {
-        return predicate;
+        return this.predicate;
     }
 }

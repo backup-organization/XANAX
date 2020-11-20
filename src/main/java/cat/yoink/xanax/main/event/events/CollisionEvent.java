@@ -14,6 +14,6 @@ public final class CollisionEvent extends EventBase
 
     public Entity getEntity()
     {
-        return entity;
+        return this.entity;
     }
 }

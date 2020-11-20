@@ -16,12 +16,12 @@ public final class PacketEvent extends EventBase
 
     public Packet<?> getPacket()
     {
-        return packet;
+        return this.packet;
     }
 
     public Type getType()
     {
-        return type;
+        return this.type;
     }
 
     public enum Type

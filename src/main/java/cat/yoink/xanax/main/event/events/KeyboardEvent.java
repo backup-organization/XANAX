@@ -15,11 +15,11 @@ public final class KeyboardEvent extends EventBase
 
     public int getKey()
     {
-        return key;
+        return this.key;
     }
 
     public boolean isState()
     {
-        return state;
+        return this.state;
     }
 }

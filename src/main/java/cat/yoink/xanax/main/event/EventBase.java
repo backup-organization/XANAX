@@ -2,11 +2,11 @@ package cat.yoink.xanax.main.event;
 
 public abstract class EventBase
 {
-    public boolean cancelled;
+    private boolean cancelled;
 
     public boolean isCancelled()
     {
-        return cancelled;
+        return this.cancelled;
     }
 
     public void setCancelled(final boolean cancelled)

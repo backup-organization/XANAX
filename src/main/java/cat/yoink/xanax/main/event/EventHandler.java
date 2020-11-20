@@ -67,6 +67,6 @@ public final class EventHandler implements MinecraftInstance
 
     protected final boolean isSafe()
     {
-        return mc.player != null && mc.world != null;
+        return MinecraftInstance.mc.player != null && MinecraftInstance.mc.world != null;
     }
 }

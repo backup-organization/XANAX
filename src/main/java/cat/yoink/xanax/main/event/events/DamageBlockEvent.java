@@ -4,7 +4,7 @@ import cat.yoink.xanax.main.event.EventBase;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 
-public class DamageBlockEvent extends EventBase
+public final class DamageBlockEvent extends EventBase
 {
     private final BlockPos pos;
     private final EnumFacing face;
@@ -17,11 +17,11 @@ public class DamageBlockEvent extends EventBase
 
     public BlockPos getPos()
     {
-        return pos;
+        return this.pos;
     }
 
     public EnumFacing getFace()
     {
-        return face;
+        return this.face;
     }
 }
