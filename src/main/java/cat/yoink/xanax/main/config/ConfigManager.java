@@ -20,7 +20,7 @@ public enum ConfigManager implements MinecraftInstance
 {
     INSTANCE;
 
-    private final File folder = new File(MinecraftInstance.mc.gameDir + File.separator + "xanax");
+    private final File folder = new File(mc.gameDir + File.separator + "xanax");
 
     public static void loadConfig()
     {
