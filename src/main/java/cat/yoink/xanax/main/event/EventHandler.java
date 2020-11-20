@@ -14,52 +14,45 @@ import org.lwjgl.input.Keyboard;
 
 import static net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 
-public final class EventHandler implements MinecraftInstance
-{
+public final class EventHandler implements MinecraftInstance {
     @SubscribeEvent
-    public void onInputKeyInput(InputEvent.KeyInputEvent event)
-    {
+    public void onInputKeyInput(final InputEvent.KeyInputEvent event) {
         Main.EVENT_BUS.dispatchEvent(new KeyboardEvent(Keyboard.getEventKey(), Keyboard.getEventKeyState()));
 
-        if (Keyboard.getEventKeyState() && Keyboard.getEventKey() != Keyboard.KEY_NONE) ModuleManager.INSTANCE.getModules().stream().filter(module -> module.getBind() == Keyboard.getEventKey()).forEach(Module::toggle);
+        if (Keyboard.getEventKeyState() && Keyboard.getEventKey() != Keyboard.KEY_NONE)
+            ModuleManager.INSTANCE.getModules().stream().filter(module -> module.getBind() == Keyboard.getEventKey()).forEach(Module::toggle);
     }
 
     @SubscribeEvent
-    public void onTickClientTick(ClientTickEvent event)
-    {
+    public void onTickClientTick(final ClientTickEvent event) {
         if (isSafe()) Main.EVENT_BUS.dispatchEvent(new TickEvent());
     }
 
     @SubscribeEvent
-    public void onAttackEntity(net.minecraftforge.event.entity.player.AttackEntityEvent event)
-    {
+    public void onAttackEntity(final net.minecraftforge.event.entity.player.AttackEntityEvent event) {
         if (isSafe() && Main.EVENT_BUS.dispatchEvent(new AttackEntityEvent(event.getEntityPlayer())).isCancelled())
             event.setCanceled(true);
     }
 
     @SubscribeEvent
-    public void onRenderGameOverlay(RenderGameOverlayEvent event)
-    {
+    public void onRenderGameOverlay(final RenderGameOverlayEvent event) {
         if (!event.getType().equals(RenderGameOverlayEvent.ElementType.TEXT)) return;
         if (isSafe() && Main.EVENT_BUS.dispatchEvent(new Render2DEvent()).isCancelled())
             event.setCanceled(true);
     }
 
     @SubscribeEvent
-    public void onPlayerSPPushOutOfBlocks(PlayerSPPushOutOfBlocksEvent event)
-    {
+    public void onPlayerSPPushOutOfBlocks(final PlayerSPPushOutOfBlocksEvent event) {
         if (isSafe() && Main.EVENT_BUS.dispatchEvent(new BlockPushEvent()).isCancelled())
             event.setCanceled(true);
     }
 
     @SubscribeEvent
-    public void onRenderWorldLast(RenderWorldLastEvent event)
-    {
+    public void onRenderWorldLast(final RenderWorldLastEvent event) {
         if (isSafe()) Main.EVENT_BUS.dispatchEvent(new Render3DEvent());
     }
 
-    protected final boolean isSafe()
-    {
+    protected final boolean isSafe() {
         return mc.player != null && mc.world != null;
     }
 }

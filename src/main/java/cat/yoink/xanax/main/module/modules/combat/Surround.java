@@ -18,8 +18,7 @@ import team.stiff.pomelo.impl.annotated.handler.annotation.Listener;
 import java.util.Arrays;
 import java.util.List;
 
-public final class Surround extends Module
-{
+public final class Surround extends Module {
     private final NumberSetting blocksPerTick = addSetting(new NumberSetting("BlocksPerTick", 1, 1, 10, 1));
     private final BooleanSetting obsidian = addSetting(new BooleanSetting("Obsidian", true));
     private final EnumSetting disable = addSetting(new EnumSetting("Disable", "WhenDone", "WhenDone", "OnLeave", "YChange", "Off"));
@@ -31,30 +30,26 @@ public final class Surround extends Module
     private Vec3d playerPos;
     private double startY;
 
-    public Surround()
-    {
+    public Surround() {
         super("Surround", Category.COMBAT);
     }
 
     @Override
-    protected void onEnable()
-    {
+    protected void onEnable() {
         if (announce.getValue()) ChatUtil.sendPrivateMessage("Enabled Surround");
 
         finished = false;
         startY = mc.player.posY;
 
-        if (InventoryUtil.getHotbarSlot(Blocks.OBSIDIAN) == -1)
-        {
+        if (InventoryUtil.getHotbarSlot(Blocks.OBSIDIAN) == -1) {
             disable();
             return;
         }
 
-        if (center.getValue())
-        {
-            BlockPos centerPos = mc.player.getPosition();
+        if (center.getValue()) {
+            final BlockPos centerPos = mc.player.getPosition();
             playerPos = mc.player.getPositionVector();
-            double y = centerPos.getY();
+            final double y = centerPos.getY();
             double x = centerPos.getX();
             double z = centerPos.getZ();
 
@@ -63,26 +58,22 @@ public final class Surround extends Module
             final Vec3d minusMinus = new Vec3d(x - 0.5, y, z - 0.5);
             final Vec3d minusPlus = new Vec3d(x - 0.5, y, z + 0.5);
 
-            if (getDst(plusPlus) < getDst(plusMinus) && getDst(plusPlus) < getDst(minusMinus) && getDst(plusPlus) < getDst(minusPlus))
-            {
+            if (getDst(plusPlus) < getDst(plusMinus) && getDst(plusPlus) < getDst(minusMinus) && getDst(plusPlus) < getDst(minusPlus)) {
                 x = centerPos.getX() + 0.5;
                 z = centerPos.getZ() + 0.5;
                 centerPlayer(x, y, z);
             }
-            if (getDst(plusMinus) < getDst(plusPlus) && getDst(plusMinus) < getDst(minusMinus) && getDst(plusMinus) < getDst(minusPlus))
-            {
+            if (getDst(plusMinus) < getDst(plusPlus) && getDst(plusMinus) < getDst(minusMinus) && getDst(plusMinus) < getDst(minusPlus)) {
                 x = centerPos.getX() + 0.5;
                 z = centerPos.getZ() - 0.5;
                 centerPlayer(x, y, z);
             }
-            if (getDst(minusMinus) < getDst(plusPlus) && getDst(minusMinus) < getDst(plusMinus) && getDst(minusMinus) < getDst(minusPlus))
-            {
+            if (getDst(minusMinus) < getDst(plusPlus) && getDst(minusMinus) < getDst(plusMinus) && getDst(minusMinus) < getDst(minusPlus)) {
                 x = centerPos.getX() - 0.5;
                 z = centerPos.getZ() - 0.5;
                 centerPlayer(x, y, z);
             }
-            if (getDst(minusPlus) < getDst(plusPlus) && getDst(minusPlus) < getDst(plusMinus) && getDst(minusPlus) < getDst(minusMinus))
-            {
+            if (getDst(minusPlus) < getDst(plusPlus) && getDst(minusPlus) < getDst(plusMinus) && getDst(minusPlus) < getDst(minusMinus)) {
                 x = centerPos.getX() - 0.5;
                 z = centerPos.getZ() + 0.5;
                 centerPlayer(x, y, z);
@@ -91,35 +82,29 @@ public final class Surround extends Module
     }
 
     @Listener
-    public void onTick(TickEvent event)
-    {
+    public void onTick(final TickEvent event) {
         if (!enabled) return;
 
-        if (disable.is("YChange") && mc.player.posY != startY)
-        {
+        if (disable.is("YChange") && mc.player.posY != startY) {
             disable();
             return;
         }
 
-        if (finished && (disable.getValue().equalsIgnoreCase("WhenDone") || (disable.getValue().equalsIgnoreCase("OnLeave") && !mc.player.onGround)))
-        {
+        if (finished && (disable.getValue().equalsIgnoreCase("WhenDone") || (disable.getValue().equalsIgnoreCase("OnLeave") && !mc.player.onGround))) {
             disable();
             return;
         }
 
         int blocksPlaced = 0;
 
-        for (Vec3d position : positions)
-        {
-            BlockPos pos = new BlockPos(position.add(mc.player.getPositionVector()));
+        for (final Vec3d position : positions) {
+            final BlockPos pos = new BlockPos(position.add(mc.player.getPositionVector()));
 
-            if (mc.world.getBlockState(pos).getBlock().equals(Blocks.AIR))
-            {
-                int oldSlot = mc.player.inventory.currentItem;
-                int newSlot = getSlot();
+            if (mc.world.getBlockState(pos).getBlock().equals(Blocks.AIR)) {
+                final int oldSlot = mc.player.inventory.currentItem;
+                final int newSlot = getSlot();
 
-                if (newSlot == -1)
-                {
+                if (newSlot == -1) {
                     disable();
                     return;
                 }
@@ -141,37 +126,31 @@ public final class Surround extends Module
     }
 
     @Override
-    protected void onDisable()
-    {
+    protected void onDisable() {
         if (announce.getValue()) ChatUtil.sendPrivateMessage("Disabled Surround");
     }
 
-    private int getSlot()
-    {
+    private int getSlot() {
         int slot = -1;
 
-        if (enderChest.getValue())
-        {
-            int enderChestSlot = InventoryUtil.getHotbarSlot(Blocks.ENDER_CHEST);
+        if (enderChest.getValue()) {
+            final int enderChestSlot = InventoryUtil.getHotbarSlot(Blocks.ENDER_CHEST);
             if (enderChestSlot != -1) slot = enderChestSlot;
         }
-        if (obsidian.getValue())
-        {
-            int obsidianSlot = InventoryUtil.getHotbarSlot(Blocks.OBSIDIAN);
+        if (obsidian.getValue()) {
+            final int obsidianSlot = InventoryUtil.getHotbarSlot(Blocks.OBSIDIAN);
             if (obsidianSlot != -1) slot = obsidianSlot;
         }
 
         return slot;
     }
 
-    private void centerPlayer(double x, double y, double z)
-    {
+    private void centerPlayer(final double x, final double y, final double z) {
         mc.player.connection.sendPacket(new CPacketPlayer.Position(x, y, z, true));
         mc.player.setPosition(x, y, z);
     }
 
-    double getDst(Vec3d vec)
-    {
+    double getDst(final Vec3d vec) {
         return playerPos.distanceTo(vec);
     }
 }

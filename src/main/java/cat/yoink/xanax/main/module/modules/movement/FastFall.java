@@ -12,39 +12,34 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import team.stiff.pomelo.impl.annotated.handler.annotation.Listener;
 
-public final class FastFall extends Module
-{
+public final class FastFall extends Module {
     private final BooleanSetting holeOnly = addSetting(new BooleanSetting("HoleOnly", true));
     private final NumberSetting speed = addSetting(new NumberSetting("Speed", 1, 0.01, 1, 0.01));
     private final BooleanSetting noLiquid = addSetting(new BooleanSetting("NoLiquid", true));
 
-    public FastFall()
-    {
+    public FastFall() {
         super("FastFall", Category.MOVEMENT);
     }
 
     @Listener
-    public void onTickClientTick(TickEvent event)
-    {
+    public void onTickClientTick(final TickEvent event) {
         if (!mc.player.onGround || noLiquid.getValue() && (mc.player.isInLava() || mc.player.isInWater()) || holeOnly.getValue() && !fallingIntoHole())
             return;
 
         mc.player.motionY -= speed.getValue();
     }
 
-    private boolean fallingIntoHole()
-    {
+    private boolean fallingIntoHole() {
         final Vec3d vec = interpolateEntity(mc.player, mc.getRenderPartialTicks());
 
         final BlockPos pos = new BlockPos(vec.x, vec.y - 1, vec.z);
 
-        BlockPos[] posList = {pos.north(), pos.south(), pos.east(), pos.west(), pos.down()};
+        final BlockPos[] posList = {pos.north(), pos.south(), pos.east(), pos.west(), pos.down()};
 
         int blocks = 0;
 
-        for (BlockPos blockPos : posList)
-        {
-            Block block = mc.world.getBlockState(blockPos).getBlock();
+        for (final BlockPos blockPos : posList) {
+            final Block block = mc.world.getBlockState(blockPos).getBlock();
 
             if (block == Blocks.OBSIDIAN || block == Blocks.BEDROCK) ++blocks;
         }
@@ -52,8 +47,7 @@ public final class FastFall extends Module
         return blocks == 5;
     }
 
-    private Vec3d interpolateEntity(EntityPlayerSP entity, float time)
-    {
+    private Vec3d interpolateEntity(final EntityPlayerSP entity, final float time) {
         return new Vec3d(entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * time, entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * time, entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * time);
     }
 }

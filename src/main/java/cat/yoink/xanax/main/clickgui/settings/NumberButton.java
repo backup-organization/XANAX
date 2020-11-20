@@ -9,27 +9,24 @@ import cat.yoink.xanax.main.util.GuiUtil;
 
 import java.awt.*;
 
-public final class NumberButton extends SettingButton
-{
+public final class NumberButton extends SettingButton {
     private final NumberSetting setting;
     private int sliderWidth;
     private boolean dragging;
 
-    public NumberButton(Module module, int x, int y, int w, int h, NumberSetting setting)
-    {
+    public NumberButton(final Module module, final int x, final int y, final int w, final int h, final NumberSetting setting) {
         super(module, x, y, w, h);
         this.setting = setting;
     }
 
     @Override
-    public void drawScreen(int mouseX, int mouseY, int windowX, int windowY, boolean self)
-    {
+    public void drawScreen(final int mouseX, final int mouseY, final int windowX, final int windowY, final boolean self) {
         updateSlider(mouseX);
 
-        boolean outline = ModuleManager.INSTANCE.getSetting("ClickGUI", "Outline").toBoolean().getValue();
+        final boolean outline = ModuleManager.INSTANCE.getSetting("ClickGUI", "Outline").toBoolean().getValue();
 
-        float[] hue = new float[]{(float) (System.currentTimeMillis() % 11520L) / 11520.0f};
-        Color c = new Color(Color.HSBtoRGB(hue[0], 1.0f, 1.0f));
+        final float[] hue = new float[]{(float) (System.currentTimeMillis() % 11520L) / 11520.0f};
+        final Color c = new Color(Color.HSBtoRGB(hue[0], 1.0f, 1.0f));
 
         GuiUtil.drawRect(x + 5, y + 5, 100, 10, new Color(20, 20, 20).getRGB(), outline, c.getRGB());
         GuiUtil.drawRect(x + sliderWidth - 2 + 8, y + 6, 4, 8, c.getRGB());
@@ -39,43 +36,37 @@ public final class NumberButton extends SettingButton
     }
 
     @Override
-    public void mouseClicked(int mouseX, int mouseY, int mouseButton, boolean self)
-    {
+    public void mouseClicked(final int mouseX, final int mouseY, final int mouseButton, final boolean self) {
         if (GuiUtil.isHover(x, y, w, h - 1, mouseX, mouseY)) dragging = true;
     }
 
     @Override
-    public void mouseReleased(int mouseX, int mouseY, int state)
-    {
+    public void mouseReleased(final int mouseX, final int mouseY, final int state) {
         dragging = false;
     }
 
     @Override
-    public void keyTyped(char typedChar, int keyCode)
-    {
+    public void keyTyped(final char typedChar, final int keyCode) {
 
     }
 
     @Override
-    public void onGuiClosed()
-    {
+    public void onGuiClosed() {
         dragging = false;
     }
 
-    private void updateSlider(int mouseX)
-    {
-        double diff = Math.min(94, Math.max(0, mouseX - x - 8));
+    private void updateSlider(final int mouseX) {
+        final double diff = Math.min(94, Math.max(0, mouseX - x - 8));
 
-        double minimum = setting.getMinimum();
-        double maximum = setting.getMaximum();
+        final double minimum = setting.getMinimum();
+        final double maximum = setting.getMaximum();
 
         sliderWidth = (int) (94f * (setting.getValue() - minimum) / (maximum - minimum));
 
-        if (dragging)
-        {
+        if (dragging) {
             if (diff == 0) setting.setValue(minimum);
             else if (diff == 94) setting.setValue(maximum);
-            else setting.setValue(diff / 96f  * (maximum - minimum) + minimum);
+            else setting.setValue(diff / 96f * (maximum - minimum) + minimum);
         }
     }
 }

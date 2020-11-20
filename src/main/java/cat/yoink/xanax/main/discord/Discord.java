@@ -4,8 +4,7 @@ import club.minnced.discord.rpc.DiscordEventHandlers;
 import club.minnced.discord.rpc.DiscordRPC;
 import club.minnced.discord.rpc.DiscordRichPresence;
 
-public enum Discord
-{
+public enum Discord {
     INSTANCE;
 
     private final DiscordRichPresence presence;
@@ -13,26 +12,23 @@ public enum Discord
     private final String id;
     private boolean connected;
 
-    Discord()
-    {
+    Discord() {
         presence = new DiscordRichPresence();
         rpc = DiscordRPC.INSTANCE;
         connected = false;
         id = "778887499362861067";
     }
 
-    public void start()
-    {
+    public void start() {
         if (connected) return;
         presence.startTimestamp = System.currentTimeMillis() / 1000L;
 
-        DiscordEventHandlers handlers = new DiscordEventHandlers();
+        final DiscordEventHandlers handlers = new DiscordEventHandlers();
 
         rpc.Discord_Initialize(id, handlers, true, "");
         rpc.Discord_UpdatePresence(presence);
 
         presence.details = "strong hack";
-//        presence.state = state;
         presence.largeImageKey = "yum";
         rpc.Discord_UpdatePresence(presence);
 
@@ -40,19 +36,21 @@ public enum Discord
         new Thread(this::startThread).start();
     }
 
-    public void stop()
-    {
+    public void stop() {
         if (!connected) return;
         connected = false;
         rpc.Discord_Shutdown();
     }
 
-    private void startThread()
-    {
-        while (connected && !Thread.currentThread().isInterrupted())
-        {
-            try { Thread.sleep(3000); }
-            catch (InterruptedException e) { e.printStackTrace(); }
+    @SuppressWarnings("ALL")
+    private void startThread() {
+        while (connected && !Thread.currentThread().isInterrupted()) {
+            try {
+                Thread.sleep(3000);
+            }
+            catch (final InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

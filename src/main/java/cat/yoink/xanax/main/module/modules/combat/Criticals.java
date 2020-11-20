@@ -10,19 +10,16 @@ import net.minecraft.network.play.client.CPacketUseEntity;
 import org.lwjgl.input.Keyboard;
 import team.stiff.pomelo.impl.annotated.handler.annotation.Listener;
 
-public final class Criticals extends Module
-{
+public final class Criticals extends Module {
     private final BooleanSetting crystals = addSetting(new BooleanSetting("Crystals", false));
 
-    public Criticals()
-    {
+    public Criticals() {
         super("Criticals", Category.COMBAT);
         setBind(Keyboard.KEY_G);
     }
 
     @Listener
-    public void onPacket(PacketEvent event)
-    {
+    public void onPacket(final PacketEvent event) {
         if (event.getType() == PacketEvent.Type.INCOMING || !(event.getPacket() instanceof CPacketUseEntity) || ((CPacketUseEntity) event.getPacket()).getAction() != CPacketUseEntity.Action.ATTACK || !mc.player.onGround || !crystals.getValue() && ((CPacketUseEntity) event.getPacket()).getEntityFromWorld(mc.world) instanceof EntityEnderCrystal)
             return;
 

@@ -9,23 +9,20 @@ import cat.yoink.xanax.main.util.GuiUtil;
 
 import java.awt.*;
 
-public final class EnumButton extends SettingButton
-{
+public final class EnumButton extends SettingButton {
     private final EnumSetting setting;
 
-    public EnumButton(Module module, int x, int y, int w, int h, EnumSetting setting)
-    {
+    public EnumButton(final Module module, final int x, final int y, final int w, final int h, final EnumSetting setting) {
         super(module, x, y, w, h);
         this.setting = setting;
     }
 
     @Override
-    public void drawScreen(int mouseX, int mouseY, int windowX, int windowY, boolean self)
-    {
-        boolean outline = ModuleManager.INSTANCE.getSetting("ClickGUI", "Outline").toBoolean().getValue();
+    public void drawScreen(final int mouseX, final int mouseY, final int windowX, final int windowY, final boolean self) {
+        final boolean outline = ModuleManager.INSTANCE.getSetting("ClickGUI", "Outline").toBoolean().getValue();
 
-        float[] hue = new float[]{(float) (System.currentTimeMillis() % 11520L) / 11520.0f};
-        Color c = new Color(Color.HSBtoRGB(hue[0], 1.0f, 1.0f));
+        final float[] hue = new float[]{(float) (System.currentTimeMillis() % 11520L) / 11520.0f};
+        final Color c = new Color(Color.HSBtoRGB(hue[0], 1.0f, 1.0f));
 
         GuiUtil.drawRect(x + 5, y + 5, 50, 10, new Color(20, 20, 20).getRGB(), outline, c.getRGB());
         CFontRenderer.SMALLTEXT.drawString(setting.getValue(), x + 8, y + 6.5f, -1);
@@ -34,30 +31,25 @@ public final class EnumButton extends SettingButton
     }
 
     @Override
-    public void mouseClicked(int mouseX, int mouseY, int mouseButton, boolean self)
-    {
-        if (GuiUtil.isHover(x, y, w, h -1, mouseX, mouseY))
-        {
+    public void mouseClicked(final int mouseX, final int mouseY, final int mouseButton, final boolean self) {
+        if (GuiUtil.isHover(x, y, w, h - 1, mouseX, mouseY)) {
             if (mouseButton == 0) setting.cycleForward();
             else if (mouseButton == 1) setting.cycleBackward();
         }
     }
 
     @Override
-    public void mouseReleased(int mouseX, int mouseY, int state)
-    {
+    public void mouseReleased(final int mouseX, final int mouseY, final int state) {
 
     }
 
     @Override
-    public void keyTyped(char typedChar, int keyCode)
-    {
+    public void keyTyped(final char typedChar, final int keyCode) {
 
     }
 
     @Override
-    public void onGuiClosed()
-    {
+    public void onGuiClosed() {
 
     }
 }

@@ -12,39 +12,33 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 import team.stiff.pomelo.impl.annotated.handler.annotation.Listener;
 
-public final class HitMarkers extends Module
-{
+public final class HitMarkers extends Module {
     private final NumberSetting height = addSetting(new NumberSetting("Height", 20, 4, 40, 2));
     private final NumberSetting width = addSetting(new NumberSetting("Width", 20, 4, 40, 2));
     private final NumberSetting time = addSetting(new NumberSetting("Time", 25, 1, 50, 1));
     private final ResourceLocation image = new ResourceLocation("hitmarker.png");
     private int renderTicks = 100;
 
-    public HitMarkers()
-    {
+    public HitMarkers() {
         super("HitMarkers", Category.RENDER);
     }
 
     @Listener
-    public void onAttackEntity(AttackEntityEvent event)
-    {
+    public void onAttackEntity(final AttackEntityEvent event) {
         if (!event.getEntity().equals(mc.player)) return;
 
         renderTicks = 0;
     }
 
     @Listener
-    public void onTickClientTick(TickEvent event)
-    {
+    public void onTickClientTick(final TickEvent event) {
         renderTicks++;
     }
 
     @Listener
-    public void onRenderGameOverlay(Render2DEvent event)
-    {
-        if (renderTicks < time.getValue())
-        {
-            ScaledResolution resolution = new ScaledResolution(mc);
+    public void onRenderGameOverlay(final Render2DEvent event) {
+        if (renderTicks < time.getValue()) {
+            final ScaledResolution resolution = new ScaledResolution(mc);
 
             GlStateManager.enableBlend();
             mc.getTextureManager().bindTexture(image);

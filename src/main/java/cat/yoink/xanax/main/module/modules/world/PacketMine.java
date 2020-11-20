@@ -18,8 +18,7 @@ import team.stiff.pomelo.impl.annotated.handler.annotation.Listener;
 
 import java.awt.*;
 
-public final class PacketMine extends Module
-{
+public final class PacketMine extends Module {
     private final NumberSetting red = addSetting(new NumberSetting("Red", 200, 0, 255, 1));
     private final BooleanSetting render = addSetting(new BooleanSetting("Render", true));
     private final NumberSetting green = addSetting(new NumberSetting("Green", 10, 0, 255, 1));
@@ -33,16 +32,13 @@ public final class PacketMine extends Module
     private BlockPos breakBlock;
     private int miningTicks;
 
-    public PacketMine()
-    {
+    public PacketMine() {
         super("PacketMine", Category.WORLD);
     }
 
     @Listener
-    public void leftClickBlockEvent(DamageBlockEvent event)
-    {
-        if (WorldUtil.isBreakable(event.getPos()))
-        {
+    public void leftClickBlockEvent(final DamageBlockEvent event) {
+        if (WorldUtil.isBreakable(event.getPos())) {
             if (swing.getValue()) mc.player.swingArm(EnumHand.MAIN_HAND);
             mc.player.connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.START_DESTROY_BLOCK, event.getPos(), event.getFace()));
             mc.player.connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.STOP_DESTROY_BLOCK, event.getPos(), event.getFace()));
@@ -53,29 +49,25 @@ public final class PacketMine extends Module
     }
 
     @Listener
-    public void tickEvent(TickEvent event)
-    {
+    public void tickEvent(final TickEvent event) {
         if (breakBlock != null && mc.player.getHeldItemMainhand().getItem() == Items.DIAMOND_PICKAXE) miningTicks++;
         if (breakBlock != null && miningTicks > 200) miningTicks = 0;
     }
 
     @Listener
-    public void render(Render3DEvent event)
-    {
-        if (breakBlock != null && mc.world.getBlockState(breakBlock).getBlock() == Blocks.AIR)
-        {
+    public void render(final Render3DEvent event) {
+        if (breakBlock != null && mc.world.getBlockState(breakBlock).getBlock() == Blocks.AIR) {
             breakBlock = null;
             miningTicks = 0;
         }
-        else if (breakBlock != null)
-        {
-            Color c;
-            if (change.getValue())
-            {
+        else if (breakBlock != null) {
+            final Color c;
+            if (change.getValue()) {
                 if (miningTicks < 50) c = new Color(200, 10, 10, 150);
                 else c = new Color(10, 200, 10, 150);
             }
-            else c = new Color((int) red.getValue() / 255f, (int) green.getValue() / 255f, (int) blue.getValue() / 255f, (int) alpha.getValue() / 255f);
+            else
+                c = new Color((int) red.getValue() / 255f, (int) green.getValue() / 255f, (int) blue.getValue() / 255f, (int) alpha.getValue() / 255f);
 
             RenderUtil.drawBox(breakBlock, c, box.getValue(), outline.getValue());
         }

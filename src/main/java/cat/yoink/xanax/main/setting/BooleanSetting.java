@@ -1,37 +1,30 @@
 package cat.yoink.xanax.main.setting;
 
-public final class BooleanSetting extends Setting
-{
+public final class BooleanSetting extends Setting {
     private boolean value;
 
-    public BooleanSetting(String name, boolean value)
-    {
+    public BooleanSetting(final String name, final boolean value) {
         super(name);
         this.value = value;
     }
 
-    public boolean getValue()
-    {
+    public boolean getValue() {
         return value;
     }
 
-    public void enable()
-    {
+    public void setValue(final boolean value) {
+        this.value = value;
+    }
+
+    public void enable() {
         value = true;
     }
 
-    public void disable()
-    {
+    public void disable() {
         value = false;
     }
 
-    public void toggle()
-    {
+    public void toggle() {
         value = !value;
-    }
-
-    public void setValue(boolean value)
-    {
-        this.value = value;
     }
 }

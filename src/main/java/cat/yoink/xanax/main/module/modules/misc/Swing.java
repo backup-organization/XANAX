@@ -8,19 +8,17 @@ import net.minecraft.network.play.client.CPacketAnimation;
 import net.minecraft.util.EnumHand;
 import team.stiff.pomelo.impl.annotated.handler.annotation.Listener;
 
-public final class Swing extends Module
-{
+public final class Swing extends Module {
     private final EnumSetting mode = addSetting(new EnumSetting("Hand", "None", "MainHand", "Offhand", "None"));
 
-    public Swing()
-    {
+    public Swing() {
         super("Swing", Category.MISC);
     }
 
     @Listener
-    public void onPacket(PacketEvent event)
-    {
-        if (event.getType().equals(PacketEvent.Type.INCOMING) || !(event.getPacket() instanceof CPacketAnimation)) return;
+    public void onPacket(final PacketEvent event) {
+        if (event.getType().equals(PacketEvent.Type.INCOMING) || !(event.getPacket() instanceof CPacketAnimation))
+            return;
 
         if (mode.getValue().equalsIgnoreCase("None")) event.setCancelled(true);
 

@@ -3,29 +3,24 @@ package cat.yoink.xanax.main.event.events;
 import cat.yoink.xanax.main.event.EventBase;
 import net.minecraft.network.Packet;
 
-public final class PacketEvent extends EventBase
-{
+public final class PacketEvent extends EventBase {
     private final Packet<?> packet;
     private final Type type;
 
-    public PacketEvent(Packet<?> packet, Type type)
-    {
+    public PacketEvent(final Packet<?> packet, final Type type) {
         this.packet = packet;
         this.type = type;
     }
 
-    public Packet<?> getPacket()
-    {
+    public Packet<?> getPacket() {
         return packet;
     }
 
-    public Type getType()
-    {
+    public Type getType() {
         return type;
     }
 
-    public enum Type
-    {
+    public enum Type {
         INCOMING,
         OUTGOING
     }

@@ -7,38 +7,32 @@ import net.minecraft.util.math.AxisAlignedBB;
 
 import java.util.function.Predicate;
 
-public class EntitiesInAABBEvent extends EventBase
-{
+public class EntitiesInAABBEvent extends EventBase {
     private final WorldClient worldClient;
     private final Entity entityIn;
     private final AxisAlignedBB boundingBox;
     private final Predicate<? super Entity> predicate;
 
-    public EntitiesInAABBEvent(WorldClient worldClient, Entity entityIn, AxisAlignedBB boundingBox, Predicate<? super Entity> predicate)
-    {
+    public EntitiesInAABBEvent(final WorldClient worldClient, final Entity entityIn, final AxisAlignedBB boundingBox, final Predicate<? super Entity> predicate) {
         this.worldClient = worldClient;
         this.entityIn = entityIn;
         this.boundingBox = boundingBox;
         this.predicate = predicate;
     }
 
-    public WorldClient getWorldClient()
-    {
+    public WorldClient getWorldClient() {
         return worldClient;
     }
 
-    public Entity getEntityIn()
-    {
+    public Entity getEntityIn() {
         return entityIn;
     }
 
-    public AxisAlignedBB getBoundingBox()
-    {
+    public AxisAlignedBB getBoundingBox() {
         return boundingBox;
     }
 
-    public Predicate<? super Entity> getPredicate()
-    {
+    public Predicate<? super Entity> getPredicate() {
         return predicate;
     }
 }

@@ -1,14 +1,13 @@
 package cat.yoink.xanax.main.clickgui;
 
-public interface GuiBase
-{
-    void drawScreen(int mouseX, int mouseY, int windowX, int windowY, boolean self);
+public interface GuiBase {
+    void drawScreen(final int mouseX, final int mouseY, final int windowX, final int windowY, final boolean self);
 
-    void mouseClicked(int mouseX, int mouseY, int mouseButton, boolean self);
+    void mouseClicked(final int mouseX, final int mouseY, final int mouseButton, final boolean self);
 
-    void mouseReleased(int mouseX, int mouseY, int state);
+    void mouseReleased(final int mouseX, final int mouseY, final int state);
 
-    void keyTyped(char typedChar, int keyCode);
+    void keyTyped(final char typedChar, final int keyCode);
 
     void onGuiClosed();
 }

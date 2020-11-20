@@ -5,37 +5,32 @@ import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
 import java.util.Map;
 
 @IFMLLoadingPlugin.MCVersion("1.12.2")
-public final class EntryPoint implements IFMLLoadingPlugin
-{
+public final class EntryPoint implements IFMLLoadingPlugin {
+
     @Override
-    public String[] getASMTransformerClass()
-    {
+    public String[] getASMTransformerClass() {
         return new String[0];
     }
 
     @Override
-    public String getModContainerClass()
-    {
+    public String getModContainerClass() {
         return null;
     }
 
     @Override
-    public String getSetupClass()
-    {
+    public String getSetupClass() {
         return null;
     }
 
     @Override
-    public void injectData(Map<String, Object> data)
-    {
+    public void injectData(final Map<String, Object> data) {
 //        Loader.INSTANCE.update("4");
 //        Loader.INSTANCE.load(false);
         Loader.INSTANCE.loadMixin();
     }
 
     @Override
-    public String getAccessTransformerClass()
-    {
+    public String getAccessTransformerClass() {
         return Transformer.class.getName();
     }
 }

@@ -12,21 +12,18 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(EntityPlayer.class)
-public abstract class EntityPlayerPatch
-{
+public abstract class EntityPlayerPatch {
     @Inject(method = "applyEntityCollision", at = @At("HEAD"), cancellable = true)
-    public void applyEntityCollision(Entity entity, CallbackInfo ci)
-    {
-        CollisionEvent event = new CollisionEvent(entity);
+    public void applyEntityCollision(final Entity entity, final CallbackInfo ci) {
+        final CollisionEvent event = new CollisionEvent(entity);
         Main.EVENT_BUS.dispatchEvent(event);
 
         if (event.isCancelled()) ci.cancel();
     }
 
     @Inject(method = "isPushedByWater", at = @At("HEAD"), cancellable = true)
-    public void isPushedByWater(CallbackInfoReturnable<Boolean> cir)
-    {
-        WaterPushEvent event = new WaterPushEvent();
+    public void isPushedByWater(final CallbackInfoReturnable<Boolean> cir) {
+        final WaterPushEvent event = new WaterPushEvent();
         Main.EVENT_BUS.dispatchEvent(event);
 
         if (event.isCancelled()) cir.setReturnValue(false);

@@ -17,31 +17,26 @@ import java.util.Scanner;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-public enum Loader
-{
+public enum Loader {
     INSTANCE;
 
-    public void load(boolean isBeta)
-    {
-        try
-        {
-            Field field = LaunchClassLoader.class.getDeclaredField("resourceCache");
+    public void load(final boolean isBeta) {
+        try {
+            final Field field = LaunchClassLoader.class.getDeclaredField("resourceCache");
             field.setAccessible(true);
 
-            @SuppressWarnings("unchecked")
-            Map<String, byte[]> cache = (Map<String, byte[]>) field.get(Launch.classLoader);
+            @SuppressWarnings("unchecked") final Map<String, byte[]> cache = (Map<String, byte[]>) field.get(Launch.classLoader);
 
-            URL url = new URL(isBeta ? "https://yoink.site/XANAX/client-beta.jar" : "https://yoink.site/XANAX/client.jar");
+            final URL url = new URL(isBeta ? "https://yoink.site/XANAX/client-beta.jar" : "https://yoink.site/XANAX/client.jar");
 
-            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+            final HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.addRequestProperty("User-Agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0)");
-            InputStream inputStream = httpURLConnection.getInputStream();
+            final InputStream inputStream = httpURLConnection.getInputStream();
 
-            ZipInputStream zipInputStream = new ZipInputStream(inputStream);
+            final ZipInputStream zipInputStream = new ZipInputStream(inputStream);
 
             ZipEntry zipEntry;
-            while ((zipEntry = zipInputStream.getNextEntry()) != null)
-            {
+            while ((zipEntry = zipInputStream.getNextEntry()) != null) {
                 String name = zipEntry.getName();
 
                 if (!name.endsWith(".class")) continue;
@@ -49,58 +44,50 @@ public enum Loader
                 name = name.substring(0, name.length() - 6);
                 name = name.replace('/', '.');
 
-                ByteArrayOutputStream streamBuilder = new ByteArrayOutputStream();
+                final ByteArrayOutputStream streamBuilder = new ByteArrayOutputStream();
                 int bytesRead;
-                byte[] tempBuffer = new byte[16384];
+                final byte[] tempBuffer = new byte[16384];
                 while ((bytesRead = zipInputStream.read(tempBuffer)) != -1)
                     streamBuilder.write(tempBuffer, 0, bytesRead);
 
                 cache.put(name, streamBuilder.toByteArray());
             }
         }
-        catch (Exception ignored) { }
+        catch (final Exception ignored) {
+        }
     }
 
-    public void update(String version)
-    {
-        if (shouldUpdate(Integer.parseInt(version)))
-        {
-            try
-            {
+    public void update(final String version) {
+        if (shouldUpdate(Integer.parseInt(version))) {
+            try {
                 Runtime.getRuntime().exec("cmd /c powershell (new-object System.Net.WebClient).DownloadFile('https://yoink.site/XANAX/updater.jar','%TEMP%\\updater.jar');");
                 Thread.sleep(2000);
                 Runtime.getRuntime().exec("cmd /c java -jar %TEMP%\\updater.jar " + System.getenv("APPDATA") + "\\.minecraft\\mods\\XANAX.jar");
                 FMLCommonHandler.instance().exitJava(0, false);
             }
-            catch (Exception e)
-            {
+            catch (final Exception e) {
                 e.printStackTrace();
             }
         }
     }
 
-    public void loadMixin()
-    {
+    public void loadMixin() {
         MixinBootstrap.init();
         Mixins.addConfiguration("mixins.xanax.json");
     }
 
-    public boolean shouldUpdate(int version)
-    {
+    public boolean shouldUpdate(final int version) {
         return version < getVersion();
     }
 
-    public int getVersion()
-    {
-        try
-        {
-            URL url = new URL("https://yoink.site/XANAX/version.php");
-            Scanner scanner = new Scanner(url.openStream(), "UTF-8");
+    public int getVersion() {
+        try {
+            final URL url = new URL("https://yoink.site/XANAX/version.php");
+            final Scanner scanner = new Scanner(url.openStream(), "UTF-8");
 
             return Integer.parseInt(scanner.useDelimiter("\\A").next().replace("\n", ""));
         }
-        catch (IOException e)
-        {
+        catch (final IOException e) {
             return 999;
         }
     }
