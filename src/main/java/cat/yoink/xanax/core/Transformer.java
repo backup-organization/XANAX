@@ -6,7 +6,6 @@ import java.io.IOException;
 
 public final class Transformer extends AccessTransformer
 {
-
     public Transformer() throws IOException
     {
         super("xanax_at.cfg");
