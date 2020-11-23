@@ -10,7 +10,7 @@ import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-import team.stiff.pomelo.impl.annotated.handler.annotation.Listener;
+import cat.yoink.eventmanager.Listener;
 
 public final class FastFall extends Module
 {

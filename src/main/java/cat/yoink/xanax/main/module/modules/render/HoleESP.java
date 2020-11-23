@@ -11,7 +11,7 @@ import cat.yoink.xanax.main.util.WorldUtil;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
-import team.stiff.pomelo.impl.annotated.handler.annotation.Listener;
+import cat.yoink.eventmanager.Listener;
 
 import java.util.ArrayList;
 import java.util.List;

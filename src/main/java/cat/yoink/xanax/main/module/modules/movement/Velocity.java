@@ -13,7 +13,7 @@ import net.minecraft.network.play.server.SPacketEntityVelocity;
 import net.minecraft.network.play.server.SPacketExplosion;
 import net.minecraftforge.client.event.PlayerSPPushOutOfBlocksEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import team.stiff.pomelo.impl.annotated.handler.annotation.Listener;
+import cat.yoink.eventmanager.Listener;
 
 public final class Velocity extends Module
 {

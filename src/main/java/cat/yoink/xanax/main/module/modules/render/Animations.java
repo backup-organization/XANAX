@@ -4,7 +4,7 @@ import cat.yoink.xanax.main.event.events.TickEvent;
 import cat.yoink.xanax.main.module.Category;
 import cat.yoink.xanax.main.module.Module;
 import net.minecraft.util.EnumHand;
-import team.stiff.pomelo.impl.annotated.handler.annotation.Listener;
+import cat.yoink.eventmanager.Listener;
 
 public final class Animations extends Module
 {

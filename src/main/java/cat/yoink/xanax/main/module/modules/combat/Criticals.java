@@ -8,7 +8,7 @@ import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.network.play.client.CPacketUseEntity;
 import org.lwjgl.input.Keyboard;
-import team.stiff.pomelo.impl.annotated.handler.annotation.Listener;
+import cat.yoink.eventmanager.Listener;
 
 public final class Criticals extends Module
 {

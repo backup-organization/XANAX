@@ -7,7 +7,7 @@ import cat.yoink.xanax.main.setting.NumberSetting;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.ClickType;
 import net.minecraft.item.ItemStack;
-import team.stiff.pomelo.impl.annotated.handler.annotation.Listener;
+import cat.yoink.eventmanager.Listener;
 
 import java.util.HashMap;
 import java.util.Map;

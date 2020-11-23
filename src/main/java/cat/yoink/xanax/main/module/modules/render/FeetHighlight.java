@@ -10,7 +10,7 @@ import cat.yoink.xanax.main.util.RenderUtil;
 import cat.yoink.xanax.main.util.WorldUtil;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
-import team.stiff.pomelo.impl.annotated.handler.annotation.Listener;
+import cat.yoink.eventmanager.Listener;
 
 import java.awt.*;
 

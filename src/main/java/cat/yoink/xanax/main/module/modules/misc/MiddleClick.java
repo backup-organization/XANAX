@@ -8,7 +8,7 @@ import cat.yoink.xanax.main.util.InventoryUtil;
 import net.minecraft.init.Items;
 import net.minecraft.util.EnumHand;
 import org.lwjgl.input.Mouse;
-import team.stiff.pomelo.impl.annotated.handler.annotation.Listener;
+import cat.yoink.eventmanager.Listener;
 
 public final class MiddleClick extends Module
 {// TODO: 11/20/2020 add friend option

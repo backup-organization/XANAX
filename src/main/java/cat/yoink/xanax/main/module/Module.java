@@ -33,14 +33,14 @@ public abstract class Module implements MinecraftInstance
     {
         this.enabled = true;
         onEnable();
-        Main.EVENT_BUS.addEventListener(this);
+        Main.EVENT_BUS.addSubscriber(this);
     }
 
     public final void disable()
     {
         this.enabled = false;
         onDisable();
-        Main.EVENT_BUS.removeEventListener(this);
+        Main.EVENT_BUS.removeSubscriber(this);
     }
 
     public final void toggle()

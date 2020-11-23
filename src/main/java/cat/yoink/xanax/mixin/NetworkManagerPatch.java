@@ -17,7 +17,7 @@ public abstract class NetworkManagerPatch
     private void onSendPacket(final Packet<?> packet, final CallbackInfo callbackInfo)
     {
         final PacketEvent event = new PacketEvent(packet, PacketEvent.Type.OUTGOING);
-        Main.EVENT_BUS.dispatchEvent(event);
+        Main.EVENT_BUS.dispatch(event);
 
         if (event.isCancelled()) callbackInfo.cancel();
     }
@@ -26,7 +26,7 @@ public abstract class NetworkManagerPatch
     private void onChannelRead(final ChannelHandlerContext context, final Packet<?> packet, final CallbackInfo callbackInfo)
     {
         final PacketEvent event = new PacketEvent(packet, PacketEvent.Type.INCOMING);
-        Main.EVENT_BUS.dispatchEvent(event);
+        Main.EVENT_BUS.dispatch(event);
 
         if (event.isCancelled()) callbackInfo.cancel();
     }

@@ -1,5 +1,6 @@
 package cat.yoink.xanax.main.module.modules.render;
 
+import cat.yoink.eventmanager.Listener;
 import cat.yoink.xanax.main.event.events.Render3DEvent;
 import cat.yoink.xanax.main.module.Category;
 import cat.yoink.xanax.main.module.Module;
@@ -10,7 +11,6 @@ import cat.yoink.xanax.main.util.RenderUtil;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
-import team.stiff.pomelo.impl.annotated.handler.annotation.Listener;
 
 import java.awt.*;
 

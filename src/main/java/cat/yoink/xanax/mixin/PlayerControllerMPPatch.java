@@ -17,6 +17,6 @@ public abstract class PlayerControllerMPPatch
     public void onPlayerDamageBlock(final BlockPos posBlock, final EnumFacing directionFacing, final CallbackInfoReturnable<Boolean> cir)
     {
         final DamageBlockEvent event = new DamageBlockEvent(posBlock, directionFacing);
-        if (Main.EVENT_BUS.dispatchEvent(event).isCancelled()) cir.cancel();
+        if (Main.EVENT_BUS.dispatch(event).isCancelled()) cir.cancel();
     }
 }

@@ -6,7 +6,7 @@ import cat.yoink.xanax.main.module.Module;
 import cat.yoink.xanax.main.setting.EnumSetting;
 import net.minecraft.network.play.client.CPacketAnimation;
 import net.minecraft.util.EnumHand;
-import team.stiff.pomelo.impl.annotated.handler.annotation.Listener;
+import cat.yoink.eventmanager.Listener;
 
 public final class Swing extends Module
 {

@@ -6,7 +6,7 @@ import cat.yoink.xanax.main.module.Module;
 import cat.yoink.xanax.main.setting.BooleanSetting;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemPickaxe;
-import team.stiff.pomelo.impl.annotated.handler.annotation.Listener;
+import cat.yoink.eventmanager.Listener;
 
 public final class GhostEntity extends Module
 {

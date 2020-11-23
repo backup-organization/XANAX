@@ -41,7 +41,7 @@ public enum ConfigManager implements MinecraftInstance
             try
             {
                 ModuleManager.INSTANCE.getModule(s2).setEnabled(true);
-                Main.EVENT_BUS.addEventListener(ModuleManager.INSTANCE.getModule(s2));
+                Main.EVENT_BUS.addSubscriber(ModuleManager.INSTANCE.getModule(s2));
             }
             catch (final Exception ignored)
             {

@@ -5,7 +5,7 @@ import cat.yoink.xanax.main.module.Category;
 import cat.yoink.xanax.main.module.Module;
 import net.minecraft.network.play.client.CPacketPlayerTryUseItemOnBlock;
 import net.minecraft.util.EnumFacing;
-import team.stiff.pomelo.impl.annotated.handler.annotation.Listener;
+import cat.yoink.eventmanager.Listener;
 
 public final class BuildHeight extends Module
 {

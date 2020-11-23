@@ -24,7 +24,7 @@ public abstract class EntityRendererPatch implements MinecraftInstance
     {
         final EntitiesInAABBEvent event = new EntitiesInAABBEvent(worldClient, entityIn, boundingBox, predicate);
 
-        if (Main.EVENT_BUS.dispatchEvent(event).isCancelled()) return new ArrayList<>();
+        if (Main.EVENT_BUS.dispatch(event).isCancelled()) return new ArrayList<>();
         else return worldClient.getEntitiesInAABBexcluding(entityIn, boundingBox, predicate);
     }
 }

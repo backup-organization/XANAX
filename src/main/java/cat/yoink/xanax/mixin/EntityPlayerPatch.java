@@ -18,7 +18,7 @@ public abstract class EntityPlayerPatch
     public void applyEntityCollision(final Entity entity, final CallbackInfo ci)
     {
         final CollisionEvent event = new CollisionEvent(entity);
-        Main.EVENT_BUS.dispatchEvent(event);
+        Main.EVENT_BUS.dispatch(event);
 
         if (event.isCancelled()) ci.cancel();
     }
@@ -27,7 +27,7 @@ public abstract class EntityPlayerPatch
     public void isPushedByWater(final CallbackInfoReturnable<Boolean> cir)
     {
         final WaterPushEvent event = new WaterPushEvent();
-        Main.EVENT_BUS.dispatchEvent(event);
+        Main.EVENT_BUS.dispatch(event);
 
         if (event.isCancelled()) cir.setReturnValue(false);
     }
