@@ -48,7 +48,8 @@ public enum ModuleManager
                 new BlockHighlight(),
                 new GhostEntity(),
                 new MiddleClick(),
-                new BuildHeight());
+                new BuildHeight(),
+                new BurrowESP());
     }
 
     private void addModules(final Module... modules)
