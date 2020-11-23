@@ -16,8 +16,9 @@ import cat.yoink.eventmanager.Listener;
 
 public final class Burrow extends Module
 {
-    private final EnumSetting mode = addSetting(new EnumSetting("LagBackMode", "Jump", "Jump", "HighJump", "TP", "Packet"));
+    private final EnumSetting mode = addSetting(new EnumSetting("LagBackMode", "Jump", "Jump", "HighJump", "TPBack", "TP", "Packet"));
     private final NumberSetting height = addSetting(new NumberSetting("Height", 1.2, 1, 1.3, 0.01));
+    private final NumberSetting strength = addSetting(new NumberSetting("Strength", 1, 0.05, 2, 0.05));
     private final BooleanSetting announce = addSetting(new BooleanSetting("Announce", false));
     private BlockPos originalPos;
 
@@ -56,10 +57,10 @@ public final class Burrow extends Module
             mc.player.inventory.currentItem = oldSlot;
 
             if (this.mode.is("Jump")) mc.player.jump();
-            else if (this.mode.is("HighJump")) mc.player.motionY = 0.7;
-            else if (this.mode.is("TP")) mc.player.posY = this.originalPos.getY();
-            else if (this.mode.is("Packet"))
-                mc.player.connection.sendPacket(new CPacketPlayer.Position(mc.player.posX, this.originalPos.getY(), mc.player.posZ, true));
+            else if (this.mode.is("HighJump")) mc.player.motionY = strength.getValue();
+            else if (this.mode.is("TPBack")) mc.player.posY = this.originalPos.getY();
+            else if (this.mode.is("TP")) mc.player.setPosition(0, -1, 0);
+            else if (this.mode.is("Packet")) mc.player.connection.sendPacket(new CPacketPlayer.Position(mc.player.posX, this.originalPos.getY(), mc.player.posZ, true));
 
             disable();
         }
