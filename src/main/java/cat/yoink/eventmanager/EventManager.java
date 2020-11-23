@@ -16,11 +16,15 @@ public final class EventManager
 
     public <E> E dispatch(final E event)
     {
-        subscribers.forEach((instance, methods) -> methods.forEach(method -> {
-            if (!method.getParameterTypes()[0].equals(event.getClass())) return;
-            try { method.invoke(instance, event); }
-            catch (final IllegalAccessException | InvocationTargetException e) { e.printStackTrace(); }
-        }));
+        for (int i = 0; i < subscribers.size(); i++)
+        {
+            Object instance = subscribers.keySet().toArray()[i];
+            subscribers.get(instance).forEach(method -> {
+                if (!method.getParameterTypes()[0].equals(event.getClass())) return;
+                try { method.invoke(instance, event); }
+                catch (final IllegalAccessException | InvocationTargetException e) { e.printStackTrace(); }
+            });
+        }
 
         return event;
     }
