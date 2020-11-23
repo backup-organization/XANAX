@@ -90,7 +90,7 @@ shadowJar {
 task clientJar(type: Jar, dependsOn: jar) {
     from(zipTree(shadowJar.archivePath)) {
         include "cat/yoink/xanax/main/**"
-        include "team/stiff/pomelo/**"
+        include "cat/yoink/eventmanager/**"
         include "club/minnced/discord/rpc/**"
     }
     baseName = ""
@@ -101,7 +101,7 @@ task clientJar(type: Jar, dependsOn: jar) {
 task loaderJar(type: Jar, dependsOn: shadowJar) {
     from(zipTree(shadowJar.archivePath)) {
         exclude "cat/yoink/xanax/main/**"
-        exclude "team/stiff/pomelo/**"
+        exclude "cat/yoink/eventmanager/**"
         exclude "club/minnced/discord/rpc/**"
     }
     baseName = ""
