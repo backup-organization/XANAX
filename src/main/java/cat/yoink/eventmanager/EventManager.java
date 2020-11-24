@@ -19,8 +19,7 @@ public final class EventManager
         for (int i = 0; i < subscribers.size(); i++)
         {
             Object instance = subscribers.keySet().toArray()[i];
-            subscribers.get(instance).forEach(method -> {
-                if (!method.getParameterTypes()[0].equals(event.getClass())) return;
+            subscribers.get(instance).stream().filter(method -> method.getParameterTypes()[0].equals(event.getClass())).forEach(method -> {
                 try { method.invoke(instance, event); }
                 catch (final IllegalAccessException | InvocationTargetException e) { e.printStackTrace(); }
             });
@@ -31,12 +30,10 @@ public final class EventManager
 
     public void addSubscriber(final Object subscriber)
     {
-        final List<Method> methods = Arrays.stream(subscriber.getClass().getDeclaredMethods())
+        subscribers.put(subscriber, Arrays.stream(subscriber.getClass().getDeclaredMethods())
                 .filter(method -> method.isAnnotationPresent(Listener.class))
                 .sorted(Comparator.comparing(m -> -m.getAnnotation(Listener.class).value()))
-                .collect(Collectors.toList());
-
-        subscribers.put(subscriber, methods);
+                .collect(Collectors.toList()));
     }
 
     public void removeSubscriber(final Object subscriber)
