@@ -1,13 +1,14 @@
 package cat.yoink.xanax.main.module.modules.misc;
 
+import cat.yoink.eventmanager.Listener;
 import cat.yoink.xanax.main.event.events.TickEvent;
 import cat.yoink.xanax.main.module.Category;
 import cat.yoink.xanax.main.module.Module;
 import cat.yoink.xanax.main.setting.NumberSetting;
+import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.ClickType;
 import net.minecraft.item.ItemStack;
-import cat.yoink.eventmanager.Listener;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -48,6 +49,7 @@ public final class Replenish extends Module
     @Listener
     public void onTick(final TickEvent event)
     {
+        if (mc.currentScreen instanceof GuiContainer) return;
         if (this.delayStep < this.tickDelay.getValue())
         {
             this.delayStep++;
