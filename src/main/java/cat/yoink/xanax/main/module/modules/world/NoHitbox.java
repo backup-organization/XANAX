@@ -8,14 +8,14 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemPickaxe;
 import cat.yoink.eventmanager.Listener;
 
-public final class GhostEntity extends Module
+public final class NoHitbox extends Module
 {
     private final BooleanSetting pickaxeOnly = addSetting(new BooleanSetting("PickaxeOnly", true));
     private final BooleanSetting blocksOnly = addSetting(new BooleanSetting("BlocksOnly", true));
 
-    public GhostEntity()
+    public NoHitbox()
     {
-        super("GhostEntity", Category.WORLD);
+        super("NoHitbox", Category.WORLD);
     }
 
     @Listener
